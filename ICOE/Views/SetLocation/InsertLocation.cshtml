@@ -1,0 +1,244 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<input type="hidden" id="hd_path" value="@ViewBag.pathParent" />
+
+<h3>Tambah Lokasi Baru</h3>
+
+<hr />
+<br />
+
+<div class="row" id="form">
+
+    <div class="col-md-12">
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-md-2">Nama Lokasi</label>
+                <div class="col-md-4">
+                    <input type="text" id="tx_namalokasi" name="tx_namalokasi" class="form-control" data-bind="value: location_name" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Tentukan titik koordinat untuk menentukan area lokasi  : <span style="font-size:9px">(*klik pada peta untuk setting titik koordinat)</span>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div id="map" style="width: 100%;height: 400px;background-color: grey;"></div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-md-4">
+                    <div class="btn-group" role="group" aria-label="Third group">
+                        <button id="btn_save" class="btn btn-primary"><i class="glyphicon glyphicon-save">&nbsp;</i>Simpan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+<script>
+    var map;
+    var arr_marker = [];
+
+      function initMap() {
+
+        //var myLatLng = { lat: -6.198138, lng: 106.915365 };
+
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: { lat: -6.198138, lng: 106.915365 },
+          zoom: 15,
+          mapTypeId: 'hybrid'
+        });
+
+          // Create the search box and link it to the UI element.
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+          // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function () {
+            searchBox.setBounds(map.getBounds());
+        });
+
+        var markers = [];
+          // Listen for the event fired when the user selects a prediction and retrieve
+          // more details for that place.
+        searchBox.addListener('places_changed', function () {
+            var places = searchBox.getPlaces();
+
+            if (places.length == 0) {
+                return;
+            }
+
+            // Clear out the old markers.
+            markers.forEach(function (marker) {
+                marker.setMap(null);
+            });
+            markers = [];
+
+            // For each place, get the icon, name and location.
+            var bounds = new google.maps.LatLngBounds();
+            places.forEach(function (place) {
+                if (!place.geometry) {
+                    console.log("Returned place contains no geometry");
+                    return;
+                }
+                var icon = {
+                    url: place.icon,
+                    size: new google.maps.Size(71, 71),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(17, 34),
+                    scaledSize: new google.maps.Size(25, 25)
+                };
+
+                // Create a marker for each place.
+                markers.push(new google.maps.Marker({
+                    map: map,
+                    icon: icon,
+                    title: place.name,
+                    position: place.geometry.location
+                }));
+
+                if (place.geometry.viewport) {
+                    // Only geocodes have viewport.
+                    bounds.union(place.geometry.viewport);
+                } else {
+                    bounds.extend(place.geometry.location);
+                }
+            });
+            map.fitBounds(bounds);
+        });
+
+        google.maps.event.addListener(map, "click", function (e) {
+
+            placeMarker(e.latLng);
+            addMarker({ "latitude": e.latLng.lat(), "longtitude": e.latLng.lng() });
+           // console.log(arr_marker)
+
+        });
+
+        function placeMarker(location) {
+            var marker = new google.maps.Marker({
+                position: location,
+                map: map
+            });
+
+            google.maps.event.addListener(marker, "click", function (e) {
+                marker.setMap(null);
+                deleteMarker({ "latitude": this.position.lat(), "longtitude": this.position.lng() })
+
+            });
+        }
+
+        function deleteMarker(latLng) {
+
+            var lat = latLng.latitude;
+            var lng = latLng.longtitude;
+
+            for (var i = 0; i < arr_marker.length; i++) {
+                if (arr_marker[i].latitude == lat && arr_marker[i].longtitude == lng) {
+                    arr_marker.splice(i, 1);
+                }
+            }
+
+            //console.log("Terhapus:" + arr_marker)
+        }
+
+        function addMarker(latLng) {
+            arr_marker.push(latLng);
+        }
+
+
+
+      }
+
+      $(document).ready(function () {
+
+          $("#btn_save").click(function () {
+              console.log(arr_marker)
+              save();
+          })
+
+
+          kendo.bind($("#form"), viewModel);
+
+      })
+
+      function save() {
+
+          //console.log(JSON.stringify(viewModel));
+
+          viewModel.set("latLng", arr_marker);
+
+          $.ajax({
+              type: "POST",
+              url: $("#hd_path").val() + "/SetLocation/AjaxInsertLocation",
+              contentType: "application/json",
+              data: JSON.stringify(viewModel),
+              success: function (response) {
+                  if (response.status) {
+                      alert(response.remark)
+                  } else {
+                      alert(response.error)
+                  }
+                  location.reload();
+
+              },
+              error: function (jqXHR, textStatus, errorThrown) {
+              }
+
+          });
+
+      }
+
+
+      var viewModel = kendo.observable({
+          location_id: "",
+          location_name: "",
+          latLng: [],
+      });
+
+
+
+
+
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnqozSMiPNMGooyAGNroGrWkzNM7bGjjo&libraries=places&callback=initMap"
+        async defer></script>
+

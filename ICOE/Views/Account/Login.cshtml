@@ -1,0 +1,112 @@
+﻿@using ICOE.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+    <div class="limiter">
+        <div class="container-login100" style="margin-top:-4%;">
+            <div class="wrap-login100">
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "login100-form validate-form", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @*<form class="login100-form validate-form">*@
+                    <span class="login100-form-title p-b-20" style="font-size:24px">
+                        INTEGRATED CALENDER OF EVENT
+                    </span>
+                    <span class="login100-form-title p-b-43" style="font-size:20px">
+                        Login
+                    </span>
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="wrap-input100 validate-input" data-validate="NRP tidak boleh kosong!">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "input100",@placeholder = "KNRP" })
+                        @*@Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                        <input class="input100" type="text" name="email">*@
+                        @*<span class="focus-input100"></span>*@
+                        @*<span class="label-input100">KNRP</span>*@
+                    </div>
+
+                    <div class="validate-input">
+                       @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                    </div>
+
+
+                    <div class="wrap-input100 validate-input" data-validate="Password tidak boleh kosong!">
+                        @Html.PasswordFor(m => m.Password, new { @class = "input100", @placeholder = "Password" })
+                        @*@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })*@
+                        @*<input class="input100" type="password" name="pass">*@
+                        @*<span class="focus-input100"></span>
+                        <span class="label-input100">Password</span>*@
+                    </div>
+
+                    <div class="validate-input">
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="validate-input">
+                        @Html.DropDownListFor(m => m.Profile, ViewData["ListDropdown"] as IEnumerable<SelectListItem>, "Pilih", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Profile, "", new { @class = "text-danger" })
+                        @*<input class="input100" type="password" name="pass">*@
+                       
+                    </div>
+
+                    <br/>
+
+                    @*<div class="flex-sb-m w-full p-t-3 p-b-32">
+                        <div class="contact100-form-checkbox">
+                            <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+                            <label class="label-checkbox100" for="ckb1">
+                                Remember me
+                            </label>
+                        </div>
+
+                        <div>
+                            <a href="#" class="txt1">
+                                Forgot Password?
+                            </a>
+                        </div>
+
+
+                    </div>*@
+
+
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn">
+                            Login
+                        </button>
+                    </div>
+
+                   <!-- <div class="btn-block" style="margin-top:3%; text-align:center;" onclick="register();" @*action="@Url.Action("Account","Register")"*@>
+                        <button class="btn-default">
+                            Register
+                        </button>
+                    </div> -->
+
+                    <div class="text-center p-t-46 p-b-20">
+                        <span class="txt2">
+                            <p>&copy; @DateTime.Now.Year - PT. KALIMANTAN PRIMA PERSADA</p>
+                        </span>
+                    </div>
+
+                @*</form>*@
+            }
+
+                <div class="login100-more" style="background-image: url('../Content/login_v18/images/main.PNG');">
+                </div>
+            </div>            
+        </div>
+    </div>
+
+<script>
+    function register() {
+        window.location = "/Account/Register";
+    }
+</script>
+
+
+
+
+  

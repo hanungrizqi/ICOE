@@ -1,0 +1,110 @@
+﻿@*
+@model ICOE.Models.RegisterViewModel
+
+
+<h2>@ViewBag.Title.</h2>
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Create a new account.</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Register" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+ --> *@
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/LayoutCustom.cshtml";
+}
+
+<h3>Register</h3>
+
+<hr />
+<br />
+
+<div id="place">
+    <div class="row" id="form">
+
+        <div class="col-md-12">
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-2">NAMA</label>
+                    <div class="col-md-4">
+                        <input type="text" id="tx_nrp" name="tx_nrp" class="form-control" data-bind="value: tx_nrp" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-2">PROFILE</label>
+                    <div class="col-md-4">
+                        <input type="text" id="ddl_profile" name="ddl_profile" class="form-control" data-bind="value: ddl_profile" />
+                    </div>
+                </div>
+            </div>
+
+            @*<div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-2">Peserta</label>
+                        <div class="col-md-4">
+                            <select id="txm_peserta" multiple="multiple" data-placeholder="Pilih Peserta Event..."></select>
+                        </div>
+                    </div>
+                </div>*@
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <div class="btn-group" role="group" aria-label="Third group">
+                            <button id="btn_save" class="btn btn-primary" data-bind="click:insert" ><i class="glyphicon glyphicon-save">&nbsp;</i>Simpan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>    
+</div>
+
+<div id="windows" style="text-align:center;">
+    <div id="alert" style="text-align:center;"></div>
+    <div style="text-align:center">
+        <button class="btn btn-info" style="width:300px;" onclick="closepop()">OK</button>
+    </div>
+    
+</div>
+
+@*margin-bottom: 2%; margin-left:16%*@
+
+<script src="~/js/Register.js"></script>

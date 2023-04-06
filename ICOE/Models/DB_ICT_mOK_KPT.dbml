@@ -1,0 +1,562 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DB_ICT_mOK_KPT" Class="DB_ICT_mOK_KPTDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=10.14.101.101\shpol;Initial Catalog=DB_ICT_mOK_KPT;Persist Security Info=True;User ID=sqlservices" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DB_ICT_mOK_KPTConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.VW_KARYAWAN" Member="VW_KARYAWANs">
+    <Type Name="VW_KARYAWAN">
+      <Column Name="EMPLOYEE_ID" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="NAME" Type="System.String" DbType="VarChar(43)" CanBeNull="true" />
+      <Column Name="BIRTH_DATE" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="STATUS_EMPLOYEE" Type="System.String" DbType="NVarChar(2)" CanBeNull="true" />
+      <Column Name="hire_date" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="END_KONTRAK_1" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="END_KONTRAK_2" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="GRADE" Type="System.String" DbType="NVarChar(2)" CanBeNull="true" />
+      <Column Name="POS_TITLE" Type="System.String" DbType="VarChar(40)" CanBeNull="true" />
+      <Column Name="DEPT" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SITE" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="POSITION_ID" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VW_T_EVENT_ATTENDANCE" Member="VW_T_EVENT_ATTENDANCEs">
+    <Type Name="VW_T_EVENT_ATTENDANCE">
+      <Column Name="NRP" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="NAME" Type="System.String" DbType="VarChar(43)" CanBeNull="true" />
+      <Column Name="DEPT" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="event_id" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="description" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="date_create" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="date_create_mod" Type="System.String" DbType="VarChar(11)" CanBeNull="true" />
+      <Column Name="time_create" Type="System.String" DbType="Char(5)" CanBeNull="true" />
+      <Column Name="location_long" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="location_lat" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="PROFILE.TBL_R_MAPPING_PROFILE_MENU" Member="TBL_R_MAPPING_PROFILE_MENUs">
+    <Type Name="TBL_R_MAPPING_PROFILE_MENU">
+      <Column Name="PROFILE_MENU_PID" Type="System.String" DbType="VarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MENU_PID" Type="System.String" DbType="VarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="PROFILE_PID" Type="System.String" DbType="VarChar(128) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="PROFILE.TBL_R_MENU" Member="TBL_R_MENUs">
+    <Type Name="TBL_R_MENU">
+      <Column Name="MENU_PID" Type="System.String" DbType="VarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MENU_DESC" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="PARENT_ID" Type="System.String" DbType="VarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="SORT_ORDER" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MENU_LINK" Type="System.String" DbType="VarChar(500) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="PROFILE.TBL_R_PROFILE" Member="TBL_R_PROFILEs">
+    <Type Name="TBL_R_PROFILE">
+      <Column Name="PROFILE_PID" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PROFILE_CODE" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PROFILE_DESC" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="PROFILE.TBL_R_USER" Member="TBL_R_USERs">
+    <Type Name="TBL_R_USER">
+      <Column Name="USER_PID" Type="System.String" DbType="VarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PROFILE_PID" Type="System.String" DbType="VarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="EMPLOYEE_ID" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="EMPLOYEE_NAME" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="IS_DEFAULT_PROFILE" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="PROFILE.VW_GP_PROFILE" Member="VW_GP_PROFILEs">
+    <Type Name="VW_GP_PROFILE">
+      <Column Name="PROFILE_PID" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="PROFILE_DESC" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="USER_PID" Type="System.String" DbType="VarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="EMPLOYEE_ID" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="EMPLOYEE_NAME" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="IS_DEFAULT_PROFILE" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="PROFILE_CODE" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="PROFILE.VW_PROFILE_MENU" Member="VW_PROFILE_MENUs">
+    <Type Name="VW_PROFILE_MENU">
+      <Column Name="PROFILE_MENU_PID" Type="System.String" DbType="VarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="MENU_PID" Type="System.String" DbType="VarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="MENU_DESC" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="SORT_ORDER" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MENU_LINK" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="PROFILE_PID" Type="System.String" DbType="VarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="PROFILE_CODE" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PROFILE_DESC" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PARENT_ID" Type="System.String" DbType="VarChar(128)" CanBeNull="true" />
+      <Column Name="PARENT_DESC" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="MAPPING_GP" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="PROFILE.VW_USER_PROFILE" Member="VW_USER_PROFILEs">
+    <Type Name="VW_USER_PROFILE">
+      <Column Name="USER_PID" Type="System.String" DbType="VarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="PROFILE_PID" Type="System.String" DbType="VarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="EMPLOYEE_ID" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="EMPLOYEE_NAME" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="IS_DEFAULT_PROFILE" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="PROFILE_DESC" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PROFILE_CODE" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBL_M_LOCATION" Member="TBL_M_LOCATIONs">
+    <Type Name="TBL_M_LOCATION">
+      <Column Name="location_id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="location_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBL_R_LOCATION_DETAIL" Member="TBL_R_LOCATION_DETAILs">
+    <Type Name="TBL_R_LOCATION_DETAIL">
+      <Column Name="location_detail_id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="location_id" Type="System.String" DbType="VarChar(128)" CanBeNull="true" />
+      <Column Name="latitude" Type="System.Decimal" DbType="Decimal(18,15)" CanBeNull="true" />
+      <Column Name="longitude" Type="System.Decimal" DbType="Decimal(18,15)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBL_M_GROUP_ATTENDEE" Member="TBL_M_GROUP_ATTENDEEs">
+    <Type Name="TBL_M_GROUP_ATTENDEE">
+      <Column Name="group_id" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="group_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="create_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="create_by" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBL_M_GROUP_ATTENDEE_DETAIL" Member="TBL_M_GROUP_ATTENDEE_DETAILs">
+    <Type Name="TBL_M_GROUP_ATTENDEE_DETAIL">
+      <Column Name="group_detail_id" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="group_id" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="attendee" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VW_GroupDetail" Member="VW_GroupDetails">
+    <Type Name="VW_GroupDetail">
+      <Column Name="group_id" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="group_detail_id" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="group_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="attendee" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="create_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="create_by" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBL_M_KATEGORI" Member="TBL_M_KATEGORIs">
+    <Type Name="TBL_M_KATEGORI">
+      <Column Name="id_kategori" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="kategori" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBL_M_EVENT_HEADER" Member="TBL_M_EVENT_HEADERs">
+    <Type Name="TBL_M_EVENT_HEADER">
+      <Column Name="event_header_id" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="dstrct_code" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
+      <Column Name="departemen" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ulang" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="start_date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="end_date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="start_time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="end_time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="kategori" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="is_coe" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="create_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="create_by" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBL_T_EVENT_ATTENDANCE" Member="TBL_T_EVENT_ATTENDANCEs">
+    <Type Name="TBL_T_EVENT_ATTENDANCE">
+      <Column Name="attendee" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="event_id" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="group_id" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="date_create" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="location_long" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="location_lat" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VW_DISTRIK" Member="VW_DISTRIKs">
+    <Type Name="VW_DISTRIK">
+      <Column Name="DSTRCT_CODE" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VW_DEPARTEMENT" Member="VW_DEPARTEMENTs">
+    <Type Name="VW_DEPARTEMENT">
+      <Column Name="DSTRCT_CODE" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="DEPT_CODE" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="DEPT_DESC" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VW_ATTENDEE_HADIR" Member="VW_ATTENDEE_HADIRs">
+    <Type Name="VW_ATTENDEE_HADIR">
+      <Column Name="event_id" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="att_hadir" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VW_EVENT_YEAR" Member="VW_EVENT_YEARs">
+    <Type Name="VW_EVENT_YEAR">
+      <Column Name="Tahun" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VW_DETAIL_ACARA" Member="VW_DETAIL_ACARAs">
+    <Type Name="VW_DETAIL_ACARA">
+      <Column Name="event_header_id" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="event_id" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="ulang" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="description" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="start_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="start_date_mod" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="end_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dstrct_code" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
+      <Column Name="departemen" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="location_id" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="location_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="count_attendee" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="att_hadir" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VW_EVENT" Member="VW_EVENTs">
+    <Type Name="VW_EVENT">
+      <Column Name="event_id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="start_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="end_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="start_date_mod" Type="System.String" DbType="VarChar(11)" CanBeNull="true" />
+      <Column Name="end_date_mod" Type="System.String" DbType="VarChar(11)" CanBeNull="true" />
+      <Column Name="start_time" Type="System.String" DbType="Char(5)" CanBeNull="true" />
+      <Column Name="end_time" Type="System.String" DbType="Char(5)" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="location_id" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="location_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="description" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="count_attendee" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="attendee" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VW_EVENT_TODAY_TAB" Member="VW_EVENT_TODAY_TABs">
+    <Type Name="VW_EVENT_TODAY_TAB">
+      <Column Name="event_header_id" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="departemen" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ulang" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="status_ulang" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="kategori" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="create_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="create_by" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="description" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="dstrct_code" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="start_date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="end_date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="start_time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="end_time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="start_date_mod" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="end_date_mod" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="start_time_mod" Type="System.String" DbType="Char(5)" CanBeNull="true" />
+      <Column Name="end_time_mod" Type="System.String" DbType="Char(5)" CanBeNull="true" />
+      <Column Name="is_use_location" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="is_use_qr_code" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="location_id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="location_name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBL_M_EVENT" Member="TBL_M_EVENTs">
+    <Type Name="TBL_M_EVENT">
+      <Column Name="event_id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="start_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="end_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="location_id" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="description" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="link" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="is_use_qr_code" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="is_use_location" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="header_id" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="created_by" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="created_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VW_HEADER_DETAIL" Member="VW_HEADER_DETAILs">
+    <Type Name="VW_HEADER_DETAIL">
+      <Column Name="event_header_id" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="departemen" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ulang" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="status_ulang" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="kategori" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="create_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="create_by" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="description" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="link" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="dstrct_code" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
+      <Column Name="start_date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="end_date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="start_time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="end_time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="start_date_mod" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="end_date_mod" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="start_time_mod" Type="System.String" DbType="Char(5)" CanBeNull="true" />
+      <Column Name="end_time_mod" Type="System.String" DbType="Char(5)" CanBeNull="true" />
+      <Column Name="is_use_location" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="is_use_qr_code" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="location_id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="location_name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Function Name="PROFILE.cusp_GetDetailProfile" Method="cusp_GetDetailProfile">
+    <Parameter Name="NRP" Parameter="nRP" Type="System.String" DbType="VarChar(15)" />
+    <Parameter Name="GPID" Parameter="gPID" Type="System.String" DbType="VarChar(128)" />
+    <Parameter Name="GPID_CODE" Parameter="gPID_CODE" Type="System.Int32" DbType="Int" />
+    <Parameter Name="GPID_DESC" Parameter="gPID_DESC" Type="System.String" DbType="VarChar(200)" />
+    <ElementType Name="cusp_GetDetailProfileResult">
+      <Column Name="EMPLOYEE_ID" Type="System.String" DbType="NVarChar(7)" CanBeNull="true" />
+      <Column Name="NAME" Type="System.String" DbType="VarChar(43)" CanBeNull="true" />
+      <Column Name="BIRTH_DATE" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="STATUS_EMPLOYEE" Type="System.String" DbType="NVarChar(2)" CanBeNull="true" />
+      <Column Name="HIRE_DATE" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="END_KONTRAK_1" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="END_KONTRAK_2" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="GRADE" Type="System.String" DbType="NVarChar(2)" CanBeNull="true" />
+      <Column Name="POS_TITLE" Type="System.String" DbType="VarChar(40)" CanBeNull="true" />
+      <Column Name="DEPT" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DSTRCT_CODE" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="GPID" Type="System.String" DbType="VarChar(128)" CanBeNull="true" />
+      <Column Name="GPID_CODE" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GPID_DESC" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="PROFILE.cusp_GetProfileMenu" Method="cusp_GetProfileMenu">
+    <Parameter Name="PROFILE_PID" Parameter="pROFILE_PID" Type="System.String" DbType="VarChar(128)" />
+    <ElementType Name="cusp_GetProfileMenuResult">
+      <Column Name="PROFILE_PID" Type="System.String" DbType="VarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="PROFILE_DESC" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="MENU_PID" Type="System.String" DbType="VarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="MENU_DESC" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="PARENT_ID" Type="System.String" DbType="VarChar(128)" CanBeNull="true" />
+      <Column Name="SORT_ORDER" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MENU_LINK" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="PARENT_DESC" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.cusp_UpdateGroup" Method="cusp_UpdateGroup">
+    <Parameter Name="groupid" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="groupname" Type="System.String" DbType="VarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.cusp_delinsnewatt" Method="cusp_delinsnewatt">
+    <Parameter Name="groupname" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="groupid" Type="System.String" DbType="VarChar(200)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.cufn_datetoday" Method="cufn_datetoday" IsComposable="true">
+    <Parameter Name="evH" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="name" Type="System.String" DbType="VarChar(100)" />
+    <ElementType Name="cufn_datetodayResult">
+      <Column Name="event_id" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.cusp_UpdateEvent" Method="cusp_UpdateEvent">
+    <Parameter Name="event_id" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="eventH_id" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="startdate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="enddate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="starttime" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="endtime" Type="System.DateTime" DbType="DateTime" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.cusp_cektanggal" Method="cusp_cektanggal">
+    <Parameter Name="eventH" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="eventid" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="datelempar" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="datelempar2" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="startime" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="endtime" Type="System.DateTime" DbType="DateTime" />
+    <ElementType Name="cusp_cektanggalResult">
+      <Column Name="hasil" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.cusp_cekLokasi" Method="cusp_cekLokasi">
+    <Parameter Name="startdate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="enddate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="starttime" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="endtime" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="locationid" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="action" Type="System.Int32" DbType="Int" />
+    <Parameter Name="evH" Type="System.String" DbType="VarChar(200)" />
+    <ElementType Name="cusp_cekLokasiResult">
+      <Column Name="hasil" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.cufn_readHeader_event" Method="cufn_readHeader_event" IsComposable="true">
+    <ElementType Name="cufn_readHeader_eventResult">
+      <Column Name="event_header_id" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="departemen" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ulang" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="status_ulang" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="kategori" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="create_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="create_by" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="description" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="dstrct_code" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="start_date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="end_date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="start_time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="end_time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="start_date_mod" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="end_date_mod" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="start_time_mod" Type="System.String" DbType="Char(5)" CanBeNull="true" />
+      <Column Name="end_time_mod" Type="System.String" DbType="Char(5)" CanBeNull="true" />
+      <Column Name="is_use_location" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="is_use_qr_code" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="location_id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="location_name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.cufn_FILTER_EVENT" Method="cufn_FILTER_EVENT" IsComposable="true">
+    <Parameter Name="tahun" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="site" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="kategori" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="dept" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="nrp" Type="System.String" DbType="VarChar(50)" />
+    <ElementType Name="cufn_FILTER_EVENTResult">
+      <Column Name="event_header_id" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="departemen" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ulang" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="status_ulang" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="kategori" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="create_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="create_by" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="description" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="dstrct_code" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="start_date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="end_date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="start_time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="end_time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="start_date_mod" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="end_date_mod" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="start_time_mod" Type="System.String" DbType="Char(5)" CanBeNull="true" />
+      <Column Name="end_time_mod" Type="System.String" DbType="Char(5)" CanBeNull="true" />
+      <Column Name="is_use_location" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="is_use_qr_code" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="location_id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="location_name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.cufn_detail_event" Method="cufn_detail_event" IsComposable="true">
+    <Parameter Name="evH" Type="System.String" DbType="VarChar(100)" />
+    <ElementType Name="cufn_detail_eventResult">
+      <Column Name="event_header_id" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="event_id" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="ulang" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="description" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="start_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="start_date_mod" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="end_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dstrct_code" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="departemen" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="location_id" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="location_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="count_attendee" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="att_hadir" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.cusp_readHeader_event" Method="cusp_readHeader_event">
+    <Parameter Name="startdate" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="enddate" Type="System.String" DbType="VarChar(50)" />
+    <ElementType Name="cusp_readHeader_eventResult">
+      <Column Name="RowID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="event_header_id" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="departemen" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ulang" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="status_ulang" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="kategori" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="create_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="create_by" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="description" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="dstrct_code" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="start_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="end_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="start_date_mod" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="end_date_mod" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="start_time_mod" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="end_time_mod" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="is_use_location" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="is_use_qr_code" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="location_id" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="location_name" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.cusp_UpdateEvent_Header" Method="cusp_UpdateEvent_Header">
+    <Parameter Name="eventH_id" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="dstrct_code" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="departement" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="ulang" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="startdate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="enddates" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="enddate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="starttime" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="endtime" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="kategori" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="is_coe" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="createdate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="createby" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="eventid" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="namaevent" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="isuseqr" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="isuselocation" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="description" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="link" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="status" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="location_id" Type="System.String" DbType="VarChar(200)" />
+    <ElementType Name="cusp_UpdateEvent_HeaderResult">
+      <Column Name="" Member="Column1" Type="System.String" DbType="VarChar(1) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.cusp_EventHeader" Method="cusp_EventHeader">
+    <Parameter Name="eventH_id" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="dstrct_code" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="departement" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="ulang" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="startdate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="enddates" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="enddate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="starttime" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="endtime" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="kategori" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="is_coe" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="createdate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="createby" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="eventid" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="namaevent" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="isuseqr" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="isuselocation" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="description" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="link" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="status" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="location_id" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="groupid" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="loclong" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="loclat" Type="System.String" DbType="VarChar(200)" />
+    <ElementType Name="cusp_EventHeaderResult">
+      <Column Name="startTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EndTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="beforeConv" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Stime" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="etime" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="sdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="edate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="startdateawal" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+</Database>

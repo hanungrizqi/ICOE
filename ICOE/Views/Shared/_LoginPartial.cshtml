@@ -1,0 +1,90 @@
+﻿@model IEnumerable<ICOE.Models.cusp_GetProfileMenuResult>
+
+@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    IEnumerable <ICOE.Models.cusp_GetProfileMenuResult> Model = ViewBag.myAccount.MENU;
+
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+           <a href="#"><span class="glyphicon glyphicon-user">&nbsp;</span>@ViewBag.myAccount.NAME | @ViewBag.myAccount.GPID_DESC </a> 
+        </li>
+        <li>
+        <a href="javascript:document.getElementById('logoutForm').submit()"><span class="glyphicon glyphicon-log-out"></span> Keluar</a>
+        </li>
+    </ul>
+    }
+
+    @*<ul class="nav navbar-nav">
+        @foreach (var mp in menuList.Where(f => f.PARENT_ID == "0"))
+        {
+            <li><a href="..@mp.MENU_LINK">@mp.MENU_DESC</a></li>
+        }
+    </ul>*@
+
+    <ul class="nav navbar-nav">
+        @foreach (var mp in Model)
+        {
+            <li>
+                @if (mp.MENU_LINK == "#")
+                {
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="..@mp.MENU_LINK">
+                        @mp.MENU_DESC
+                        <span class="caret"></span>
+                    </a>
+                     <ul class="dropdown-menu">
+                         <li>@RenderMenuItem(Model)</li>
+                    </ul>
+                }
+                else if (mp.PARENT_ID == "0")
+                {
+                <a href="..@mp.MENU_LINK">@mp.MENU_DESC</a>
+                }
+
+
+                @*@if (Model.Count(p => p.PARENT_ID.Trim() == mp.MENU_PID.Trim()) > 0)
+                {
+                    @:<ul class="dropdown-menu">
+                }
+                @RenderMenuItem(Model, mp)
+
+                @if (Model.Count(p => p.PARENT_ID.Trim() == mp.MENU_PID.Trim()) > 0)
+                {
+                    @:</ul>
+                }*@
+            </li>   
+        }
+
+        @helper RenderMenuItem (IEnumerable<ICOE.Models.cusp_GetProfileMenuResult> Model)
+        {
+        foreach (var cp in Model.Where(p => Convert.ToInt16(p.PARENT_ID) > 0))
+        {
+            <li>
+                <a class="dropdown" href="..@cp.MENU_LINK">@cp.MENU_DESC</a>
+            </li>
+            }
+        }
+</ul>
+}
+@*@if (Model.Count(p => p.PARENT_ID.Trim() == mp.MENU_PID.Trim()) > 0)
+{
+    @:<ul class="dropdown-menu">
+                }
+@RenderMenuItem(Model, mp)
+
+@if (Model.Count(p => p.PARENT_ID.Trim() == mp.MENU_PID.Trim()) > 0)
+{
+    @:
+</ul>
+                }*@
+@*else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}*@

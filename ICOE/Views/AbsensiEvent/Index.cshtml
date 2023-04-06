@@ -1,0 +1,456 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    ViewBag.pathParent = Url.Content("~").Substring(0, Url.Content("~").Length - 1);
+}
+
+<input type="hidden" id="hd_path" value="@ViewBag.pathParent" />
+<input type="hidden" id="hd_profile" value="@ViewBag.myAccount.GPID_CODE" />
+
+@*<link href="~/Content/image_loading.css" rel="stylesheet" />*@
+
+    <div id="example">
+
+        <div id="loader-wrapper" class="modal">
+            <div id="loader"></div>
+
+            <div class="loader-section section-left"></div>
+            <div class="loader-section section-right"></div>
+
+        </div>
+
+        <div class="tab" style="margin-top:5%;">
+            <button class="tablinks" onclick="openCity(event, 'London')" id="defaultOpen">Event Hari ini</button>
+            <button class="tablinks" id="paris" onclick="openCity(event, 'Paris')">Semua Event</button>
+        </div>
+
+        <div id="London" class="tabcontent">
+            <div class="col-sm-12" id="no_data">
+
+            </div>
+            <div class="row" style="margin-top:2%;">
+
+                <div class="col-sm-12">
+
+                    <div class="col-sm-4" v-for="result in results">
+
+                        <div class="card card-price">
+                            <div v-if="$('#hd_profile').val() != 1"></div>
+                            <div v-else>
+                                @*<div id="dv_action" class="btn btn-group">
+                                        <button v-on:click="updateEvent(result.event_id)" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></button>
+                                        <button v-on:click="deleteEvent(result.event_id)" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+                                        <button v-on:click="reportEvent(result.event_id)" class="btn btn-danger"><span class="glyphicon glyphicon-print"></span></button>
+                                    </div>*@
+                            </div>
+                            <div class="card-img">
+                                <img src="../Content/img/meeting.PNG" class="img-responsive">
+                                <div class="card-caption">
+                                    <span class="h5">{{ result.name }}</span>
+                                    <p>Open</p>
+                                </div>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="lead">Deskripsi</div>
+                                <ul class="details">
+                                    <li>{{ result.description }}</li>
+                                    <li>{{ result.status_ulang }}</li>
+                                </ul>
+                                <table class="table">
+                                    <tr><td>Mulai</td><td class="price"></td><td class="note">{{ result.start_date_mod }} {{ result.start_time_mod }}</td></tr>
+                                    <tr><td>Selesai</td><td class="price"></td><td class="note">{{ result.end_date_mod }} {{ result.end_time_mod }}</td></tr>
+                                    @*<tr><td>Peserta</td><td class="price"></td><td class="note">{{ result.count_attendee }} Orang</td></tr>*@
+                                    <tr><td>Lokasi</td><td class="price"></td><td class="note">{{ result.location_name }}</td></tr>
+                                </table>
+                                @*<a :href="'../QRCodeAtt/Index?evH='+ result.event_header_id +'&name='+result.name" class="btn btn-primary btn-lg btn-block buy-now">
+                                        ENTER <span class="glyphicon glyphicon-triangle-right"></span>
+                                    </a>*@
+                                <a v-on:click="goto( result.event_header_id, result.name )" class="btn btn-primary btn-lg btn-block buy-now">
+                                    ENTER <span class="glyphicon glyphicon-triangle-right"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+        <div id="Paris" class="tabcontent">
+            <div class="row container" style="margin-top:2%;">
+                @*<div class="col-md-12" style="margin-top:1%; margin-bottom:3%; background-color:gainsboro">*@
+                <div class="col-md-5" style="margin-top:1%; margin-bottom:4%;">
+                    <label class="col-md-6">Tahun</label>
+                    <span class="col-md-6" style="margin-bottom:1%">
+                        <input type="text" style="max-width:180px;" name="ddl_tahun" id="ddl_tahun" />
+                    </span>
+
+                    <label class="col-md-6">Departement</label>
+                    <span class="col-md-6" style="margin-bottom:1%">
+                        <input type="text" style="max-width:180px;" name="ddl_dept" id="ddl_dept" />
+                    </span>
+                </div>
+                <div class="col-md-4" style="margin-top:1%; margin-bottom:4%;">
+                    <label class="col-md-6">Site</label>
+                    <span class="col-md-6" style="margin-bottom:1%">
+                        <input type="text" style="max-width:180px;" name="ddl_site" id="ddl_site" />
+                    </span>
+
+                    <label class="col-md-6">Kategori</label>
+                    <span class="col-md-6" style="margin-bottom:1%">
+                        <input type="text" style="max-width:180px;" name="ddl_kategori" id="ddl_kategori" />
+                    </span>
+                </div>
+                <div class="col-md-2 text-right" style="margin-top:1%; margin-bottom:1%;">
+                    <button class="btn btn-warning" onclick="search();" id="btn_search">Search</button>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top:2%;">
+
+                <div class="col-sm-12" id="resultFilter">
+
+                    <!-- <div class="col-sm-4" v-for="result in results">
+
+                         <div class="card card-price">
+                             <div v-if="$('#hd_profile').val() != 1"></div>
+                             <div v-else>
+                                 @*<div id="dv_action" class="btn btn-group">
+                                         <button v-on:click="updateEvent(result.event_id)" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></button>
+                                         <button v-on:click="deleteEvent(result.event_id)" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+                                         <button v-on:click="reportEvent(result.event_id)" class="btn btn-danger"><span class="glyphicon glyphicon-print"></span></button>
+                                     </div>*@
+                             </div>
+                             <div class="card-img">
+                                 <img src="../Content/img/meeting.PNG" class="img-responsive">
+                                 <div class="card-caption">
+                                     <span class="h5">{{ result.name }}</span>
+                                     <p>Open</p>
+                                 </div>
+                             </div>
+                             <div class="card-body">
+
+                                 <div class="lead">Deskripsi</div>
+                                 <ul class="details">
+                                     <li>{{ result.description }}</li>
+                                     <li>{{ result.status_ulang }}</li>
+                                 </ul>
+                                 <table class="table">
+                                     <tr><td>Mulai</td><td class="price"></td><td class="note">{{ result.start_date_mod }} {{ result.start_time_mod }}</td></tr>
+                                     <tr><td>Selesai</td><td class="price"></td><td class="note">{{ result.end_date_mod }} {{ result.end_time_mod }}</td></tr>
+                                     @*<tr><td>Peserta</td><td class="price"></td><td class="note">{{ result.count_attendee }} Orang</td></tr>*@
+                                     <tr><td>Lokasi</td><td class="price"></td><td class="note">{{ result.location_name }}</td></tr>
+                                 </table>
+                                 <a href="'../QRCodeAtt/Index?evH='+ result.event_header_id +'&name='+result.name" class="btn btn-primary btn-lg btn-block buy-now">
+                                     ENTER <span class="glyphicon glyphicon-triangle-right"></span>
+                                 </a>
+                             </div>
+                         </div>
+                     </div> -->
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+<!--UNTUK VUE.JS SEMUA EVENT-->
+<script type="text/javascript">
+
+    const vm = new Vue({
+        el: '#Paris',
+        data: {
+            results: [
+              //{ title: "Meeting BOD", deskripsi: "Review Performance All Site",tanggal: "04-12-2019",peserta: "10",lokasi:"RUANG MEETING K3LH" },
+              //{ title: "Annual Meeting", deskripsi: "Planning Cycle", tanggal: "04-12-2019", peserta: "20", lokasi: "Mercure Hotel Surabaya" },
+              //{ title: "Meeting dFAST", deskripsi: "Enhancement Modul", tanggal: "04-12-2019", peserta: "10", lokasi: "RUANG MEETING COMPETENCE" },
+              //{ title: "Go Live Smart Safety", deskripsi: "Go Live Site ASTO", tanggal: "04-12-2019", peserta: "20", lokasi: "RUANG MEETING SSO" },
+            ]
+        },
+        methods: {
+            updateEvent: function (id) {
+                location.href = "../CreateEvent/UpdateEvent?id=" + id
+            },
+            deleteEvent: function (id) {
+
+                if (confirm("Apakah yakin ingin menghapus event ini ?")) {
+                    $.ajax({
+                        type: "POST",
+                        url: $("#hd_path").val() + "/ListEvent/AjaxDeleteEvent?s_str_id=" + id,
+                        contentType: "application/json",
+                        success: function (response) {
+                            if (response.status) {
+
+                            } else {
+                                alert(response.error)
+                            }
+                            location.reload();
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                        }
+                    });
+
+                } else {
+                    return;
+                }
+            },
+            reportEvent: function (id) {
+                location.href = "../CreateEvent/UpdateEvent?id=" + id
+            }
+
+        },
+        mounted() {
+            //debugger
+            axios.get($("#hd_path").val() + "/ListEvent/AjaxReadHead")
+            .then(response => { this.results = response.data })
+        }
+    });
+
+    $(document).ready(function () {
+
+        var s_int_profile = $("#hd_profile").val();
+
+        console.log("log: " + s_int_profile)
+
+        if (s_int_profile != "1") {
+            $("#dv_action").hide();
+        }
+
+    });
+
+
+
+
+</script>
+
+<!--UNTUK VUE.JS EVENT TODAY-->
+<script type="text/javascript">
+
+    const vmT = new Vue({
+        el: '#London',
+        data: {
+            results: [
+              //{ title: "Meeting BOD", deskripsi: "Review Performance All Site",tanggal: "04-12-2019",peserta: "10",lokasi:"RUANG MEETING K3LH" },
+              //{ title: "Annual Meeting", deskripsi: "Planning Cycle", tanggal: "04-12-2019", peserta: "20", lokasi: "Mercure Hotel Surabaya" },
+              //{ title: "Meeting dFAST", deskripsi: "Enhancement Modul", tanggal: "04-12-2019", peserta: "10", lokasi: "RUANG MEETING COMPETENCE" },
+              //{ title: "Go Live Smart Safety", deskripsi: "Go Live Site ASTO", tanggal: "04-12-2019", peserta: "20", lokasi: "RUANG MEETING SSO" },
+            ]
+        },
+        methods: {
+            updateEvent: function (id) {
+                location.href = "../CreateEvent/UpdateEvent?id=" + id
+            },
+            deleteEvent: function (id) {
+
+                if (confirm("Apakah yakin ingin menghapus event ini ?")) {
+                    $.ajax({
+                        type: "POST",
+                        url: $("#hd_path").val() + "/ListEvent/AjaxDeleteEvent?s_str_id=" + id,
+                        contentType: "application/json",
+                        success: function (response) {
+                            if (response.status) {
+
+                            } else {
+                                alert(response.error)
+                            }
+                            location.reload();
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                        }
+                    });
+
+                } else {
+                    return;
+                }
+            },
+            reportEvent: function (id) {
+                location.href = "../CreateEvent/UpdateEvent?id=" + id
+            },
+            goto: function (evH, name) {
+                $.ajax({
+                    type: "POST",
+                    url: "/QRCodeAtt/getonlyEvid?evH=" + evH + "&name=" + name,
+                    contentType: "application/json",
+                    Data: {},
+                    success: function (response) {
+                       // debugger
+                        if (response.status == true) {
+                            window.location = "/AbsensiEvent/IndexQR?event_id=" + response.Data.event_id + "&name=" + response.Data.name;
+                        } else {
+                            alert("Gagal menuju halaman absensi");
+                        }
+                    }
+                })
+
+                //axios.get($("#hd_path").val() + "/QRCodeAtt/getonlyEvid?evH=" + evH)
+                //.then(response => { this.results = response.data })
+            }
+
+        },
+        mounted() {
+            //debugger
+            axios.get($("#hd_path").val() + "/AbsensiEvent/AjaxReadheadToday").then(response => {
+                $("#no_data").empty();
+                if (response.data.length > 0)
+                {
+                    this.results = response.data
+                }
+                else
+                {                    //alert("masuk kosong");
+                    $("#no_data").append('<label style="margin-top:2%; margin-left:40%;">TIDAK ADA EVENT HARI INI</label>');
+                }
+            })
+        }
+
+    });
+
+    $(document).ready(function () {
+
+        var s_int_profile = $("#hd_profile").val();
+
+        console.log("log: " + s_int_profile)
+
+        if (s_int_profile != "1") {
+            $("#dv_action").hide();
+        }
+
+    });
+
+
+</script>
+
+<!--TABIFY UTAMA-->
+<script>
+    function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
+
+<!--TABIFY GROUPING-->
+<script>
+    function year(evt, year) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(year).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
+
+<style>
+    body {
+        font-family: Arial;
+    }
+
+    /* Style the tab */
+    .tab, #tabcoba {
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+    }
+
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+        }
+
+            /* Change background color of buttons on hover */
+            .tab button:hover {
+                background-color: #ddd;
+            }
+
+            /* Create an active/current tablink class */
+            .tab button.active {
+                background-color: #ccc;
+            }
+
+    /* Style the tab content */
+    .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+    }
+
+    .box .k-textbox {
+        width: 80px;
+    }
+
+    .box .k-button {
+        min-width: 80px;
+    }
+
+    .sunny, .cloudy, .rainy {
+        display: block;
+        margin: 30px auto 10px;
+        width: 128px;
+        height: 128px;
+        background: url('../content/web/tabstrip/weather.png') transparent no-repeat 0 0;
+    }
+
+    .cloudy {
+        background-position: -128px 0;
+    }
+
+    .rainy {
+        background-position: -256px 0;
+    }
+
+    .weather {
+        margin: 0 auto 30px;
+        text-align: center;
+    }
+
+    #tabstrip h2 {
+        font-weight: lighter;
+        font-size: 5em;
+        line-height: 1;
+        padding: 0 0 0 30px;
+        margin: 0;
+    }
+
+        #tabstrip h2 span {
+            background: none;
+            padding-left: 5px;
+            font-size: .3em;
+            vertical-align: top;
+        }
+
+    #tabstrip p {
+        margin: 0;
+        padding: 0;
+    }
+</style>
+
+<script src="~/js/AbsensiEvent.js"></script>

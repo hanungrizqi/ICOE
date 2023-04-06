@@ -1,0 +1,154 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<input type="hidden" id="hd_path" value="@ViewBag.pathParent" />
+
+<h3>Daftar Lokasi</h3>
+
+<hr/>
+<br/>
+
+<div class="row">
+
+
+    
+
+    <div class="col-md-12">
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-md-4">
+                    <button class="btn btn-primary" id="btn_tambah">Tambah lokasi baru</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="grid"></div>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        loadGrid()
+
+        $("#btn_tambah").click(function() {
+            location.href = "../SetLocation/InsertLocation"
+        });
+    })
+
+    function loadGrid() {
+        $("#grid").empty();
+        var grid = $("#grid").kendoGrid({
+            dataSource: {
+                type: "json",
+                transport: {
+                    read: {
+                        url: $("#hd_path").val() + "/SetLocation/AjaxReadAllLocation",
+                        contentType: "application/json",
+                        type: "POST",
+                        cache: false,
+                    },
+
+                    parameterMap: function (data, operation) {
+
+                        return kendo.stringify(data)
+
+                    }
+                },
+                pageSize: 100,
+                serverPaging: true,
+                serverFiltering: true,
+                serverSorting: true,
+                schema: {
+                    data: "Data",
+                    total: "Total",
+                    model: {
+                        id: "location_id",
+                        fields: {
+                            location_id: { type: "string", filterable: true, sortable: true, editable: false },
+                            location_name: { type: "string", filterable: true, sortable: true, editable: false },           
+                        }
+
+                    }
+                }
+            },
+            height: 400,
+            filterable: true,
+            sortable: true,
+            pageable: true,
+            resizable: true,
+            // groupable: true,
+            pageable: {
+                refresh: true,
+                buttonCount: 10,
+                input: true,
+                pageSizes: [100, 1000, 100000],
+                info: true,
+                messages: {
+                }
+            },
+
+            columns: [
+                {
+                    command: [{ text: "Edit", click: edit }, {text: "Hapus", click: hapus}], title: "Action", width: "10px"
+                },
+                {
+                    title: "No",
+                    width: "10px",
+                    template: "#= ++rowNo #",
+                    filterable: false,
+
+                },
+                //{ field: "location_id", hid title: "Lokasi", width: "50px" },
+                { field: "location_name", title: "Lokasi", width: "50px" },
+            ],
+            dataBinding: function () {
+                window.rowNo = (this.dataSource.page() - 1) * this.dataSource.pageSize();
+            }
+        });      
+    }
+
+    function edit(e) {
+        e.preventDefault;
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+
+        location.href = "../SetLocation/UpdateLocation?id=" + dataItem.location_id
+ 
+    }
+
+    function hapus(e) {
+        e.preventDefault;
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+
+        if (confirm("Apakah yakin mau menghapus lokasi " + dataItem.location_name)) {
+            $.ajax({
+                type: "POST",
+                url: $("#hd_path").val() + "/SetLocation/AjaxDeleteLocation?s_str_location_id=" + dataItem.location_id,
+                contentType: "application/json",
+                //data: JSON.stringify(viewModel),
+                success: function (response) {
+                    if (response.status) {
+                        alert(response.remark)
+                    } else {
+                        alert(response.error)
+                    }
+                    location.reload();
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                }
+
+            });
+        } else {
+            return;
+        }
+    }
+
+    
+
+</script>
+
+

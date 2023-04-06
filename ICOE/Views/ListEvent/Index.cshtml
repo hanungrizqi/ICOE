@@ -1,0 +1,152 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    ViewBag.pathParent = Url.Content("~").Substring(0, Url.Content("~").Length - 1);
+}
+
+<input type="hidden" id="hd_path" value="@ViewBag.pathParent" />
+<input type="hidden" id="hd_profile" value="@ViewBag.myAccount.GPID_CODE" />
+
+
+<h2>Daftar Event</h2>
+
+<br />
+
+<div class="container" id="app">
+
+    <div class="row">
+
+        <div class="col-sm-12">
+
+            <div class="col-sm-4" v-for="result in results">
+
+                <div class="card card-price">
+                    <div v-if="$('#hd_profile').val() != 1"></div>
+                    <div v-else>
+                        @*<div id="dv_action" class="btn btn-group">
+                            <button v-on:click="updateEvent(result.event_id)" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button v-on:click="deleteEvent(result.event_id)" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+                            <button v-on:click="reportEvent(result.event_id)" class="btn btn-danger"><span class="glyphicon glyphicon-print"></span></button>
+                        </div>*@
+                    </div>  
+                    <div class="card-img">
+                            <img src="../Content/img/meeting.PNG" class="img-responsive">
+                            <div class="card-caption">
+                                <span class="h5">{{ result.name }}</span>
+                                <p>Open</p>
+                            </div>
+                    </div>
+                    <div class="card-body">
+                    
+                        <div class="lead">Deskripsi</div>
+                        <ul class="details">
+                            <li>{{ result.description }}</li>
+                            <li>{{ result.status_ulang }}</li>
+                        </ul>
+                        <table class="table">
+                            <tr><td>Mulai</td><td class="price"></td><td class="note">{{ result.start_date_mod }} {{ result.start_time_mod }}</td></tr>
+                            <tr><td>Selesai</td><td class="price"></td><td class="note">{{ result.end_date_mod }} {{ result.end_time_mod }}</td></tr>
+                            @*<tr><td>Peserta</td><td class="price"></td><td class="note">{{ result.count_attendee }} Orang</td></tr>*@
+                            <tr><td>Lokasi</td><td class="price"></td><td class="note">{{ result.location_name }}</td></tr>
+                        </table>
+                        <a :href="'../QRCodeAtt/Index?evH='+ result.event_header_id +'&name='+result.name" class="btn btn-primary btn-lg btn-block buy-now">
+                            ENTER <span class="glyphicon glyphicon-triangle-right"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+     </div>
+
+
+    <!-- /container -->
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<a href="/CreateEvent/UpdateEvent?id=CAAA19C9-09D4-4A35-B362-FE385E5FC1CB" class="float">
+    <i class="fa fa-plus fa-2x my-float" aria-hidden="true"></i>
+    <i class="glyphicon glyphicon-calendar my-float" aria-hidden="true"></i>
+</a>
+<div class="label-container">
+    <div class="label-text">Tambah Event Baru</div>
+    <i class="fa fa-play label-arrow"></i>
+</div>*@
+
+<script type="text/javascript">
+
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            results: [
+              //{ title: "Meeting BOD", deskripsi: "Review Performance All Site",tanggal: "04-12-2019",peserta: "10",lokasi:"RUANG MEETING K3LH" },
+              //{ title: "Annual Meeting", deskripsi: "Planning Cycle", tanggal: "04-12-2019", peserta: "20", lokasi: "Mercure Hotel Surabaya" },
+              //{ title: "Meeting dFAST", deskripsi: "Enhancement Modul", tanggal: "04-12-2019", peserta: "10", lokasi: "RUANG MEETING COMPETENCE" },
+              //{ title: "Go Live Smart Safety", deskripsi: "Go Live Site ASTO", tanggal: "04-12-2019", peserta: "20", lokasi: "RUANG MEETING SSO" },
+            ]
+        },
+        methods: {
+            updateEvent: function (id) {
+                location.href = "../CreateEvent/UpdateEvent?id=" + id
+            },
+            deleteEvent: function (id) {
+
+                if (confirm("Apakah yakin ingin menghapus event ini ?")) {
+                    $.ajax({
+                        type: "POST",
+                        url: $("#hd_path").val() + "/ListEvent/AjaxDeleteEvent?s_str_id=" + id,
+                        contentType: "application/json",
+                        success: function (response) {
+                            if (response.status) {
+                                
+                            } else {
+                                alert(response.error)
+                            }
+                            location.reload();  
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                        }
+                    });
+
+                } else {
+                    return;
+                }       
+            },
+            reportEvent: function (id) {
+                location.href = "../CreateEvent/UpdateEvent?id=" + id
+            }
+
+        },
+        mounted() {
+            debugger
+            axios.get($("#hd_path").val() + "/ListEvent/AjaxReadHead")
+            .then(response => { this.results = response.data })
+        }
+    });
+
+    $(document).ready(function () {
+
+        var s_int_profile = $("#hd_profile").val();
+
+        console.log("log: " + s_int_profile)
+
+        if (s_int_profile != "1") {
+            $("#dv_action").hide();
+        } 
+
+    });
+
+ 
+  
+
+</script>
+

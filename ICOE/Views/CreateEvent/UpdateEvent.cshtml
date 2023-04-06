@@ -1,0 +1,179 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    ViewBag.pathParent = Url.Content("~").Substring(0, Url.Content("~").Length - 1);
+}
+
+<input type="hidden" id="hd_id" value="@ViewData["id"]" />
+<input type="hidden" id="hd_path" value="@ViewBag.pathParent" />
+
+<h2>Edit Event </h2>
+
+<hr />
+<br />
+
+<div class="row" id="form">
+
+    <div class="col-md-12">
+
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-md-2">Nama Event</label>
+                <div class="col-md-4">
+                    <input type="text" id="tx_namaEvent" name="tx_namaEvent" class="form-control" data-bind="value: name" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-md-2">Deskripsi Event</label>
+                <div class="col-md-4">
+                    <textarea type="text" id="tx_deskEvent" name="tx_deskEvent" class="form-control" data-bind="value: description"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-md-2">District</label>
+                <div class="col-md-4">
+                    <textarea type="text" id="tx_distrikEvent" name="tx_distrikEvent" class="form-control" data-bind="value: District"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-md-2">Kategori</label>
+                <div class="col-md-4">
+                    <textarea type="text" id="tx_kategoriEvent" name="tx_kategoriEvent" class="form-control" data-bind="value: katergori"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-md-2">Ulang</label>
+                <div class="col-md-4">
+                    <textarea type="text" id="tx_ulangEvent" name="tx_ulangEvent" class="form-control" data-bind="value: ulang"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-md-2">Departement</label>
+                <div class="col-md-4">
+                    <textarea type="text" id="tx_deptEvent" name="tx_deptEvent" class="form-control" data-bind="value: departement"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-md-2">Tanggal Mulai Event</label>
+                <div class="col-md-4">
+                    <input type="text" id="dt_startEvent" name="dt_startEvent" data-bind="value: start_date" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-md-2">Tanggal Akhir Event</label>
+                <div class="col-md-4">
+                    <input type="text" id="dt_endEvent" name="dt_endEvent" data-bind="value: end_date, disabled: val" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-md-2">Jam Mulai Event</label>
+                <div class="col-md-4">
+                    <input type="text" class="k-timepicker" id="dt_startclockEvent" name="dt_startclockEvent" data-bind="value: startclock_date" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-md-2">Jam Akhir Event</label>
+                <div class="col-md-4">
+                    <input type="text" class="k-timepicker" id="dt_endclockEvent" name="dt_endclockEvent" data-bind="value: endclock_date" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-md-2">Nama Group</label>
+                <div class="col-md-8">
+                    <select type="text" id="tx_namaGroup" name="tx_namaGroup" class="form-control" data-bind="value: nama_group"></select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-md-2">Peserta Event</label>
+                <div class="col-md-8">
+                    <select id="ms_karyawan" multiple="multiple" data-bind="value: attendees" data-placeholder="Pilih Peserta Event..."></select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-md-2">Lokasi Event</label>
+                <div class="col-md-4">
+                    <input type="text" id="dd_location" name="dd_location" data-bind="value: location_id" style="width:100%" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-md-2">Kunci Lokasi</label>
+                <div class="col-md-8">
+                    <input type="checkbox" id="chk_loc" onclick="isloc()" data-bind="checked: is_use_location">
+                    <label style="font-size:9px">&nbsp;&nbsp; *peserta hanya bisa absen di lokasi yang sudah di tetapkan </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-md-2">Kunci QR code</label>
+                <div class="col-md-4">
+                    <input type="checkbox" id="chk_qr" onclick="isqr()" data-bind="checked: is_use_qr_code">
+                    <label style="font-size:9px">&nbsp;&nbsp; *peserta hanya bisa absen via scan QR Code </label>
+                </div>
+            </div>
+        </div>
+
+        <br />
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-md-4">
+                    <div class="btn-group" role="group" aria-label="Third group">
+                        <button id="btn_save" onclick="update()" class="btn btn-primary"><i class="glyphicon glyphicon-save">&nbsp;</i>Simpan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="window">
+    <div id="alert">
+    </div>
+    <button class="btn btn-info" style="width:200px; margin-bottom: 2%; margin-left:16%" onclick="closepop()">OK</button>
+</div>
+
+<script src="~/js/CreateEvent.Update.js"></script>
+

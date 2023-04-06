@@ -1,0 +1,218 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    ViewBag.pathParent = Url.Content("~").Substring(0, Url.Content("~").Length - 1);
+}
+
+
+<input type="hidden" id="hd_path" value="@ViewBag.pathParent" />
+<link href="~/Content/image_loading.css" rel="stylesheet" />
+
+<body>
+    <div id="loader-wrapper" class="modal">
+        <div id="loader"></div>
+
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+
+    </div>
+
+    <h2>Tambah Event Baru</h2>
+
+    <hr />
+    <br />
+
+    <div class="row" id="form">
+
+        <div class="col-md-12">
+
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-2">Nama Event<span class="required">*</span></label>
+                    <div class="col-md-4">
+                        <input type="text" id="tx_namaEvent" name="tx_namaEvent" class="form-control" data-bind="value: name" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-2">Deskripsi Event</label>
+                    <div class="col-md-4">
+                        <textarea type="text" id="tx_deskEvent" name="tx_deskEvent" class="form-control" data-bind="value: description"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-2">District<span class="required">*</span></label>
+                    <div class="col-md-4">
+                        <textarea type="text" id="tx_distrikEvent" name="tx_distrikEvent" class="form-control" data-bind="value: District"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-2">Kategori<span class="required">*</span></label>
+                    <div class="col-md-4">
+                        <textarea type="text" id="tx_kategoriEvent" name="tx_kategoriEvent" class="form-control" data-bind="value: kategori"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-2">Ulang<span class="required">*</span></label>
+                    <div class="col-md-4">
+                        <textarea type="text" id="tx_ulangEvent" name="tx_ulangEvent" class="form-control" data-bind="value: ulang"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-2">Departement<span class="required">*</span></label>
+                    <div class="col-md-4">
+                        <input type="text" id="tx_deptEvent" name="tx_deptEvent" class="form-control k-textbox" style="display:none" data-bind="value: departement" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-2">Tanggal Mulai Event<span class="required">*</span></label>
+                    <div class="col-md-4">
+                        <input type="text" id="dt_startEvent" name="dt_startEvent" data-bind="value: start_date" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-2">Tanggal Akhir Event<span class="required" id="tglakhir" hidden>*</span></label>
+                    <div class="col-md-4">
+                        <input type="text" id="dt_endEvent" name="dt_endEvent" data-bind="value: end_date, disabled:val" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-2">Jam Mulai Event<span class="required">*</span></label>
+                    <div class="col-md-4">
+                        <input type="text" class="k-timepicker" id="dt_startclockEvent" name="dt_startclockEvent" data-bind="value: startclock_date" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-2">Jam Akhir Event<span class="required">*</span></label>
+                    <div class="col-md-4">
+                        <input type="text" class="k-timepicker" id="dt_endclockEvent" name="dt_endclockEvent" data-bind="value: endclock_date" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-2">Nama Group</label>
+                    <div class="col-md-8">
+                        <select type="text" id="tx_namaGroup" name="tx_namaGroup" class="form-control" data-bind="value: groupname"></select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-2">Peserta Event</label>
+                    <div class="col-md-8">
+                        <select id="ms_karyawan" multiple="multiple" data-placeholder="Pilih Peserta Event..."></select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-2">Lokasi Event<span class="required">*</span></label>
+                    <div class="col-md-4">
+                        <input type="text" id="dd_location" name="dd_location" data-bind="value: location_id" style="width:100%" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-2">Kunci Lokasi</label>
+                    <div class="col-md-8">
+                        <input type="checkbox" id="chk_loc" onclick="isloc()" data-bind="checked: is_use_location">
+                        <label style="font-size:9px">&nbsp;&nbsp; *peserta hanya bisa absen di lokasi yang sudah di tetapkan </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-2">Kunci QR code</label>
+                    <div class="col-md-4">
+                        <input type="checkbox" id="chk_qr" onclick="isqr()" data-bind="checked: is_use_qr_code">
+                        <label style="font-size:9px">&nbsp;&nbsp; *peserta hanya bisa absen via scan QR Code </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-2">Add Link</label>
+                    <div class="col-md-4">
+                        <input type="text" id="tx_addLink" name="tx_addLink" class="form-control" />
+                        @*<textarea type="text" id="tx_addLink" name="tx_addLink" class="form-control" ></textarea>*@
+                        @*<label for="tx_addLink">Masukkan link:</label>
+                        <input id="tx_addLink" type="text" placeholder="https://www.contohlink.com">
+                        <a href="#" target="_blank" data-bind="attr: { href: link }">Klik disini</a>*@
+                    </div>
+                </div>
+            </div>
+
+            <br />
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <div class="btn-group" role="group" aria-label="Third group">
+                            <button type="button" id="btn_save" onclick="save()" class="btn btn-primary"><i class="glyphicon glyphicon-save">&nbsp;</i>Simpan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="window" style="text-align:center;">
+        <div id="alert" style="text-align:center;"></div>
+        <div style="text-align:center;">
+            <button class="btn btn-info" style="width:300px;" onclick="closepop()">OK</button>
+        </div>
+    </div>
+
+    <div id="windowdone" style="text-align:center;">
+        <div id="alertdone" style="text-align:center;"></div>
+        <div style="text-align:center;">
+            <button class="btn btn-info" style="width:300px;" onclick="closepopdone()">OK</button>
+        </div>
+    </div>
+
+</body>
+
+<script src="~/js/CreateEvent.Index.js"></script>
+
+<style>
+    .required {
+        color: red;
+        font-size:15pt;
+    }
+</style>

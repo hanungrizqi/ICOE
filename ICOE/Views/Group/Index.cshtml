@@ -1,0 +1,251 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<input type="hidden" id="hd_path" value="@ViewBag.pathParent" />
+
+<h3>List Group Peserta</h3>
+
+<hr />
+<br />
+
+<div id="grid_group">
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <button class="btn btn-primary" id="btn_tambah">Tambah Group</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="grid"></div>
+        </div>
+    </div>
+</div>
+
+<div id="popupedit" style="display: none">
+    <div class="container">
+        <div class="row" style="margin-left:15%; margin-top:5%">
+
+            @*<div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-2">Group Detail ID</label>
+                    <div class="col-md-4">
+                        <input type="text" id="tx_groupdid" name="tx_groupdid" class="form-control" data-bind="value: groupdetail_id" />
+                    </div>
+                </div>
+            </div> 
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-2">Group ID</label>
+                    <div class="col-md-4">
+                        <input type="text" id="tx_groupid" name="tx_groupid" class="form-control" data-bind="value: group_id" />
+                    </div>
+                </div>
+            </div>*@
+            <input type="hidden" id="tx_groupid" name="tx_groupid" class="form-control" data-bind="value: group_id" />
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-2">Nama Group</label>
+                    <div class="col-md-4">
+                        <input type="text" id="tx_namagroup" name="tx_namagroup" class="form-control" data-bind="value: group_name" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-2">Peserta</label>
+                    <div class="col-md-4">
+                        <select id="txm_peserta" multiple="multiple" data-bind="attendee" data-placeholder="Pilih Peserta Event..."></select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <div class="btn-group" role="group" aria-label="Third group">
+                            <button id="btn_save" class="btn btn-primary" onclick="save()"><i class="glyphicon glyphicon-save">&nbsp;</i>Simpan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </div>
+
+<div id="window">
+    <div id="alert">
+    </div>
+    <button class="btn btn-info" style="width:200px; margin-bottom: 2%; margin-left:16%" onclick="closepop()">OK</button>
+</div>
+
+<script src="~/js/Group.Index.js"></script>
+<!--
+<script>
+$(document).ready(function () {
+
+    //$("#btn_tambah").click(function() {
+    //    location.href = "../Group/InsertGroup"
+    //});
+
+    debugger
+    var viewModel = kendo.observable({
+        group_id: "",
+        group_name: "",
+
+        ds_namagroup: new kendo.data.DataSource({
+            transport: {
+                read: {
+                    url: $("#hd_path").val() + "/Group/AjaxReadAllGroup",
+                    Data: {},
+                    contentType: "json",
+                    type: "POST",
+                    cache: false
+                },
+            },
+            schema: {
+                data: "Data",
+                total: "Total",
+                model: {
+                    id: "group_id",
+                    fields: {
+                        group_id: { type: "string", editable: false, sortable: false },
+                        group_name: { type: "string", editable: false, sortable: false },
+                    }
+                }
+            },
+            pageSize: 20
+        })
+
+    })
+
+    kendo.bind($("#grid_group"), viewModel);
+    initialize();
+
+})
+
+//function loadGrid() {
+//    $("#grid").empty();
+//    var grid = $("#grid").kendoGrid({
+//        dataSource: {
+//            type: "json",
+//            transport: {
+//                read: {
+//                    url: $("#hd_path").val() + "/Group/AjaxReadAllGroup",
+//                    contentType: "application/json",
+//                    type: "POST",
+//                    cache: false,
+//                },
+//                parameterMap: function (data, operation) {
+//                    return kendo.stringify(data)
+//                }
+//            },
+//            pageSize: 100,
+//            serverPaging: true,
+//            serverFiltering: true,
+//            serverSorting: true,
+//            schema: {
+//                data: "Data",
+//                total: "Total",
+//                model: {
+//                    id: "group_id",
+//                    fields: {
+//                        group_id: { type: "string", filterable: true, sortable: true, editable: false },
+//                        group_name: { type: "string", filterable: true, sortable: true, editable: false },
+//                    }
+//                }
+//            }
+//        },
+//        height: 400,
+//        filterable: true,
+//        sortable: true,
+//        pageable: true,
+//        resizable: true,
+//        // groupable: true,
+//        pageable: {
+//            refresh: true,
+//            buttonCount: 10,
+//            input: true,
+//            pageSizes: [100, 1000, 100000],
+//            info: true,
+//            messages: {
+//            }
+//        },
+//        columns: [
+//            {
+//                command: [{ text: "Edit", click: edit }, {text: "Hapus", click: hapus}], title: "Action", width: "10px"
+//            },
+//            {
+//                title: "Nama Group",
+//                width: "10px",
+//                filterable: false,
+//                template: "#= group_id #"
+//            },
+//        ],
+//        //dataBinding: function () {
+//        //    window.group_id = (this.dataSource.page() - 1) * this.dataSource.pageSize();
+//        //}
+//    });
+//}
+
+function edit(e) {
+    e.preventDefault;
+    var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+
+    location.href = "../SetLocation/UpdateLocation?id=" + dataItem.location_id
+
+}
+
+function hapus(e) {
+    e.preventDefault;
+    var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+
+    if (confirm("Apakah yakin mau menghapus lokasi " + dataItem.location_name)) {
+        $.ajax({
+            type: "POST",
+            url: $("#hd_path").val() + "/SetLocation/AjaxDeleteLocation?s_str_location_id=" + dataItem.location_id,
+            contentType: "application/json",
+            //data: JSON.stringify(viewModel),
+            success: function (response) {
+                if (response.status) {
+                    alert(response.remark)
+                } else {
+                    alert(response.error)
+                }
+                location.reload();
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+            }
+
+        });
+    } else {
+        return;
+    }
+}
+
+</script>
+-->
+
+<style>
+        .k-detail-cell .k-tabstrip .k-content {
+            padding: 0.2em;
+        }
+
+        .k-grid-content {
+            min-height: 100px;
+        }
+</style>
+        
+

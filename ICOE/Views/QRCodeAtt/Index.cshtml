@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    ViewBag.pathParent = Url.Content("~").Substring(0, Url.Content("~").Length - 1);
+    
+}
+
+<input type="hidden" id="hd_path" value="@ViewBag.pathParent" />
+<input type="hidden" id="hd_idev" value="@ViewBag.evID" /> <!-- SAMPING KIRI INI EVENT HEADER-->
+
+<div id="toAll">
+    <input type="hidden" id="eventid" value="@ViewBag.eventid" />
+    <div class="row">
+        <div class="col-sm-4">
+            <h2>Daftar Hadir</h2>
+        </div>
+
+        <div class="col-sm-8">
+            <h2 id="h_name" style="font-style:italic"></h2>
+        </div>
+    </div>
+    <br />
+
+    <div class="row">
+        <div class="col-sm-4"></div>
+
+        <div class="col-sm-8">
+            <div class="col-sm-4">
+                <p><b>Tanggal Event</b></p>
+            </div>
+            <div class="col-sm-3">
+                <input type="text" id="dt_startEvent" @*style="float:right;"*@ name="dt_startEvent" data-bind="value: start_date" />
+            </div>
+            <div class="col-sm-1">
+                <button type="button" id="btn_export" @*style="float:right;"*@ name="btn_export" class="btn btn-info" onclick="downloadabsen()">Export</button>
+            </div>
+        </div>              
+    </div>
+
+    <br/>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <h4>Scan QRCode ini untuk Absen</h4>
+        </div>
+
+        <div class="col-sm-8">
+            <h4>Peserta yang sudah hadir <input type="text" id="sp_total_peserta" style="width:5%; border:none; background-color:transparent" data-bind="value: people" disabled="disabled" /> orang</h4>
+            @*<label data-bind="value: people" id="sp_total_peserta"></label>*@
+            @*<h4>Peserta yang sudah hadir <span id="sp_total_peserta"></span> orang</h4>*@
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div id="qrcode"></div>
+
+            <br />
+            <div><input type="text" id="evid_show" style="width:80%; border: none; background-color:transparent" disabled="disabled" /></div>
+            <div><input type="text" id="dt_startEvent_show" disabled="disabled" name="dt_startEvent_show" style="width:33%; border: none; background-color:transparent" />- <input type="text" id="dt_endEvent_show" @*style="float:right;"*@ disabled="disabled" name="dt_endEvent_show" style="border: none; background-color:transparent" /></div>
+
+            @*<div class="row-a">
+                    <div class="column-a">
+                        <div class="card-a">
+                            <h5>Sandi Nugraha</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row-a">
+                    <div class="column-a">
+                        <div class="card-a">
+                            <h5>Sandi Nugraha</h5>
+                        </div>
+                    </div>
+                </div>*@
+
+        </div>
+
+        <div class="col-sm-8">
+            <button type="button" id="btn_refresh" style="margin-bottom:2%" name="btn_refresh" class="btn btn-info" onclick="refreshgrid()">Refresh</button>
+        </div>
+
+        <br />
+
+        <div class="col-sm-8">
+            <div id="grid"></div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/QRCodeAtt.js"></script>

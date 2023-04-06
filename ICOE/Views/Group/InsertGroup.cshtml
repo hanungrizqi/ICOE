@@ -1,0 +1,278 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<input type="hidden" id="hd_path" value="@ViewBag.pathParent" />
+
+<h3>Tambah Group Peserta</h3>
+
+<hr />
+<br />
+
+<div class="row" id="form">
+
+    <div class="col-md-12">
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-md-2">Nama Group</label>
+                <div class="col-md-4">
+                    <input type="text" id="tx_namagroup" name="tx_namagroup" class="form-control" data-bind="value: nama_group" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-md-2">Peserta</label>
+                <div class="col-md-4">
+                    <select id="txm_peserta" multiple="multiple" data-placeholder="Pilih Peserta Event..."></select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-md-4">
+                    <div class="btn-group" role="group" aria-label="Third group">
+                        <button id="btn_save" class="btn btn-primary" onclick="save()"><i class="glyphicon glyphicon-save">&nbsp;</i>Simpan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<div id="window">
+    <div id="alert">
+    </div>
+    <button class="btn btn-info" style="width:200px; margin-bottom: 2%; margin-left:16%" onclick="closepop()">OK</button>
+</div>
+
+
+
+
+
+<script>
+    var map;
+    var arr_marker = [];
+
+      function initMap() {
+
+        //var myLatLng = { lat: -6.198138, lng: 106.915365 };
+
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: { lat: -6.198138, lng: 106.915365 },
+          zoom: 15,
+          mapTypeId: 'hybrid'
+        });
+
+          // Create the search box and link it to the UI element.
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+          // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function () {
+            searchBox.setBounds(map.getBounds());
+        });
+
+        var markers = [];
+          // Listen for the event fired when the user selects a prediction and retrieve
+          // more details for that place.
+        searchBox.addListener('places_changed', function () {
+            var places = searchBox.getPlaces();
+
+            if (places.length == 0) {
+                return;
+            }
+
+            // Clear out the old markers.
+            markers.forEach(function (marker) {
+                marker.setMap(null);
+            });
+            markers = [];
+
+            // For each place, get the icon, name and location.
+            var bounds = new google.maps.LatLngBounds();
+            places.forEach(function (place) {
+                if (!place.geometry) {
+                    console.log("Returned place contains no geometry");
+                    return;
+                }
+                var icon = {
+                    url: place.icon,
+                    size: new google.maps.Size(71, 71),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(17, 34),
+                    scaledSize: new google.maps.Size(25, 25)
+                };
+
+                // Create a marker for each place.
+                markers.push(new google.maps.Marker({
+                    map: map,
+                    icon: icon,
+                    title: place.name,
+                    position: place.geometry.location
+                }));
+
+                if (place.geometry.viewport) {
+                    // Only geocodes have viewport.
+                    bounds.union(place.geometry.viewport);
+                } else {
+                    bounds.extend(place.geometry.location);
+                }
+            });
+            map.fitBounds(bounds);
+        });
+
+        google.maps.event.addListener(map, "click", function (e) {
+
+            placeMarker(e.latLng);
+            addMarker({ "latitude": e.latLng.lat(), "longtitude": e.latLng.lng() });
+           // console.log(arr_marker)
+
+        });
+
+        function placeMarker(location) {
+            var marker = new google.maps.Marker({
+                position: location,
+                map: map
+            });
+
+            google.maps.event.addListener(marker, "click", function (e) {
+                marker.setMap(null);
+                deleteMarker({ "latitude": this.position.lat(), "longtitude": this.position.lng() })
+
+            });
+        }
+
+        function deleteMarker(latLng) {
+
+            var lat = latLng.latitude;
+            var lng = latLng.longtitude;
+
+            for (var i = 0; i < arr_marker.length; i++) {
+                if (arr_marker[i].latitude == lat && arr_marker[i].longtitude == lng) {
+                    arr_marker.splice(i, 1);
+                }
+            }
+
+            //console.log("Terhapus:" + arr_marker)
+        }
+
+        function addMarker(latLng) {
+            arr_marker.push(latLng);
+        }
+
+
+
+      }
+
+      $(document).ready(function () {
+
+          //UNTUK MULTISELECT
+          var required = $("#txm_peserta").kendoMultiSelect({
+              dataTextField: "NAME",
+              dataValueField: "EMPLOYEE_ID",
+              dataSource: {
+                  type: "json",
+                  transport: {
+                      read: {
+                          url: $("#hd_path").val() + "/Group/AjaxReadKaryawan",
+                          contentType: "application/json",
+                          type: "GET",
+                          cache: false
+                      }
+                  },
+                  schema: {
+                      data: "Data",
+                      total: "Total"
+                  }
+              }
+              //change: function () {
+              //    debugger
+              //    viewModel.set("peserta", this.listView.value())
+              //}
+          }).data("kendoMultiSelect");
+
+          //UNTUK SAVE BUTTON
+          //$("#btn_save").click(function () {
+          //    console.log(arr_marker)
+          //    save();
+          //})
+          kendo.bind($("#form"), viewModel);
+      })
+
+    //SIMPAN KE DB
+      function save() {
+
+          //console.log(JSON.stringify(viewModel));
+          var obj = {
+              list: $('select#txm_peserta').val(),
+              nama_group: $("#tx_namagroup").val()
+          }
+
+          console.log(obj);
+          
+          $.ajax({
+              type: "POST",
+              url: $("#hd_path").val() + "/Group/InsertEvent",
+              contentType: "application/json",
+              data: JSON.stringify(obj),
+              success: function (response) {
+                  if (response.status) {
+                     // alert(response.remark)
+                      $("#alert").append('<label style="margin-left:28%; margin-top:5%;"><h4>' + response.remark + '</h4></label>');
+                      pop.data("kendoWindow").open();
+                  } else {
+                     // alert(response.error)
+                      $("#alert").append('<label style="margin-left:28%; margin-top:5%;"><h4>' + response.error + '</h4></label>');
+                      pop.data("kendoWindow").open();
+                  }
+                  //location.reload();
+
+              },
+              error: function (jqXHR, textStatus, errorThrown) {
+              }
+
+          });
+
+      }
+      var viewModel = kendo.observable({
+          nama_group: "",
+          peserta: []
+      });
+
+      pop = $("#window").kendoWindow({
+          actions: [],
+          draggable: true,
+          modal: true,
+          pinned: false,
+          visible: false,
+          scrollable: false,
+          position: {
+              top: 250,
+              left: 500
+          },
+          close: function (e) {
+
+          },
+          height: "150px",
+          width: "350px",
+          resizable: false,
+      });
+
+      function closepop() {
+          pop.data("kendoWindow").close();
+          location.reload();
+      }
+
+</script>
+
+@*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnqozSMiPNMGooyAGNroGrWkzNM7bGjjo&libraries=places&callback=initMap"
+        async defer></script>*@
+

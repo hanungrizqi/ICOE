@@ -10,7 +10,7 @@
         endclock_date: "",
         ulang: "",
         description: "",
-        link: "",
+        //link: "",
         start_date: "",
         end_date: "",
         location_id: "",

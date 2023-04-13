@@ -174,5 +174,30 @@ namespace ICOE.Controllers
             }
         }
 
+        public JsonResult get_atttdkhadir(string s_str_event_id)
+        {
+            try
+            {
+                var jumlah = i_ctx_db.VW_ATTENDEE_TIDAK_HADIRs.Where(f => f.event_id == s_str_event_id).FirstOrDefault();
+                return Json(new { status = true, Data = jumlah, Total = jumlah }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return this.Json(new { status = false, error = e.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult get_atttent(string s_str_event_id)
+        {
+            try
+            {
+                var jumlah = i_ctx_db.VW_ATTENDEE_TENTATIVEs.Where(f => f.event_id == s_str_event_id).FirstOrDefault();
+                return Json(new { status = true, Data = jumlah, Total = jumlah }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return this.Json(new { status = false, error = e.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

@@ -19,6 +19,7 @@ $(document).ready(function () {
         endclock_dates: "",
         ulang: "",
         description: "",
+        link: "",
         start_date: "",
         end_date: "",
         location_id: "",
@@ -76,7 +77,8 @@ $(document).ready(function () {
                     },
                     schema: {
                         data: "Data",
-                        total: "Total"
+                        total: "Total",
+                        totall: "Totall"
                     }
                 },
                 dataTextField: "location_name",
@@ -315,6 +317,7 @@ function detailInit(elem) {
             schema: {
                 data: "Data",
                 total: "Total",
+                totall: "Totall",
                 model: {
                     id: "event_id",
                     fields: {
@@ -451,7 +454,8 @@ var required = $("#txm_peserta").kendoMultiSelect({
         },
         schema: {
             data: "Data",
-            total: "Total"
+            total: "Total",
+            totall: "Totall"
         }
     }
     //change: function () {
@@ -474,7 +478,8 @@ var req = $("#tx_namagroup").kendoMultiSelect({
         },
         schema: {
             data: "Data",
-            total: "Total"
+            total: "Total",
+            totall: "Totall"
         }
     }
     //change: function () {
@@ -681,6 +686,7 @@ function search() {
             schema: {
                 data: "Data",
                 total: "Total",
+                totall: "Totall",
                 model: {
                     id: "event_header_id",
                     fields: {

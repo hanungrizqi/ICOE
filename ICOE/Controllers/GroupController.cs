@@ -47,6 +47,8 @@ namespace ICOE.Controllers
                 i_ctx_db = new DB_ICT_mOK_KPTDataContext();
                 TBL_M_EVENT tbl_m_event = i_ctx_db.TBL_M_EVENTs.Where(f => f.event_id == new Guid(s_str_id))
                     .FirstOrDefault();
+                TBL_M_ICOE_LINK tbl_m_link = i_ctx_db.TBL_M_ICOE_LINKs.Where(f => f.event_id == new Guid(s_str_id))
+                    .FirstOrDefault();
                 List<TBL_T_EVENT_ATTENDANCE> tbl_t_event_attendance = i_ctx_db.TBL_T_EVENT_ATTENDANCEs
                     .Where(f => f.event_id == s_str_id)
                     .ToList();
@@ -57,6 +59,7 @@ namespace ICOE.Controllers
                 eventViewModels.event_id = s_str_id;
                 eventViewModels.name = tbl_m_event.name;
                 eventViewModels.description = tbl_m_event.description;
+                eventViewModels.link = tbl_m_link.link;
                 eventViewModels.start_date = tbl_m_event.start_date;
                 eventViewModels.end_dates = tbl_m_event.end_date;
                 eventViewModels.location_id = tbl_m_event.location_id;

@@ -144,6 +144,7 @@ var viewModel = kendo.observable({
                 viewModel.set("katergori", response.data.kategori)
                 viewModel.set("ulang", response.data.ulang);
                 viewModel.set("description", response.data.description);
+                viewModel.set("link", response.data.link);
                 viewModel.set("start_date", kendo.parseDate(kendo.toString(response.data.start_date, "dd/MM/yyyy")));
                 viewModel.set("end_date", kendo.parseDate(kendo.toString(response.data.end_dates, "dd/MM/yyyy")));
                 viewModel.set("location_id", response.data.location_id);

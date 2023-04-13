@@ -280,7 +280,7 @@ function initialize() {
                     //}
                 ],
                 title: 'Attendance',
-                width: 150
+                width: 70
             },
             { field: 'name', title: 'Event', width: 150 },
             {
@@ -366,7 +366,7 @@ function detailInit(elem) {
             {
                 command: [
                     { name: 'Detail', text: 'Detail', class: 'btn btn-default', click: ViewModel.DetailEvent },
-                    { name: 'Edit', text: 'Edit', class: 'btn btn-default', click: ViewModel.EditDetail }
+                    //{ name: 'Edit', text: 'Edit', class: 'btn btn-default', click: ViewModel.EditDetail }
                 ],
                 title: 'Action',
                 width: 150
@@ -753,7 +753,7 @@ function search() {
                     //}
                 ],
                 title: 'Attendance',
-                width: 150
+                width: 70
             },
             { field: 'name', title: 'Event', width: 150 },
             {

@@ -68,6 +68,7 @@ namespace ICOE.Controllers
                 i_ctx_db = new DB_ICT_mOK_KPTDataContext();
 
                 TBL_M_EVENT tbl_m_event = i_ctx_db.TBL_M_EVENTs.Where(f => f.event_id == new Guid(id)).FirstOrDefault();
+                TBL_M_ICOE_LINK tbl_m_icoe_link = i_ctx_db.TBL_M_ICOE_LINKs.Where(f => f.event_id == new Guid(id)).FirstOrDefault();
                 List<TBL_T_EVENT_ATTENDANCE> tbl_t_event_attendance = i_ctx_db.TBL_T_EVENT_ATTENDANCEs.Where(f => f.event_id == id).ToList();
                 List<string> i_lst_attendee = tbl_t_event_attendance.Select(f => f.attendee).ToList();
                 List<string> groups = tbl_t_event_attendance.Select(f => f.group_id).ToList();
@@ -103,7 +104,7 @@ namespace ICOE.Controllers
                 eventViewModels.ulang = TBL_M_EVENT_HEADER.ulang.ToString();
                 eventViewModels.kategori = TBL_M_EVENT_HEADER.kategori;
                 eventViewModels.description = tbl_m_event.description;
-                eventViewModels.link = tbl_m_event.link;
+                eventViewModels.link = tbl_m_icoe_link.link;
                 eventViewModels.start_date = getsg.start_date;
                 eventViewModels.end_dates = getsg1.start_date;
                 eventViewModels.endtime = Convert.ToDateTime(getsg.end_date);
@@ -141,7 +142,7 @@ namespace ICOE.Controllers
                 tbl_m_event.status = 1;
                 tbl_m_event.location_id = sEvent.location_id;
                 tbl_m_event.description = sEvent.description;
-                tbl_m_event.link = sEvent.link;
+                //tbl_m_event.link = sEvent.link;
                 tbl_m_event.is_use_qr_code = sEvent.is_use_qr_code;
                 tbl_m_event.is_use_location = sEvent.is_use_location;
                 tbl_m_event.created_by = i_str_nrp;
@@ -199,7 +200,7 @@ namespace ICOE.Controllers
                 i_tbl_m_event.status = 1;
                 i_tbl_m_event.location_id = sEvent.location_id;
                 i_tbl_m_event.description = sEvent.description;
-                i_tbl_m_event.link = sEvent.link;
+                //i_tbl_m_event.link = sEvent.link;
                 i_tbl_m_event.is_use_qr_code = sEvent.is_use_qr_code;
                 i_tbl_m_event.is_use_location = sEvent.is_use_location;
 
@@ -209,7 +210,7 @@ namespace ICOE.Controllers
                 tbl_m_event.end_date = sEvent.end_dates;
                 tbl_m_event.location_id = sEvent.location_id;
                 tbl_m_event.description = sEvent.description;
-                tbl_m_event.link = sEvent.link;
+                //tbl_m_event.link = sEvent.link;
                 tbl_m_event.is_use_qr_code = sEvent.is_use_qr_code;
                 tbl_m_event.is_use_location = sEvent.is_use_location;
 

@@ -63,6 +63,9 @@ namespace ICOE.Models
     partial void InsertTBL_T_EVENT_ATTENDANCE(TBL_T_EVENT_ATTENDANCE instance);
     partial void UpdateTBL_T_EVENT_ATTENDANCE(TBL_T_EVENT_ATTENDANCE instance);
     partial void DeleteTBL_T_EVENT_ATTENDANCE(TBL_T_EVENT_ATTENDANCE instance);
+    partial void InsertTBL_M_ICOE_LINK(TBL_M_ICOE_LINK instance);
+    partial void UpdateTBL_M_ICOE_LINK(TBL_M_ICOE_LINK instance);
+    partial void DeleteTBL_M_ICOE_LINK(TBL_M_ICOE_LINK instance);
     partial void InsertTBL_M_EVENT(TBL_M_EVENT instance);
     partial void UpdateTBL_M_EVENT(TBL_M_EVENT instance);
     partial void DeleteTBL_M_EVENT(TBL_M_EVENT instance);
@@ -266,14 +269,6 @@ namespace ICOE.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<VW_DETAIL_ACARA> VW_DETAIL_ACARAs
-		{
-			get
-			{
-				return this.GetTable<VW_DETAIL_ACARA>();
-			}
-		}
-		
 		public System.Data.Linq.Table<VW_EVENT> VW_EVENTs
 		{
 			get
@@ -290,11 +285,27 @@ namespace ICOE.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<TBL_M_EVENT> TBL_M_EVENTs
+		public System.Data.Linq.Table<VW_ATTENDEE_TIDAK_HADIR> VW_ATTENDEE_TIDAK_HADIRs
 		{
 			get
 			{
-				return this.GetTable<TBL_M_EVENT>();
+				return this.GetTable<VW_ATTENDEE_TIDAK_HADIR>();
+			}
+		}
+		
+		public System.Data.Linq.Table<VW_ATTENDEE_TENTATIVE> VW_ATTENDEE_TENTATIVEs
+		{
+			get
+			{
+				return this.GetTable<VW_ATTENDEE_TENTATIVE>();
+			}
+		}
+		
+		public System.Data.Linq.Table<VW_DETAIL_ACARA> VW_DETAIL_ACARAs
+		{
+			get
+			{
+				return this.GetTable<VW_DETAIL_ACARA>();
 			}
 		}
 		
@@ -303,6 +314,22 @@ namespace ICOE.Models
 			get
 			{
 				return this.GetTable<VW_HEADER_DETAIL>();
+			}
+		}
+		
+		public System.Data.Linq.Table<TBL_M_ICOE_LINK> TBL_M_ICOE_LINKs
+		{
+			get
+			{
+				return this.GetTable<TBL_M_ICOE_LINK>();
+			}
+		}
+		
+		public System.Data.Linq.Table<TBL_M_EVENT> TBL_M_EVENTs
+		{
+			get
+			{
+				return this.GetTable<TBL_M_EVENT>();
 			}
 		}
 		
@@ -347,20 +374,6 @@ namespace ICOE.Models
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.cusp_cektanggal")]
-		public ISingleResult<cusp_cektanggalResult> cusp_cektanggal([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(200)")] string eventH, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(200)")] string eventid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> datelempar, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> datelempar2, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> startime, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> endtime)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), eventH, eventid, datelempar, datelempar2, startime, endtime);
-			return ((ISingleResult<cusp_cektanggalResult>)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.cusp_cekLokasi")]
-		public ISingleResult<cusp_cekLokasiResult> cusp_cekLokasi([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> startdate, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> enddate, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> starttime, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> endtime, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(100)")] string locationid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> action, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(200)")] string evH)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), startdate, enddate, starttime, endtime, locationid, action, evH);
-			return ((ISingleResult<cusp_cekLokasiResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.cufn_readHeader_event", IsComposable=true)]
 		public IQueryable<cufn_readHeader_eventResult> cufn_readHeader_event()
 		{
@@ -384,34 +397,6 @@ namespace ICOE.Models
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), startdate, enddate);
 			return ((ISingleResult<cusp_readHeader_eventResult>)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.cusp_UpdateEvent_Header")]
-		public ISingleResult<cusp_UpdateEvent_HeaderResult> cusp_UpdateEvent_Header(
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(200)")] string eventH_id, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string dstrct_code, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string departement, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string ulang, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> startdate, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> enddates, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> enddate, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> starttime, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> endtime, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string kategori, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Bit")] System.Nullable<bool> is_coe, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> createdate, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string createby, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(200)")] string eventid, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string namaevent, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Bit")] System.Nullable<bool> isuseqr, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Bit")] System.Nullable<bool> isuselocation, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(200)")] string description, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(200)")] string link, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Bit")] System.Nullable<bool> status, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(200)")] string location_id)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), eventH_id, dstrct_code, departement, ulang, startdate, enddates, enddate, starttime, endtime, kategori, is_coe, createdate, createby, eventid, namaevent, isuseqr, isuselocation, description, link, status, location_id);
-			return ((ISingleResult<cusp_UpdateEvent_HeaderResult>)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.cusp_EventHeader")]
@@ -443,6 +428,48 @@ namespace ICOE.Models
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), eventH_id, dstrct_code, departement, ulang, startdate, enddates, enddate, starttime, endtime, kategori, is_coe, createdate, createby, eventid, namaevent, isuseqr, isuselocation, description, link, status, location_id, groupid, loclong, loclat);
 			return ((ISingleResult<cusp_EventHeaderResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.cusp_UpdateEvent_Header")]
+		public ISingleResult<cusp_UpdateEvent_HeaderResult> cusp_UpdateEvent_Header(
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(200)")] string eventH_id, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string dstrct_code, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string departement, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string ulang, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> startdate, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> enddates, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> enddate, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> starttime, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> endtime, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string kategori, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Bit")] System.Nullable<bool> is_coe, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> createdate, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string createby, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(200)")] string eventid, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string namaevent, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Bit")] System.Nullable<bool> isuseqr, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Bit")] System.Nullable<bool> isuselocation, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(200)")] string description, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(200)")] string link, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Bit")] System.Nullable<bool> status, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(200)")] string location_id)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), eventH_id, dstrct_code, departement, ulang, startdate, enddates, enddate, starttime, endtime, kategori, is_coe, createdate, createby, eventid, namaevent, isuseqr, isuselocation, description, link, status, location_id);
+			return ((ISingleResult<cusp_UpdateEvent_HeaderResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.cusp_cekLokasi")]
+		public ISingleResult<cusp_cekLokasiResult> cusp_cekLokasi([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> startdate, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> enddate, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> starttime, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> endtime, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(100)")] string locationid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> action, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(200)")] string evH)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), startdate, enddate, starttime, endtime, locationid, action, evH);
+			return ((ISingleResult<cusp_cekLokasiResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.cusp_cektanggal")]
+		public ISingleResult<cusp_cektanggalResult> cusp_cektanggal([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(200)")] string eventH, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(200)")] string eventid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> datelempar, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> datelempar2, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> startime, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> endtime)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), eventH, eventid, datelempar, datelempar2, startime, endtime);
+			return ((ISingleResult<cusp_cektanggalResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -3252,285 +3279,6 @@ namespace ICOE.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.VW_DETAIL_ACARA")]
-	public partial class VW_DETAIL_ACARA
-	{
-		
-		private string _event_header_id;
-		
-		private System.Nullable<System.Guid> _event_id;
-		
-		private System.Nullable<int> _ulang;
-		
-		private string _name;
-		
-		private string _description;
-		
-		private System.Nullable<System.DateTime> _start_date;
-		
-		private string _start_date_mod;
-		
-		private System.Nullable<System.DateTime> _end_date;
-		
-		private System.Nullable<int> _status;
-		
-		private string _dstrct_code;
-		
-		private string _departemen;
-		
-		private System.Nullable<System.Guid> _location_id;
-		
-		private string _location_name;
-		
-		private System.Nullable<int> _count_attendee;
-		
-		private System.Nullable<int> _att_hadir;
-		
-		public VW_DETAIL_ACARA()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_event_header_id", DbType="VarChar(50)")]
-		public string event_header_id
-		{
-			get
-			{
-				return this._event_header_id;
-			}
-			set
-			{
-				if ((this._event_header_id != value))
-				{
-					this._event_header_id = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_event_id", DbType="UniqueIdentifier")]
-		public System.Nullable<System.Guid> event_id
-		{
-			get
-			{
-				return this._event_id;
-			}
-			set
-			{
-				if ((this._event_id != value))
-				{
-					this._event_id = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ulang", DbType="Int")]
-		public System.Nullable<int> ulang
-		{
-			get
-			{
-				return this._ulang;
-			}
-			set
-			{
-				if ((this._ulang != value))
-				{
-					this._ulang = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(100)")]
-		public string name
-		{
-			get
-			{
-				return this._name;
-			}
-			set
-			{
-				if ((this._name != value))
-				{
-					this._name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_description", DbType="VarChar(MAX)")]
-		public string description
-		{
-			get
-			{
-				return this._description;
-			}
-			set
-			{
-				if ((this._description != value))
-				{
-					this._description = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_start_date", DbType="DateTime")]
-		public System.Nullable<System.DateTime> start_date
-		{
-			get
-			{
-				return this._start_date;
-			}
-			set
-			{
-				if ((this._start_date != value))
-				{
-					this._start_date = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_start_date_mod", DbType="VarChar(20)")]
-		public string start_date_mod
-		{
-			get
-			{
-				return this._start_date_mod;
-			}
-			set
-			{
-				if ((this._start_date_mod != value))
-				{
-					this._start_date_mod = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_end_date", DbType="DateTime")]
-		public System.Nullable<System.DateTime> end_date
-		{
-			get
-			{
-				return this._end_date;
-			}
-			set
-			{
-				if ((this._end_date != value))
-				{
-					this._end_date = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status", DbType="Int")]
-		public System.Nullable<int> status
-		{
-			get
-			{
-				return this._status;
-			}
-			set
-			{
-				if ((this._status != value))
-				{
-					this._status = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dstrct_code", DbType="VarChar(4)")]
-		public string dstrct_code
-		{
-			get
-			{
-				return this._dstrct_code;
-			}
-			set
-			{
-				if ((this._dstrct_code != value))
-				{
-					this._dstrct_code = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_departemen", DbType="VarChar(50)")]
-		public string departemen
-		{
-			get
-			{
-				return this._departemen;
-			}
-			set
-			{
-				if ((this._departemen != value))
-				{
-					this._departemen = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_location_id", DbType="UniqueIdentifier")]
-		public System.Nullable<System.Guid> location_id
-		{
-			get
-			{
-				return this._location_id;
-			}
-			set
-			{
-				if ((this._location_id != value))
-				{
-					this._location_id = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_location_name", DbType="VarChar(50)")]
-		public string location_name
-		{
-			get
-			{
-				return this._location_name;
-			}
-			set
-			{
-				if ((this._location_name != value))
-				{
-					this._location_name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_count_attendee", DbType="Int")]
-		public System.Nullable<int> count_attendee
-		{
-			get
-			{
-				return this._count_attendee;
-			}
-			set
-			{
-				if ((this._count_attendee != value))
-				{
-					this._count_attendee = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_att_hadir", DbType="Int")]
-		public System.Nullable<int> att_hadir
-		{
-			get
-			{
-				return this._att_hadir;
-			}
-			set
-			{
-				if ((this._att_hadir != value))
-				{
-					this._att_hadir = value;
-				}
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.VW_EVENT")]
 	public partial class VW_EVENT
 	{
@@ -4215,77 +3963,20 @@ namespace ICOE.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TBL_M_EVENT")]
-	public partial class TBL_M_EVENT : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.VW_ATTENDEE_TIDAK_HADIR")]
+	public partial class VW_ATTENDEE_TIDAK_HADIR
 	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		private string _event_id;
 		
-		private System.Guid _event_id;
+		private System.Nullable<int> _att_hadir;
 		
-		private string _name;
-		
-		private System.Nullable<System.DateTime> _start_date;
-		
-		private System.Nullable<System.DateTime> _end_date;
-		
-		private System.Nullable<int> _status;
-		
-		private string _location_id;
-		
-		private string _description;
-		
-		private string _link;
-		
-		private System.Nullable<bool> _is_use_qr_code;
-		
-		private System.Nullable<bool> _is_use_location;
-		
-		private string _header_id;
-		
-		private string _created_by;
-		
-		private System.Nullable<System.DateTime> _created_date;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void Onevent_idChanging(System.Guid value);
-    partial void Onevent_idChanged();
-    partial void OnnameChanging(string value);
-    partial void OnnameChanged();
-    partial void Onstart_dateChanging(System.Nullable<System.DateTime> value);
-    partial void Onstart_dateChanged();
-    partial void Onend_dateChanging(System.Nullable<System.DateTime> value);
-    partial void Onend_dateChanged();
-    partial void OnstatusChanging(System.Nullable<int> value);
-    partial void OnstatusChanged();
-    partial void Onlocation_idChanging(string value);
-    partial void Onlocation_idChanged();
-    partial void OndescriptionChanging(string value);
-    partial void OndescriptionChanged();
-    partial void OnlinkChanging(string value);
-    partial void OnlinkChanged();
-    partial void Onis_use_qr_codeChanging(System.Nullable<bool> value);
-    partial void Onis_use_qr_codeChanged();
-    partial void Onis_use_locationChanging(System.Nullable<bool> value);
-    partial void Onis_use_locationChanged();
-    partial void Onheader_idChanging(string value);
-    partial void Onheader_idChanged();
-    partial void Oncreated_byChanging(string value);
-    partial void Oncreated_byChanged();
-    partial void Oncreated_dateChanging(System.Nullable<System.DateTime> value);
-    partial void Oncreated_dateChanged();
-    #endregion
-		
-		public TBL_M_EVENT()
+		public VW_ATTENDEE_TIDAK_HADIR()
 		{
-			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_event_id", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid event_id
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_event_id", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string event_id
 		{
 			get
 			{
@@ -4295,11 +3986,157 @@ namespace ICOE.Models
 			{
 				if ((this._event_id != value))
 				{
-					this.Onevent_idChanging(value);
-					this.SendPropertyChanging();
 					this._event_id = value;
-					this.SendPropertyChanged("event_id");
-					this.Onevent_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_att_hadir", DbType="Int")]
+		public System.Nullable<int> att_hadir
+		{
+			get
+			{
+				return this._att_hadir;
+			}
+			set
+			{
+				if ((this._att_hadir != value))
+				{
+					this._att_hadir = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.VW_ATTENDEE_TENTATIVE")]
+	public partial class VW_ATTENDEE_TENTATIVE
+	{
+		
+		private string _event_id;
+		
+		private System.Nullable<int> _att_hadir;
+		
+		public VW_ATTENDEE_TENTATIVE()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_event_id", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string event_id
+		{
+			get
+			{
+				return this._event_id;
+			}
+			set
+			{
+				if ((this._event_id != value))
+				{
+					this._event_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_att_hadir", DbType="Int")]
+		public System.Nullable<int> att_hadir
+		{
+			get
+			{
+				return this._att_hadir;
+			}
+			set
+			{
+				if ((this._att_hadir != value))
+				{
+					this._att_hadir = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.VW_DETAIL_ACARA")]
+	public partial class VW_DETAIL_ACARA
+	{
+		
+		private string _event_header_id;
+		
+		private System.Nullable<System.Guid> _event_id;
+		
+		private System.Nullable<int> _ulang;
+		
+		private string _name;
+		
+		private string _description;
+		
+		private System.Nullable<System.DateTime> _start_date;
+		
+		private string _start_date_mod;
+		
+		private System.Nullable<System.DateTime> _end_date;
+		
+		private System.Nullable<int> _status;
+		
+		private string _dstrct_code;
+		
+		private string _departemen;
+		
+		private System.Nullable<System.Guid> _location_id;
+		
+		private string _location_name;
+		
+		private System.Nullable<int> _count_attendee;
+		
+		private System.Nullable<int> _att_hadir;
+		
+		private string _link;
+		
+		public VW_DETAIL_ACARA()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_event_header_id", DbType="VarChar(50)")]
+		public string event_header_id
+		{
+			get
+			{
+				return this._event_header_id;
+			}
+			set
+			{
+				if ((this._event_header_id != value))
+				{
+					this._event_header_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_event_id", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> event_id
+		{
+			get
+			{
+				return this._event_id;
+			}
+			set
+			{
+				if ((this._event_id != value))
+				{
+					this._event_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ulang", DbType="Int")]
+		public System.Nullable<int> ulang
+		{
+			get
+			{
+				return this._ulang;
+			}
+			set
+			{
+				if ((this._ulang != value))
+				{
+					this._ulang = value;
 				}
 			}
 		}
@@ -4315,91 +4152,7 @@ namespace ICOE.Models
 			{
 				if ((this._name != value))
 				{
-					this.OnnameChanging(value);
-					this.SendPropertyChanging();
 					this._name = value;
-					this.SendPropertyChanged("name");
-					this.OnnameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_start_date", DbType="DateTime")]
-		public System.Nullable<System.DateTime> start_date
-		{
-			get
-			{
-				return this._start_date;
-			}
-			set
-			{
-				if ((this._start_date != value))
-				{
-					this.Onstart_dateChanging(value);
-					this.SendPropertyChanging();
-					this._start_date = value;
-					this.SendPropertyChanged("start_date");
-					this.Onstart_dateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_end_date", DbType="DateTime")]
-		public System.Nullable<System.DateTime> end_date
-		{
-			get
-			{
-				return this._end_date;
-			}
-			set
-			{
-				if ((this._end_date != value))
-				{
-					this.Onend_dateChanging(value);
-					this.SendPropertyChanging();
-					this._end_date = value;
-					this.SendPropertyChanged("end_date");
-					this.Onend_dateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status", DbType="Int")]
-		public System.Nullable<int> status
-		{
-			get
-			{
-				return this._status;
-			}
-			set
-			{
-				if ((this._status != value))
-				{
-					this.OnstatusChanging(value);
-					this.SendPropertyChanging();
-					this._status = value;
-					this.SendPropertyChanged("status");
-					this.OnstatusChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_location_id", DbType="VarChar(50)")]
-		public string location_id
-		{
-			get
-			{
-				return this._location_id;
-			}
-			set
-			{
-				if ((this._location_id != value))
-				{
-					this.Onlocation_idChanging(value);
-					this.SendPropertyChanging();
-					this._location_id = value;
-					this.SendPropertyChanged("location_id");
-					this.Onlocation_idChanged();
 				}
 			}
 		}
@@ -4415,16 +4168,172 @@ namespace ICOE.Models
 			{
 				if ((this._description != value))
 				{
-					this.OndescriptionChanging(value);
-					this.SendPropertyChanging();
 					this._description = value;
-					this.SendPropertyChanged("description");
-					this.OndescriptionChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_link", DbType="VarChar(MAX)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_start_date", DbType="DateTime")]
+		public System.Nullable<System.DateTime> start_date
+		{
+			get
+			{
+				return this._start_date;
+			}
+			set
+			{
+				if ((this._start_date != value))
+				{
+					this._start_date = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_start_date_mod", DbType="VarChar(20)")]
+		public string start_date_mod
+		{
+			get
+			{
+				return this._start_date_mod;
+			}
+			set
+			{
+				if ((this._start_date_mod != value))
+				{
+					this._start_date_mod = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_end_date", DbType="DateTime")]
+		public System.Nullable<System.DateTime> end_date
+		{
+			get
+			{
+				return this._end_date;
+			}
+			set
+			{
+				if ((this._end_date != value))
+				{
+					this._end_date = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status", DbType="Int")]
+		public System.Nullable<int> status
+		{
+			get
+			{
+				return this._status;
+			}
+			set
+			{
+				if ((this._status != value))
+				{
+					this._status = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dstrct_code", DbType="VarChar(4)")]
+		public string dstrct_code
+		{
+			get
+			{
+				return this._dstrct_code;
+			}
+			set
+			{
+				if ((this._dstrct_code != value))
+				{
+					this._dstrct_code = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_departemen", DbType="VarChar(50)")]
+		public string departemen
+		{
+			get
+			{
+				return this._departemen;
+			}
+			set
+			{
+				if ((this._departemen != value))
+				{
+					this._departemen = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_location_id", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> location_id
+		{
+			get
+			{
+				return this._location_id;
+			}
+			set
+			{
+				if ((this._location_id != value))
+				{
+					this._location_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_location_name", DbType="VarChar(50)")]
+		public string location_name
+		{
+			get
+			{
+				return this._location_name;
+			}
+			set
+			{
+				if ((this._location_name != value))
+				{
+					this._location_name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_count_attendee", DbType="Int")]
+		public System.Nullable<int> count_attendee
+		{
+			get
+			{
+				return this._count_attendee;
+			}
+			set
+			{
+				if ((this._count_attendee != value))
+				{
+					this._count_attendee = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_att_hadir", DbType="Int")]
+		public System.Nullable<int> att_hadir
+		{
+			get
+			{
+				return this._att_hadir;
+			}
+			set
+			{
+				if ((this._att_hadir != value))
+				{
+					this._att_hadir = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_link", DbType="VarChar(200)")]
 		public string link
 		{
 			get
@@ -4435,132 +4344,8 @@ namespace ICOE.Models
 			{
 				if ((this._link != value))
 				{
-					this.OnlinkChanging(value);
-					this.SendPropertyChanging();
 					this._link = value;
-					this.SendPropertyChanged("link");
-					this.OnlinkChanged();
 				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_is_use_qr_code", DbType="Bit")]
-		public System.Nullable<bool> is_use_qr_code
-		{
-			get
-			{
-				return this._is_use_qr_code;
-			}
-			set
-			{
-				if ((this._is_use_qr_code != value))
-				{
-					this.Onis_use_qr_codeChanging(value);
-					this.SendPropertyChanging();
-					this._is_use_qr_code = value;
-					this.SendPropertyChanged("is_use_qr_code");
-					this.Onis_use_qr_codeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_is_use_location", DbType="Bit")]
-		public System.Nullable<bool> is_use_location
-		{
-			get
-			{
-				return this._is_use_location;
-			}
-			set
-			{
-				if ((this._is_use_location != value))
-				{
-					this.Onis_use_locationChanging(value);
-					this.SendPropertyChanging();
-					this._is_use_location = value;
-					this.SendPropertyChanged("is_use_location");
-					this.Onis_use_locationChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_header_id", DbType="VarChar(50)")]
-		public string header_id
-		{
-			get
-			{
-				return this._header_id;
-			}
-			set
-			{
-				if ((this._header_id != value))
-				{
-					this.Onheader_idChanging(value);
-					this.SendPropertyChanging();
-					this._header_id = value;
-					this.SendPropertyChanged("header_id");
-					this.Onheader_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_created_by", DbType="VarChar(50)")]
-		public string created_by
-		{
-			get
-			{
-				return this._created_by;
-			}
-			set
-			{
-				if ((this._created_by != value))
-				{
-					this.Oncreated_byChanging(value);
-					this.SendPropertyChanging();
-					this._created_by = value;
-					this.SendPropertyChanged("created_by");
-					this.Oncreated_byChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_created_date", DbType="DateTime")]
-		public System.Nullable<System.DateTime> created_date
-		{
-			get
-			{
-				return this._created_date;
-			}
-			set
-			{
-				if ((this._created_date != value))
-				{
-					this.Oncreated_dateChanging(value);
-					this.SendPropertyChanging();
-					this._created_date = value;
-					this.SendPropertyChanged("created_date");
-					this.Oncreated_dateChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
@@ -4765,7 +4550,7 @@ namespace ICOE.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_link", DbType="VarChar(MAX)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_link", DbType="VarChar(200)")]
 		public string link
 		{
 			get
@@ -5002,6 +4787,442 @@ namespace ICOE.Models
 				{
 					this._status = value;
 				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TBL_M_ICOE_LINK")]
+	public partial class TBL_M_ICOE_LINK : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _event_id;
+		
+		private string _link;
+		
+		private string _header_id;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void Onevent_idChanging(System.Guid value);
+    partial void Onevent_idChanged();
+    partial void OnlinkChanging(string value);
+    partial void OnlinkChanged();
+    partial void Onheader_idChanging(string value);
+    partial void Onheader_idChanged();
+    #endregion
+		
+		public TBL_M_ICOE_LINK()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_event_id", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid event_id
+		{
+			get
+			{
+				return this._event_id;
+			}
+			set
+			{
+				if ((this._event_id != value))
+				{
+					this.Onevent_idChanging(value);
+					this.SendPropertyChanging();
+					this._event_id = value;
+					this.SendPropertyChanged("event_id");
+					this.Onevent_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_link", DbType="VarChar(200)")]
+		public string link
+		{
+			get
+			{
+				return this._link;
+			}
+			set
+			{
+				if ((this._link != value))
+				{
+					this.OnlinkChanging(value);
+					this.SendPropertyChanging();
+					this._link = value;
+					this.SendPropertyChanged("link");
+					this.OnlinkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_header_id", DbType="VarChar(50)")]
+		public string header_id
+		{
+			get
+			{
+				return this._header_id;
+			}
+			set
+			{
+				if ((this._header_id != value))
+				{
+					this.Onheader_idChanging(value);
+					this.SendPropertyChanging();
+					this._header_id = value;
+					this.SendPropertyChanged("header_id");
+					this.Onheader_idChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TBL_M_EVENT")]
+	public partial class TBL_M_EVENT : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _event_id;
+		
+		private string _name;
+		
+		private System.Nullable<System.DateTime> _start_date;
+		
+		private System.Nullable<System.DateTime> _end_date;
+		
+		private System.Nullable<int> _status;
+		
+		private string _location_id;
+		
+		private string _description;
+		
+		private System.Nullable<bool> _is_use_qr_code;
+		
+		private System.Nullable<bool> _is_use_location;
+		
+		private string _header_id;
+		
+		private string _created_by;
+		
+		private System.Nullable<System.DateTime> _created_date;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void Onevent_idChanging(System.Guid value);
+    partial void Onevent_idChanged();
+    partial void OnnameChanging(string value);
+    partial void OnnameChanged();
+    partial void Onstart_dateChanging(System.Nullable<System.DateTime> value);
+    partial void Onstart_dateChanged();
+    partial void Onend_dateChanging(System.Nullable<System.DateTime> value);
+    partial void Onend_dateChanged();
+    partial void OnstatusChanging(System.Nullable<int> value);
+    partial void OnstatusChanged();
+    partial void Onlocation_idChanging(string value);
+    partial void Onlocation_idChanged();
+    partial void OndescriptionChanging(string value);
+    partial void OndescriptionChanged();
+    partial void Onis_use_qr_codeChanging(System.Nullable<bool> value);
+    partial void Onis_use_qr_codeChanged();
+    partial void Onis_use_locationChanging(System.Nullable<bool> value);
+    partial void Onis_use_locationChanged();
+    partial void Onheader_idChanging(string value);
+    partial void Onheader_idChanged();
+    partial void Oncreated_byChanging(string value);
+    partial void Oncreated_byChanged();
+    partial void Oncreated_dateChanging(System.Nullable<System.DateTime> value);
+    partial void Oncreated_dateChanged();
+    #endregion
+		
+		public TBL_M_EVENT()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_event_id", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid event_id
+		{
+			get
+			{
+				return this._event_id;
+			}
+			set
+			{
+				if ((this._event_id != value))
+				{
+					this.Onevent_idChanging(value);
+					this.SendPropertyChanging();
+					this._event_id = value;
+					this.SendPropertyChanged("event_id");
+					this.Onevent_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(100)")]
+		public string name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				if ((this._name != value))
+				{
+					this.OnnameChanging(value);
+					this.SendPropertyChanging();
+					this._name = value;
+					this.SendPropertyChanged("name");
+					this.OnnameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_start_date", DbType="DateTime")]
+		public System.Nullable<System.DateTime> start_date
+		{
+			get
+			{
+				return this._start_date;
+			}
+			set
+			{
+				if ((this._start_date != value))
+				{
+					this.Onstart_dateChanging(value);
+					this.SendPropertyChanging();
+					this._start_date = value;
+					this.SendPropertyChanged("start_date");
+					this.Onstart_dateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_end_date", DbType="DateTime")]
+		public System.Nullable<System.DateTime> end_date
+		{
+			get
+			{
+				return this._end_date;
+			}
+			set
+			{
+				if ((this._end_date != value))
+				{
+					this.Onend_dateChanging(value);
+					this.SendPropertyChanging();
+					this._end_date = value;
+					this.SendPropertyChanged("end_date");
+					this.Onend_dateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status", DbType="Int")]
+		public System.Nullable<int> status
+		{
+			get
+			{
+				return this._status;
+			}
+			set
+			{
+				if ((this._status != value))
+				{
+					this.OnstatusChanging(value);
+					this.SendPropertyChanging();
+					this._status = value;
+					this.SendPropertyChanged("status");
+					this.OnstatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_location_id", DbType="VarChar(50)")]
+		public string location_id
+		{
+			get
+			{
+				return this._location_id;
+			}
+			set
+			{
+				if ((this._location_id != value))
+				{
+					this.Onlocation_idChanging(value);
+					this.SendPropertyChanging();
+					this._location_id = value;
+					this.SendPropertyChanged("location_id");
+					this.Onlocation_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_description", DbType="VarChar(MAX)")]
+		public string description
+		{
+			get
+			{
+				return this._description;
+			}
+			set
+			{
+				if ((this._description != value))
+				{
+					this.OndescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._description = value;
+					this.SendPropertyChanged("description");
+					this.OndescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_is_use_qr_code", DbType="Bit")]
+		public System.Nullable<bool> is_use_qr_code
+		{
+			get
+			{
+				return this._is_use_qr_code;
+			}
+			set
+			{
+				if ((this._is_use_qr_code != value))
+				{
+					this.Onis_use_qr_codeChanging(value);
+					this.SendPropertyChanging();
+					this._is_use_qr_code = value;
+					this.SendPropertyChanged("is_use_qr_code");
+					this.Onis_use_qr_codeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_is_use_location", DbType="Bit")]
+		public System.Nullable<bool> is_use_location
+		{
+			get
+			{
+				return this._is_use_location;
+			}
+			set
+			{
+				if ((this._is_use_location != value))
+				{
+					this.Onis_use_locationChanging(value);
+					this.SendPropertyChanging();
+					this._is_use_location = value;
+					this.SendPropertyChanged("is_use_location");
+					this.Onis_use_locationChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_header_id", DbType="VarChar(50)")]
+		public string header_id
+		{
+			get
+			{
+				return this._header_id;
+			}
+			set
+			{
+				if ((this._header_id != value))
+				{
+					this.Onheader_idChanging(value);
+					this.SendPropertyChanging();
+					this._header_id = value;
+					this.SendPropertyChanged("header_id");
+					this.Onheader_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_created_by", DbType="VarChar(50)")]
+		public string created_by
+		{
+			get
+			{
+				return this._created_by;
+			}
+			set
+			{
+				if ((this._created_by != value))
+				{
+					this.Oncreated_byChanging(value);
+					this.SendPropertyChanging();
+					this._created_by = value;
+					this.SendPropertyChanged("created_by");
+					this.Oncreated_byChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_created_date", DbType="DateTime")]
+		public System.Nullable<System.DateTime> created_date
+		{
+			get
+			{
+				return this._created_date;
+			}
+			set
+			{
+				if ((this._created_date != value))
+				{
+					this.Oncreated_dateChanging(value);
+					this.SendPropertyChanging();
+					this._created_date = value;
+					this.SendPropertyChanged("created_date");
+					this.Oncreated_dateChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
@@ -5457,58 +5678,6 @@ namespace ICOE.Models
 				if ((this._name != value))
 				{
 					this._name = value;
-				}
-			}
-		}
-	}
-	
-	public partial class cusp_cektanggalResult
-	{
-		
-		private int _hasil;
-		
-		public cusp_cektanggalResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_hasil", DbType="Int NOT NULL")]
-		public int hasil
-		{
-			get
-			{
-				return this._hasil;
-			}
-			set
-			{
-				if ((this._hasil != value))
-				{
-					this._hasil = value;
-				}
-			}
-		}
-	}
-	
-	public partial class cusp_cekLokasiResult
-	{
-		
-		private int _hasil;
-		
-		public cusp_cekLokasiResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_hasil", DbType="Int NOT NULL")]
-		public int hasil
-		{
-			get
-			{
-				return this._hasil;
-			}
-			set
-			{
-				if ((this._hasil != value))
-				{
-					this._hasil = value;
 				}
 			}
 		}
@@ -7040,32 +7209,6 @@ namespace ICOE.Models
 		}
 	}
 	
-	public partial class cusp_UpdateEvent_HeaderResult
-	{
-		
-		private string _Column1;
-		
-		public cusp_UpdateEvent_HeaderResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="", Storage="_Column1", DbType="VarChar(1) NOT NULL", CanBeNull=false)]
-		public string Column1
-		{
-			get
-			{
-				return this._Column1;
-			}
-			set
-			{
-				if ((this._Column1 != value))
-				{
-					this._Column1 = value;
-				}
-			}
-		}
-	}
-	
 	public partial class cusp_EventHeaderResult
 	{
 		
@@ -7231,6 +7374,84 @@ namespace ICOE.Models
 				if ((this._startdateawal != value))
 				{
 					this._startdateawal = value;
+				}
+			}
+		}
+	}
+	
+	public partial class cusp_UpdateEvent_HeaderResult
+	{
+		
+		private string _Column1;
+		
+		public cusp_UpdateEvent_HeaderResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="", Storage="_Column1", DbType="VarChar(1) NOT NULL", CanBeNull=false)]
+		public string Column1
+		{
+			get
+			{
+				return this._Column1;
+			}
+			set
+			{
+				if ((this._Column1 != value))
+				{
+					this._Column1 = value;
+				}
+			}
+		}
+	}
+	
+	public partial class cusp_cekLokasiResult
+	{
+		
+		private int _hasil;
+		
+		public cusp_cekLokasiResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_hasil", DbType="Int NOT NULL")]
+		public int hasil
+		{
+			get
+			{
+				return this._hasil;
+			}
+			set
+			{
+				if ((this._hasil != value))
+				{
+					this._hasil = value;
+				}
+			}
+		}
+	}
+	
+	public partial class cusp_cektanggalResult
+	{
+		
+		private int _hasil;
+		
+		public cusp_cektanggalResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_hasil", DbType="Int NOT NULL")]
+		public int hasil
+		{
+			get
+			{
+				return this._hasil;
+			}
+			set
+			{
+				if ((this._hasil != value))
+				{
+					this._hasil = value;
 				}
 			}
 		}

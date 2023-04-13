@@ -81,6 +81,44 @@ namespace ICOE.Controllers
             }
         }
 
+        //UNTUK KENDO GRID
+        [HttpPost]
+        public JsonResult AjaxReadsDef(string event_id)
+        {
+            try
+            {
+                i_db = new DB_ICT_mOK_KPTDataContext();
+                var tbl_temp_elis = i_db.VW_T_EVENT_ATTENDANCEs
+                    .Where(f => f.event_id == event_id && f.status == 20)
+                    .OrderByDescending(f => f.date_create);
+                return Json(new { status = true, Data = tbl_temp_elis, Total = tbl_temp_elis.Count() }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception e)
+            {
+                return this.Json(new { error = e.ToString() }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        //UNTUK KENDO GRID
+        [HttpPost]
+        public JsonResult AjaxReadsTent(string event_id)
+        {
+            try
+            {
+                i_db = new DB_ICT_mOK_KPTDataContext();
+                var tbl_temp_elis = i_db.VW_T_EVENT_ATTENDANCEs
+                    .Where(f => f.event_id == event_id)
+                    .OrderByDescending(f => f.date_create);
+                return Json(new { status = true, Data = tbl_temp_elis, Total = tbl_temp_elis.Count() }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception e)
+            {
+                return this.Json(new { error = e.ToString() }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public JsonResult AjaxReadDate (string evid)
         {
             try

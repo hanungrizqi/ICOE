@@ -62,6 +62,7 @@ namespace ICOE.Controllers
             }           
         }
 
+        [AllowAnonymous]
         public JsonResult read_ev_detail (string evh)
         {
             try
@@ -124,13 +125,19 @@ namespace ICOE.Controllers
         }
 
         public JsonResult ajaxreadevents ( string idH )
-      {
+        {
             try
             {
-                db = new DB_ICT_mOK_KPTDataContext();               
+                db = new DB_ICT_mOK_KPTDataContext();
+
+                List<TBL_M_ICOE_LINK> getEVli = db.TBL_M_ICOE_LINKs.Where(l => l.header_id == idH).ToList();
+                List<string> eventli = getEVli.Select(l => l.link.ToString()).ToList();
 
                 List<TBL_M_EVENT> getEVid = db.TBL_M_EVENTs.Where(i => i.header_id == idH).ToList();
                 List<string> eventid = getEVid.Select(f => f.event_id.ToString()).ToList();
+
+                //List<TBL_M_ICOE_LINK> getEVli = db.TBL_M_ICOE_LINKs.Where(i => i.header_id == idH).ToList();
+                //List<string> eventli = getEVli.Select(f => f.link.ToString()).ToList();
 
                 string[] attend = new string[500];
                 var u = 0;
@@ -140,6 +147,8 @@ namespace ICOE.Controllers
                 //UNTUK LOAD PESERTA DAN GROUP
                 foreach (string evid in eventid)
                 {
+
+
                     List<TBL_T_EVENT_ATTENDANCE> ev_att = db.TBL_T_EVENT_ATTENDANCEs.Where(f => f.event_id == evid).ToList();
                     List<string> i_lst_attendee = ev_att.Select(f => f.attendee).ToList();
                     List<string> groups = ev_att.Select(f => f.group_id).ToList();                   
@@ -154,7 +163,6 @@ namespace ICOE.Controllers
                             u++;
                         }
                     }
-
                     var getcb = db.TBL_M_EVENT_HEADERs.Where(o => o.event_header_id == idH).Select(f => f.create_by).FirstOrDefault();
                     var getevent = db.VW_HEADER_DETAILs.Where(k => k.event_header_id == idH).FirstOrDefault();
                     var getDeV = db.VW_DETAIL_ACARAs.Where(k => k.event_header_id == idH).OrderBy(g => g.start_date).Select(h => h.start_date).FirstOrDefault();
@@ -170,7 +178,8 @@ namespace ICOE.Controllers
                     evm.kategori = getevent.kategori;
                     evm.ulang = getevent.ulang.ToString();
                     evm.departement = getevent.departemen;
-                    evm.start_date = getDeV;
+                    //evm.start_date = getDeV;
+                    evm.start_date = getevent.start_date;
                     evm.end_dates = getevent.end_date;
                     evm.starttime = Convert.ToDateTime(getevent.start_time);
                     evm.endtime = Convert.ToDateTime(getevent.end_time);
@@ -197,6 +206,8 @@ namespace ICOE.Controllers
                 db = new DB_ICT_mOK_KPTDataContext();
 
                 TBL_M_EVENT tbl_m_event = db.TBL_M_EVENTs.Where(f => f.event_id == new Guid(id)).FirstOrDefault();
+                TBL_M_ICOE_LINK tbl_m_icoe_link = db.TBL_M_ICOE_LINKs.Where(f => f.event_id == new Guid(id)).FirstOrDefault();
+
                 List<TBL_T_EVENT_ATTENDANCE> tbl_t_event_attendance = db.TBL_T_EVENT_ATTENDANCEs.Where(f => f.event_id == id).ToList();
                 List<string> i_lst_attendee = tbl_t_event_attendance.Select(f => f.attendee).ToList();
                 List<string> groups = tbl_t_event_attendance.Select(f => f.group_id).ToList();
@@ -233,7 +244,7 @@ namespace ICOE.Controllers
                 eventViewModels.ulang = TBL_M_EVENT_HEADER.ulang.ToString();
                 eventViewModels.kategori = TBL_M_EVENT_HEADER.kategori;
                 eventViewModels.description = tbl_m_event.description;
-                eventViewModels.link = tbl_m_event.link;
+                eventViewModels.link = tbl_m_icoe_link.link;
                 eventViewModels.start_date = getsg.start_date;
                 eventViewModels.end_dates = getsg1.start_date;
                 eventViewModels.endtime = Convert.ToDateTime(getsg.end_date);
@@ -365,8 +376,9 @@ namespace ICOE.Controllers
 
         public JsonResult getEventData(string id)
         {
+            var Link = db.TBL_M_ICOE_LINKs.Where(o => o.event_id.ToString() == id).FirstOrDefault();
             var Event = db.TBL_M_EVENTs.Where(o => o.event_id.ToString() == id).FirstOrDefault();
-            return Json(new { status = true, Total = Event, Data = Event }, JsonRequestBehavior.AllowGet);
+            return Json(new { status = true, Total = Event, Totall = Link, Data = Event }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult getatt_Data (string id)

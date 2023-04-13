@@ -206,6 +206,7 @@ namespace ICOE.Models
                         List<TBL_T_EVENT_ATTENDANCE> tblDetail = new List<TBL_T_EVENT_ATTENDANCE>();
 
                         var getEV = db.TBL_M_EVENTs.Where(o => o.header_id == eventH_id).Select(f => f.event_id).FirstOrDefault();
+                        var getEVL = db.TBL_M_ICOE_LINKs.Where(o => o.header_id == eventH_id).Select(f => f.event_id).FirstOrDefault();
 
                         //HAPUS RECENT DATA TO UPDATE
                         var tbl_evH = db.TBL_M_EVENT_HEADERs.Where(y => y.event_header_id == eventH_id);
@@ -214,7 +215,11 @@ namespace ICOE.Models
                         var tbl_ev = db.TBL_M_EVENTs.Where(x => x.header_id == eventH_id);
                         db.TBL_M_EVENTs.DeleteAllOnSubmit(tbl_ev);
 
-                        var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == getEV.ToString());
+                        var tbl_evl = db.TBL_M_ICOE_LINKs.Where(x => x.header_id == eventH_id);
+                        db.TBL_M_ICOE_LINKs.DeleteAllOnSubmit(tbl_evl);
+
+                        //var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == getEV.ToString());
+                        var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == getEV.ToString() && i.event_id == getEVL.ToString());
                         db.TBL_T_EVENT_ATTENDANCEs.DeleteAllOnSubmit(tbl_at);
                         db.SubmitChanges();
 
@@ -281,6 +286,7 @@ namespace ICOE.Models
                         List<TBL_T_EVENT_ATTENDANCE> tblDetail = new List<TBL_T_EVENT_ATTENDANCE>();
 
                         var getEV = db.TBL_M_EVENTs.Where(o => o.header_id == eventH_id).Select(f => f.event_id).FirstOrDefault();
+                        var getEVL = db.TBL_M_ICOE_LINKs.Where(o => o.header_id == eventH_id).Select(f => f.event_id).FirstOrDefault();
 
                         //HAPUS RECENT DATA TO UPDATE
                         var tbl_evH = db.TBL_M_EVENT_HEADERs.Where(y => y.event_header_id == eventH_id);
@@ -289,7 +295,11 @@ namespace ICOE.Models
                         var tbl_ev = db.TBL_M_EVENTs.Where(x => x.header_id == eventH_id);
                         db.TBL_M_EVENTs.DeleteAllOnSubmit(tbl_ev);
 
-                        var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == getEV.ToString());
+                        var tbl_evl = db.TBL_M_ICOE_LINKs.Where(x => x.header_id == eventH_id);
+                        db.TBL_M_ICOE_LINKs.DeleteAllOnSubmit(tbl_evl);
+
+                        //var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == getEV.ToString());
+                        var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == getEV.ToString() && i.event_id == getEVL.ToString());
                         db.TBL_T_EVENT_ATTENDANCEs.DeleteAllOnSubmit(tbl_at);
                         db.SubmitChanges();
 
@@ -338,15 +348,20 @@ namespace ICOE.Models
                         List<TBL_T_EVENT_ATTENDANCE> tblDetail = new List<TBL_T_EVENT_ATTENDANCE>();
 
                         var getEV = db.TBL_M_EVENTs.Where(o => o.header_id == eventH_id).Select(f => f.event_id).FirstOrDefault();
+                        var getEVL = db.TBL_M_ICOE_LINKs.Where(o => o.header_id == eventH_id).Select(f => f.event_id).FirstOrDefault();
 
                         //HAPUS RECENT DATA TO UPDATE
                         var tbl_evH = db.TBL_M_EVENT_HEADERs.Where(y => y.event_header_id == eventH_id);
                         db.TBL_M_EVENT_HEADERs.DeleteAllOnSubmit(tbl_evH);
 
+                        var tbl_evl = db.TBL_M_ICOE_LINKs.Where(l => l.header_id == eventH_id);
+                        db.TBL_M_ICOE_LINKs.DeleteAllOnSubmit(tbl_evl);
+
                         var tbl_ev = db.TBL_M_EVENTs.Where(x => x.header_id == eventH_id);
                         db.TBL_M_EVENTs.DeleteAllOnSubmit(tbl_ev);
 
-                        var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == getEV.ToString());
+                        //var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == getEV.ToString());
+                        var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == getEV.ToString() && i.event_id == getEVL.ToString());
                         db.TBL_T_EVENT_ATTENDANCEs.DeleteAllOnSubmit(tbl_at);
                         db.SubmitChanges();
 
@@ -439,6 +454,10 @@ namespace ICOE.Models
                         var getEV = db.TBL_M_EVENTs.Where(o => o.header_id == eventH_id).Select(f => f.event_id);
                         var evtid = getEV.ToArray();
 
+                        var tbl_evl = db.TBL_M_ICOE_LINKs.Where(x => x.header_id == eventH_id);
+                        db.TBL_M_ICOE_LINKs.DeleteAllOnSubmit(tbl_evl);
+                        db.SubmitChanges();
+
                         var tbl_evH = db.TBL_M_EVENT_HEADERs.Where(x => x.event_header_id == eventH_id);
                         db.TBL_M_EVENT_HEADERs.DeleteAllOnSubmit(tbl_evH);
                         db.SubmitChanges();
@@ -522,6 +541,10 @@ namespace ICOE.Models
                         var getEV = db.TBL_M_EVENTs.Where(o => o.header_id == eventH_id).Select(f => f.event_id);
                         var evtid = getEV.ToArray();
 
+                        var tbl_evl = db.TBL_M_ICOE_LINKs.Where(x => x.header_id == eventH_id);
+                        db.TBL_M_ICOE_LINKs.DeleteAllOnSubmit(tbl_evl);
+                        db.SubmitChanges();
+
                         var tbl_evH = db.TBL_M_EVENT_HEADERs.Where(x => x.event_header_id == eventH_id);
                         db.TBL_M_EVENT_HEADERs.DeleteAllOnSubmit(tbl_evH);
                         db.SubmitChanges();
@@ -589,6 +612,10 @@ namespace ICOE.Models
                         //pst ksg, grp ada
                         var getEV = db.TBL_M_EVENTs.Where(o => o.header_id == eventH_id).Select(f => f.event_id);
                         var evtid = getEV.ToArray();
+
+                        var tbl_evl = db.TBL_M_ICOE_LINKs.Where(x => x.header_id == eventH_id);
+                        db.TBL_M_ICOE_LINKs.DeleteAllOnSubmit(tbl_evl);
+                        db.SubmitChanges();
 
                         var tbl_evH = db.TBL_M_EVENT_HEADERs.Where(x => x.event_header_id == eventH_id);
                         db.TBL_M_EVENT_HEADERs.DeleteAllOnSubmit(tbl_evH);
@@ -697,6 +724,10 @@ namespace ICOE.Models
                         var getEV = db.TBL_M_EVENTs.Where(o => o.header_id == eventH_id).Select(f => f.event_id);
                         var evtid = getEV.ToArray();
 
+                        var tbl_evl = db.TBL_M_ICOE_LINKs.Where(x => x.header_id == eventH_id);
+                        db.TBL_M_ICOE_LINKs.DeleteAllOnSubmit(tbl_evl);
+                        db.SubmitChanges();
+
                         var tbl_evH = db.TBL_M_EVENT_HEADERs.Where(x => x.event_header_id == eventH_id);
                         db.TBL_M_EVENT_HEADERs.DeleteAllOnSubmit(tbl_evH);
                         db.SubmitChanges();
@@ -779,6 +810,10 @@ namespace ICOE.Models
                         var getEV = db.TBL_M_EVENTs.Where(o => o.header_id == eventH_id).Select(f => f.event_id);
                         var evtid = getEV.ToArray();
 
+                        var tbl_evl = db.TBL_M_ICOE_LINKs.Where(x => x.header_id == eventH_id);
+                        db.TBL_M_ICOE_LINKs.DeleteAllOnSubmit(tbl_evl);
+                        db.SubmitChanges();
+
                         var tbl_evH = db.TBL_M_EVENT_HEADERs.Where(x => x.event_header_id == eventH_id);
                         db.TBL_M_EVENT_HEADERs.DeleteAllOnSubmit(tbl_evH);
                         db.SubmitChanges();
@@ -845,6 +880,10 @@ namespace ICOE.Models
                         //pst ksg, grp ada
                         var getEV = db.TBL_M_EVENTs.Where(o => o.header_id == eventH_id).Select(f => f.event_id);
                         var evtid = getEV.ToArray();
+
+                        var tbl_evl = db.TBL_M_ICOE_LINKs.Where(x => x.header_id == eventH_id);
+                        db.TBL_M_ICOE_LINKs.DeleteAllOnSubmit(tbl_evl);
+                        db.SubmitChanges();
 
                         var tbl_evH = db.TBL_M_EVENT_HEADERs.Where(x => x.event_header_id == eventH_id);
                         db.TBL_M_EVENT_HEADERs.DeleteAllOnSubmit(tbl_evH);

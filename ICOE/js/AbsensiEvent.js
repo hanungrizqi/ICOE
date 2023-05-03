@@ -16,7 +16,7 @@ $(document).ready(function () {
 
         people: "",
 
-        ds_list : new kendo.data.DataSource({
+        ds_list: new kendo.data.DataSource({
             transport: {
                 read: {
                     url: "/AbsensiEvent/AjaxRead",
@@ -35,7 +35,7 @@ $(document).ready(function () {
                 model: {
                     id: "event_id",
                     fields: {
-                        start_date: { type: "string"}
+                        start_date: { type: "string" }
                     }
                 }
 
@@ -46,7 +46,7 @@ $(document).ready(function () {
             serverSorting: true
             //,
             //filter: { field: "DISTRICT", operator: "startswith", value: $("#txt_SITE").val() }
-        
+
         }),
 
         ds_allEvent: new kendo.data.DataSource({
@@ -92,7 +92,7 @@ $(document).ready(function () {
         }),
 
         searchingFilter: function () {
-           // debugger
+            // debugger
             var model = viewModel.get();
             var obj = {
                 tahun: model.tahun,
@@ -119,35 +119,35 @@ $(document).ready(function () {
                                 '  <div class="card-img">   ' +
                                 '  <img src="../Content/img/meeting.PNG" class="img-responsive"> ' +
                                 '  <div class="card-caption"> ' +
-                               '  <span class="h5">' + response.Data.name + '</span> ' +
-                               '   <p>Open</p> ' +
-                               '  </div> ' +
-                               ' </div> ' +
-                               '  <div class="card-body"> ' +
-                               '  <div class="lead">Deskripsi</div> ' +
-                               '  <ul class="details"> ' +
-                               '<li>' + response.Data.description + '</li>' +
-                               '<li>' + response.Data.status_ulang + '</li>' +
-                               '</ul>' +
-                               '  <table class="table"> ' +
-                               '<tr><td>Mulai</td><td class="price"></td><td class="note">' + response.Data.start_date_mod + ' ' + response.Data.start_time_mode + '</td></tr>' +
-                               '<tr><td>Selesai</td><td class="price"></td><td class="note">' + response.Data.end_date_mod + ' ' + response.Data.end_time_mode + '</td></tr>' +
-                               '<tr><td>Lokasi</td><td class="price"></td><td class="note">' + response.Data.location_name + '</td></tr>' +
-                               ' </table>' +
-                               ' <a :href="\'../QRCodeAtt/Index?evH=\'' + response.Data.event_header_id + '\'&name=\'' + response.Data.name + '\'" class="btn btn-primary btn-lg btn-block buy-now">ENTER <span class="glyphicon glyphicon-triangle-right"></span>' +
-                               ' </a>' +
-                               '</div>' +
-                               '</div>' +
-                               ' </div>'
+                                '  <span class="h5">' + response.Data.name + '</span> ' +
+                                '   <p>Open</p> ' +
+                                '  </div> ' +
+                                ' </div> ' +
+                                '  <div class="card-body"> ' +
+                                '  <div class="lead">Deskripsi</div> ' +
+                                '  <ul class="details"> ' +
+                                '<li>' + response.Data.description + '</li>' +
+                                '<li>' + response.Data.status_ulang + '</li>' +
+                                '</ul>' +
+                                '  <table class="table"> ' +
+                                '<tr><td>Mulai</td><td class="price"></td><td class="note">' + response.Data.start_date_mod + ' ' + response.Data.start_time_mode + '</td></tr>' +
+                                '<tr><td>Selesai</td><td class="price"></td><td class="note">' + response.Data.end_date_mod + ' ' + response.Data.end_time_mode + '</td></tr>' +
+                                '<tr><td>Lokasi</td><td class="price"></td><td class="note">' + response.Data.location_name + '</td></tr>' +
+                                ' </table>' +
+                                ' <a :href="\'../QRCodeAtt/Index?evH=\'' + response.Data.event_header_id + '\'&name=\'' + response.Data.name + '\'" class="btn btn-primary btn-lg btn-block buy-now">ENTER <span class="glyphicon glyphicon-triangle-right"></span>' +
+                                ' </a>' +
+                                '</div>' +
+                                '</div>' +
+                                ' </div>'
 
-                               );
+                            );
                         });
                     }
                 }
             })
-            
+
         }
-    })     
+    })
     kendo.bind($("#toAll"), ViewModel);
     debugger
 
@@ -174,9 +174,9 @@ $(document).ready(function () {
     qrcode.clear(); // clear the code.
     qrcode.makeCode(getParameterByName("event_id"));
 
-    dates();   
+    dates();
 
-    $("#h_name").text(getParameterByName("name"));   
+    $("#h_name").text(getParameterByName("name"));
 
     $("#listView").kendoListView({
         dataSource: ViewModel.ds_list,
@@ -583,7 +583,7 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
-function dates()  {
+function dates() {
     //bind datenya
     //debugger
     $.ajax({
@@ -601,7 +601,7 @@ function dates()  {
             }
         }
     })
-}  
+}
 
 $("#dt_startEvent").kendoDatePicker({
     format: "dd/MM/yyyy"
@@ -639,24 +639,24 @@ $("#ddl_site").kendoDropDownList({
     dataTextField: "DSTRCT_CODE",
     dataValueField: "DSTRCT_CODE",
     dataSource:
-       {
-           type: "json",
-           transport:
-               {
-                   read:
-                       {
-                           url: "/CreateEvent/AjaxDistrik",
-                           contentType: "application/json",
-                           type: "POST",
-                           cache: false
-                       }
-               },
-           schema:
-               {
-                   data: "Data",
-                   total: "Total"
-               }
-       },
+    {
+        type: "json",
+        transport:
+        {
+            read:
+            {
+                url: "/CreateEvent/AjaxDistrik",
+                contentType: "application/json",
+                type: "POST",
+                cache: false
+            }
+        },
+        schema:
+        {
+            data: "Data",
+            total: "Total"
+        }
+    },
     select: function (e) {
         //debugger
         var dataItem = this.dataItem(e.item.index() + 1);
@@ -676,24 +676,24 @@ $("#ddl_dept").kendoDropDownList({
     dataTextField: "DEPT_DESC",
     dataValueField: "DEPT_CODE",
     dataSource:
-       {
-           type: "json",
-           transport:
-               {
-                   read:
-                       {
-                           url: "/AbsensiEvent/AjaxDepartement",
-                           contentType: "application/json",
-                           type: "POST",
-                           cache: false
-                       }
-               },
-           schema:
-               {
-                   data: "Data",
-                   total: "Total"
-               }
-       },
+    {
+        type: "json",
+        transport:
+        {
+            read:
+            {
+                url: "/AbsensiEvent/AjaxDepartement",
+                contentType: "application/json",
+                type: "POST",
+                cache: false
+            }
+        },
+        schema:
+        {
+            data: "Data",
+            total: "Total"
+        }
+    },
     select: function (e) {
         var dataItem = this.dataItem(e.item.index() + 1);
         ViewModel.set("dept", dataItem.DEPT_CODE);
@@ -705,24 +705,24 @@ $("#ddl_kategori").kendoDropDownList({
     dataTextField: "kategori",
     dataValueField: "id_kategori",
     dataSource:
-       {
-           type: "json",
-           transport:
-               {
-                   read:
-                       {
-                           url: "/CreateEvent/AjaxKategori",
-                           contentType: "application/json",
-                           type: "POST",
-                           cache: false
-                       }
-               },
-           schema:
-               {
-                   data: "Data",
-                   total: "Total"
-               }
-       },
+    {
+        type: "json",
+        transport:
+        {
+            read:
+            {
+                url: "/CreateEvent/AjaxKategori",
+                contentType: "application/json",
+                type: "POST",
+                cache: false
+            }
+        },
+        schema:
+        {
+            data: "Data",
+            total: "Total"
+        }
+    },
     select: function (e) {
         var dataItem = this.dataItem(e.item.index() + 1);
         ViewModel.set("kategori", dataItem.id_kategori);
@@ -749,11 +749,11 @@ function search() {
         success: function (response) {
             //debugger
             if (response.status == true) {
-               
+
                 $("#resultFilter").empty();
                 if (response.Data == null || response.Data == "" || response.Data == 0 || response.Data == "0") {
                     $("#resultFilter").empty();
-                    $("#resultFilter").append( '<p style="margin-left:42%;"> TIDAK ADA EVENT YANG ANDA CARI </p>' );
+                    $("#resultFilter").append('<p style="margin-left:42%;"> TIDAK ADA EVENT YANG ANDA CARI </p>');
                 }
                 else {
                     $.each(response.Data, function (key, item) {
@@ -763,30 +763,30 @@ function search() {
                             '  <div class="card-img">   ' +
                             '  <img src="../Content/img/meeting.PNG" class="img-responsive"> ' +
                             '  <div class="card-caption"> ' +
-                           '  <span class="h5">' + item.name + '</span> ' +
-                           '   <p>Open</p> ' +
-                           '  </div> ' +
-                           ' </div> ' +
-                           '  <div class="card-body"> ' +
-                           '  <div class="lead">Deskripsi</div> ' +
-                           '  <ul class="details"> ' +
-                           '<li>' + item.description + '</li>' +
-                           '<li>' + item.status_ulang + '</li>' +
-                           '</ul>' +
-                           '  <table class="table"> ' +
-                           '<tr><td>Mulai</td><td class="price"></td><td class="note">' + item.start_date_mod + ' ' + item.start_time_mod + '</td></tr>' +
-                           '<tr><td>Selesai</td><td class="price"></td><td class="note">' + item.end_date_mod + ' ' + item.end_time_mod + '</td></tr>' +
-                           '<tr><td>Lokasi</td><td class="price"></td><td class="note">' + item.location_name + '</td></tr>' +
-                           ' </table>' +
-                           ' <a href="/QRCodeAtt/Index?evH=' + item.event_header_id + '&name=' + item.name + '" class="btn btn-primary btn-lg btn-block buy-now">ENTER <span class="glyphicon glyphicon-triangle-right"></span>' +
-                           ' </a>' +
-                           '</div>' +
-                           '</div>' +
-                           ' </div>'
+                            '  <span class="h5">' + item.name + '</span> ' +
+                            '   <p>Open</p> ' +
+                            '  </div> ' +
+                            ' </div> ' +
+                            '  <div class="card-body"> ' +
+                            '  <div class="lead">Deskripsi</div> ' +
+                            '  <ul class="details"> ' +
+                            '<li>' + item.description + '</li>' +
+                            '<li>' + item.status_ulang + '</li>' +
+                            '</ul>' +
+                            '  <table class="table"> ' +
+                            '<tr><td>Mulai</td><td class="price"></td><td class="note">' + item.start_date_mod + ' ' + item.start_time_mod + '</td></tr>' +
+                            '<tr><td>Selesai</td><td class="price"></td><td class="note">' + item.end_date_mod + ' ' + item.end_time_mod + '</td></tr>' +
+                            '<tr><td>Lokasi</td><td class="price"></td><td class="note">' + item.location_name + '</td></tr>' +
+                            ' </table>' +
+                            ' <a href="/QRCodeAtt/Index?evH=' + item.event_header_id + '&name=' + item.name + '" class="btn btn-primary btn-lg btn-block buy-now">ENTER <span class="glyphicon glyphicon-triangle-right"></span>' +
+                            ' </a>' +
+                            '</div>' +
+                            '</div>' +
+                            ' </div>'
 
-                           );
+                        );
                     });
-                }               
+                }
             }
         }
     })

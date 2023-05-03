@@ -388,7 +388,7 @@ function detailInit(elem) {
                     { name: 'Attendance', text: 'Attendance', class: 'btn btn-default', click: ViewModel.DetailEvent },
                     //{ name: 'Tidak Hadir', text: 'Tidak Hadir', class: 'btn btn-default', click: ViewModel.DetailEvent2 },
                     { name: 'Respon', text: 'Respon', class: 'btn btn-default', click: ViewModel.DetailEvent3 },
-                    { name: 'Edit', text: 'Edit', class: 'btn btn-default', click: ViewModel.EditDetail }
+                    //{ name: 'Edit', text: 'Edit', class: 'btn btn-default', click: ViewModel.EditDetail }
                 ],
                 title: 'Action',
                 width: 150

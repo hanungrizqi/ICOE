@@ -45,7 +45,7 @@ namespace ICOE.Controllers
 
         //DIBAWAH INI UNTUK GRID
         [HttpPost]
-        public JsonResult AjaxReadsAtt(string s_str_event_id)
+        public JsonResult AjaxReadsAtt(Guid s_str_event_id)
         {
             try
             {
@@ -161,7 +161,7 @@ namespace ICOE.Controllers
             }
         }
 
-        public JsonResult get_atthadir(string s_str_event_id)
+        public JsonResult get_atthadir(Guid s_str_event_id)
         {
             try
             {
@@ -174,7 +174,7 @@ namespace ICOE.Controllers
             }
         }
 
-        public JsonResult get_atttdkhadir(string s_str_event_id)
+        public JsonResult get_atttdkhadir(Guid s_str_event_id)
         {
             try
             {
@@ -187,11 +187,37 @@ namespace ICOE.Controllers
             }
         }
 
-        public JsonResult get_atttent(string s_str_event_id)
+        public JsonResult get_attaccept(Guid s_str_event_id)
         {
             try
             {
-                var jumlah = i_ctx_db.VW_ATTENDEE_TENTATIVEs.Where(f => f.event_id == s_str_event_id).FirstOrDefault();
+                var jumlah = i_ctx_db.VW_ATTENDEE_RESPON_ACCEPTs.Where(f => f.event_id == s_str_event_id).FirstOrDefault();
+                return Json(new { status = true, Data = jumlah, Total = jumlah }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return this.Json(new { status = false, error = e.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult get_attdismiss(Guid s_str_event_id)
+        {
+            try
+            {
+                var jumlah = i_ctx_db.VW_ATTENDEE_RESPON_DISMISSes.Where(f => f.event_id == s_str_event_id).FirstOrDefault();
+                return Json(new { status = true, Data = jumlah, Total = jumlah }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return this.Json(new { status = false, error = e.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult get_attdtentative(Guid s_str_event_id)
+        {
+            try
+            {
+                var jumlah = i_ctx_db.VW_ATTENDEE_RESPON_TENTATIVEs.Where(f => f.event_id == s_str_event_id).FirstOrDefault();
                 return Json(new { status = true, Data = jumlah, Total = jumlah }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)

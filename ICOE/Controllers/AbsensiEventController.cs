@@ -76,7 +76,7 @@ namespace ICOE.Controllers
         //UNTUK KENDO GRID
         //UNTUK KENDO GRID
         [HttpPost]
-        public JsonResult AjaxReadsAtt(string event_id)
+        public JsonResult AjaxReadsAtt(Guid event_id)
         {
             try
             {
@@ -95,7 +95,7 @@ namespace ICOE.Controllers
 
         //UNTUK KENDO GRID
         [HttpPost]
-        public JsonResult AjaxReadsDef(string event_id)
+        public JsonResult AjaxReadsDef(Guid event_id)
         {
             try
             {
@@ -114,14 +114,52 @@ namespace ICOE.Controllers
 
         //UNTUK KENDO GRID
         [HttpPost]
-        public JsonResult responseAccept(string event_id)
+        public JsonResult responseAccept(Guid event_id)
         {
             try
             {
                 i_db = new DB_ICT_mOK_KPTDataContext();
-                var tbl_temp_elis = i_db.VW_T_EVENT_ATTENDANCEs
+                var tbl_temp_elis = i_db.VW_RESPON_ACCEPTs
                     .Where(f => f.event_id == event_id)
-                    .OrderByDescending(f => f.date_create);
+                    .OrderByDescending(f => f.date_create_mod);
+                return Json(new { status = true, Data = tbl_temp_elis, Total = tbl_temp_elis.Count() }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception e)
+            {
+                return this.Json(new { error = e.ToString() }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        //UNTUK KENDO GRID
+        [HttpPost]
+        public JsonResult responseDismiss(Guid event_id)
+        {
+            try
+            {
+                i_db = new DB_ICT_mOK_KPTDataContext();
+                var tbl_temp_elis = i_db.VW_RESPON_DISMISSes
+                    .Where(f => f.event_id == event_id)
+                    .OrderByDescending(f => f.date_create_mod);
+                return Json(new { status = true, Data = tbl_temp_elis, Total = tbl_temp_elis.Count() }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception e)
+            {
+                return this.Json(new { error = e.ToString() }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        //UNTUK KENDO GRID
+        [HttpPost]
+        public JsonResult responseTentative(Guid event_id)
+        {
+            try
+            {
+                i_db = new DB_ICT_mOK_KPTDataContext();
+                var tbl_temp_elis = i_db.VW_RESPON_TENTATIVEs
+                    .Where(f => f.event_id == event_id)
+                    .OrderByDescending(f => f.date_create_mod);
                 return Json(new { status = true, Data = tbl_temp_elis, Total = tbl_temp_elis.Count() }, JsonRequestBehavior.AllowGet);
 
             }

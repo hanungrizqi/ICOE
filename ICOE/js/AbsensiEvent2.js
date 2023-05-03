@@ -162,6 +162,12 @@ $(document).ready(function () {
     loadPeople3(getParameterByName("event_id"));
     loadGrid3(getParameterByName("event_id"));
 
+    loadPeopledismiss(getParameterByName("event_id"));
+    loadGriddismiss(getParameterByName("event_id"));
+
+    loadPeopletentative(getParameterByName("event_id"));
+    loadGridtentative(getParameterByName("event_id"));
+
     var qrcode = new QRCode("qrcode", {
         text: "KPP",
         width: 300,
@@ -408,7 +414,7 @@ $("#tabstrip").kendoTabStrip({
 
 function loadGrid3() {
     $("#grid3").empty();
-    var grid2 = $("#grid3").kendoGrid({
+    var grid3 = $("#grid3").kendoGrid({
         dataSource: {
             type: "json",
             transport: {
@@ -495,7 +501,7 @@ function loadGrid3() {
 
 
     var grid3 = $("#grid3").data("kendoGrid");
-    grid2.dataSource;
+    grid3.dataSource;
 
     debugger
 
@@ -504,6 +510,209 @@ function loadGrid3() {
     //console.log(jumlah_peserta);
 
     $("#sp_total_peserta3").val(jumlah_peserta);
+    console.log(jumlah_peserta);
+}
+
+//griddismiss
+function loadGriddismiss() {
+    $("#griddismiss").empty();
+    var griddismiss = $("#griddismiss").kendoGrid({
+        dataSource: {
+            type: "json",
+            transport: {
+                read: {
+                    url: "/AbsensiEvent/responseDismiss?event_id=" + $("#hd_idev").val(),
+                    contentType: "application/json",
+                    type: "POST",
+                    cache: false,
+                },
+
+                parameterMap: function (data, operation) {
+
+                    return kendo.stringify(data)
+
+                }
+            },
+            pageSize: 100,
+            serverPaging: true,
+            serverFiltering: true,
+            serverSorting: true,
+            schema: {
+                data: "Data",
+                total: "Total",
+                model: {
+                    id: "NRP",
+                    fields: {
+                        NRP: { type: "string", filterable: true, sortable: true, editable: false },
+                        NAME: { type: "string", filterable: true, sortable: true, editable: false },
+                        DEPT: { type: "string", filterable: true, sortable: true, editable: false },
+                        time_create: { type: "string", filterable: true, sortable: true, editable: false },
+                        date_create_mod: { type: "string", filterable: true, sortable: true, editable: false },
+                    }
+
+                }
+            }
+        },
+        height: 800,
+        filterable: true,
+        sortable: true,
+        pageable: true,
+        resizable: true,
+        // groupable: true,
+        pageable: {
+            refresh: false,
+            buttonCount: 10,
+            input: true,
+            pageSizes: [100, 1000, 100000],
+            info: true,
+            messages: {
+            }
+        },
+        //  editable: "inline",
+        //toolbar: [
+        //  {
+        //      name: "excel",
+        //      imageClass: '<button type="button" button id="btn_export" class="btn btn-info"><span class="glyphicon glyphicon-export"></span> Export</button>'
+        //  }, ],
+        //excel: {
+        //    fileName: "upload_absen_failed.xlsx",
+        //    AllPages: true
+        //    // filterable: true
+        //},
+
+        columns: [
+            //{
+            //    title: "No",
+            //    width: "20px",
+            //    template: "#= ++rowNo #",
+            //    filterable: false,
+
+            //},
+            { field: "NRP", title: "NRP", width: "50px" },
+            { field: "NAME", title: "Nama", width: "100px" },
+            { field: "DEPT", title: "Dept", width: "50px" },
+            { field: "time_create", title: "Jam", width: "50px" },
+            { field: "date_create_mod", title: "Tanggal", width: "50px" },
+
+
+        ],
+        dataBinding: function () {
+            window.rowNo = (this.dataSource.page() - 1) * this.dataSource.pageSize();
+        }
+    });
+
+
+    var griddismiss = $("#griddismiss").data("kendoGrid");
+    griddismiss.dataSource;
+
+    debugger
+
+    jumlah_peserta = griddismiss.dataSource.total();
+
+    //console.log(jumlah_peserta);
+
+    $("#sp_total_pesertadismiss").val(jumlah_peserta);
+}
+
+//grid tentative
+function loadGridtentative() {
+    $("#gridtentative").empty();
+    var gridtentative = $("#gridtentative").kendoGrid({
+        dataSource: {
+            type: "json",
+            transport: {
+                read: {
+                    url: "/AbsensiEvent/responseTentative?event_id=" + $("#hd_idev").val(),
+                    contentType: "application/json",
+                    type: "POST",
+                    cache: false,
+                },
+
+                parameterMap: function (data, operation) {
+
+                    return kendo.stringify(data)
+
+                }
+            },
+            pageSize: 100,
+            serverPaging: true,
+            serverFiltering: true,
+            serverSorting: true,
+            schema: {
+                data: "Data",
+                total: "Total",
+                model: {
+                    id: "NRP",
+                    fields: {
+                        NRP: { type: "string", filterable: true, sortable: true, editable: false },
+                        NAME: { type: "string", filterable: true, sortable: true, editable: false },
+                        DEPT: { type: "string", filterable: true, sortable: true, editable: false },
+                        time_create: { type: "string", filterable: true, sortable: true, editable: false },
+                        date_create_mod: { type: "string", filterable: true, sortable: true, editable: false },
+                    }
+
+                }
+            }
+        },
+        height: 800,
+        filterable: true,
+        sortable: true,
+        pageable: true,
+        resizable: true,
+        // groupable: true,
+        pageable: {
+            refresh: false,
+            buttonCount: 10,
+            input: true,
+            pageSizes: [100, 1000, 100000],
+            info: true,
+            messages: {
+            }
+        },
+        //  editable: "inline",
+        //toolbar: [
+        //  {
+        //      name: "excel",
+        //      imageClass: '<button type="button" button id="btn_export" class="btn btn-info"><span class="glyphicon glyphicon-export"></span> Export</button>'
+        //  }, ],
+        //excel: {
+        //    fileName: "upload_absen_failed.xlsx",
+        //    AllPages: true
+        //    // filterable: true
+        //},
+
+        columns: [
+            //{
+            //    title: "No",
+            //    width: "20px",
+            //    template: "#= ++rowNo #",
+            //    filterable: false,
+
+            //},
+            { field: "NRP", title: "NRP", width: "50px" },
+            { field: "NAME", title: "Nama", width: "100px" },
+            { field: "DEPT", title: "Dept", width: "50px" },
+            { field: "time_create", title: "Jam", width: "50px" },
+            { field: "date_create_mod", title: "Tanggal", width: "50px" },
+
+
+        ],
+        dataBinding: function () {
+            window.rowNo = (this.dataSource.page() - 1) * this.dataSource.pageSize();
+        }
+    });
+
+
+    var gridtentative = $("#gridtentative").data("kendoGrid");
+    gridtentative.dataSource;
+
+    debugger
+
+    jumlah_peserta = gridtentative.dataSource.total();
+
+    //console.log(jumlah_peserta);
+
+    $("#sp_total_pesertatentative").val(jumlah_peserta);
 }
 
 //function loadPeople(event_id) {
@@ -553,7 +762,7 @@ function loadGrid3() {
 function loadPeople3(event_id) {
     $.ajax({
         type: "GET",
-        url: "/QRCodeAtt/get_atttent?s_str_event_id=" + event_id,
+        url: "/QRCodeAtt/get_attaccept?s_str_event_id=" + event_id,
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
@@ -566,6 +775,50 @@ function loadPeople3(event_id) {
                 if (response && response.Data && response.Data.att_hadir) {
                     jumlah_peserta = response.Data.att_hadir;
                     $("#sp_total_peserta3").val(jumlah_peserta);
+                }
+            }
+        }
+    })
+}
+
+function loadPeopledismiss(event_id) {
+    $.ajax({
+        type: "GET",
+        url: "/QRCodeAtt/get_attdismiss?s_str_event_id=" + event_id,
+        contentType: "application/json",
+        dataType: "json",
+        success: function (response) {
+            //debugger
+            if (response.status == true) {
+                $("#sp_total_pesertadismiss").val("");
+                //console.log(response.Data.att_hadir);
+                //jumlah_peserta = response.Data.att_hadir;
+                //$("#sp_total_peserta3").val(jumlah_peserta);
+                if (response && response.Data && response.Data.att_hadir) {
+                    jumlah_peserta = response.Data.att_hadir;
+                    $("#sp_total_pesertadismiss").val(jumlah_peserta);
+                }
+            }
+        }
+    })
+}
+
+function loadPeopletentative(event_id) {
+    $.ajax({
+        type: "GET",
+        url: "/QRCodeAtt/get_attdtentative?s_str_event_id=" + event_id,
+        contentType: "application/json",
+        dataType: "json",
+        success: function (response) {
+            //debugger
+            if (response.status == true) {
+                $("#sp_total_pesertatentative").val("");
+                //console.log(response.Data.att_hadir);
+                //jumlah_peserta = response.Data.att_hadir;
+                //$("#sp_total_peserta3").val(jumlah_peserta);
+                if (response && response.Data && response.Data.att_hadir) {
+                    jumlah_peserta = response.Data.att_hadir;
+                    $("#sp_total_pesertatentative").val(jumlah_peserta);
                 }
             }
         }
@@ -801,6 +1054,12 @@ function refreshgrid() {
     //loadPeople2(idevent);
     loadGrid3();
     loadPeople3(idevent);
+
+    loadGriddismiss();
+    loadPeopledismiss(idevent);
+
+    loadGridtentative();
+    loadPeopletentative(idevent);
 }
 
 function downloadabsen() {

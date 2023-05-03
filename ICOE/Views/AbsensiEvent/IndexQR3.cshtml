@@ -11,7 +11,7 @@
 <div id="toAll">
     <div class="row">
         <div class="col-sm-4">
-            <h2>Daftar Hadir</h2>
+            <h2>List Respon</h2>
         </div>
 
         <div class="col-sm-8">
@@ -70,7 +70,7 @@
         </div>
 
         <div class="col-sm-8">
-            <h4>Peserta yang accept <input type="text" id="sp_total_peserta3" style="width:5%; border:none; background-color:transparent" data-bind="value: people" disabled="disabled" /> orang</h4>
+            <h4>Respon Accept <input type="text" id="sp_total_peserta3" style="width:5%; border:none; background-color:transparent" data-bind="value: people" disabled="disabled" /> orang</h4>
             @*<h4>Peserta yang sudah hadir <span id="sp_total_peserta"></span> orang</h4>*@
         </div>
     </div>
@@ -82,20 +82,20 @@
             <div><input type="text" id="dt_startEvent_show" disabled="disabled" name="dt_startEvent_show" data-bind="value: start_date" style="width:33%; border: none; background-color:transparent" />- <input type="text" id="dt_endEvent_show" @*style="float:right;"*@ disabled="disabled" name="dt_endEvent_show" data-bind="value: end_date" style="border: none; background-color:transparent" /></div>
 
             @*<div class="row-a">
-            <div class="column-a">
-                <div class="card-a">
-                    <h5>Sandi Nugraha</h5>
+                    <div class="column-a">
+                        <div class="card-a">
+                            <h5>Sandi Nugraha</h5>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="row-a">
-            <div class="column-a">
-                <div class="card-a">
-                    <h5>Sandi Nugraha</h5>
-                </div>
-            </div>
-        </div>*@
+                <div class="row-a">
+                    <div class="column-a">
+                        <div class="card-a">
+                            <h5>Sandi Nugraha</h5>
+                        </div>
+                    </div>
+                </div>*@
 
         </div>
 
@@ -109,6 +109,113 @@
             <div id="grid3"></div>
         </div>
     </div>
+
+    <br />
+    <br />
+    <br />
+
+    <div class="row">
+        <div class="col-sm-4">
+            @*<h4>Scan QRCode ini untuk Absen</h4>*@
+        </div>
+
+        <div class="col-sm-8">
+            <h4>Respon Dismiss <input type="text" id="sp_total_pesertadismiss" style="width:5%; border:none; background-color:transparent" data-bind="value: people" disabled="disabled" /> orang</h4>
+            @*<h4>Peserta yang sudah hadir <span id="sp_total_peserta"></span> orang</h4>*@
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <!--<div id="qrcode"></div>
+            <br />
+            <div><input type="text" id="evid_show" value="@ViewBag.evID" style="width:80%; border: none; background-color:transparent" disabled="disabled" /></div>
+            <div><input type="text" id="dt_startEvent_show" disabled="disabled" name="dt_startEvent_show" data-bind="value: start_date" style="width:33%; border: none; background-color:transparent" />- <input type="text" id="dt_endEvent_show"-->
+            @*style="float:right;"*@ <!--disabled="disabled" name="dt_endEvent_show" data-bind="value: end_date" style="border: none; background-color:transparent" /></div>-->
+            @*<div class="row-a">
+                    <div class="column-a">
+                        <div class="card-a">
+                            <h5>Sandi Nugraha</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row-a">
+                    <div class="column-a">
+                        <div class="card-a">
+                            <h5>Sandi Nugraha</h5>
+                        </div>
+                    </div>
+                </div>*@
+
+        </div>
+
+        <div class="col-sm-8">
+            <button type="button" id="btn_refresh" style="margin-bottom:2%" name="btn_refresh" class="btn btn-info" onclick="refreshgrid()">Refresh</button>
+        </div>
+
+        <br />
+        <div class="col-sm-4">
+            @*<h4>Scan QRCode ini untuk Absen</h4>*@
+        </div>
+
+        <div class="col-sm-8">
+            <div id="griddismiss"></div>
+        </div>
+    </div>
+
+    <br />
+    <br />
+    <br />
+
+    <div class="row">
+        <div class="col-sm-4">
+            @*<h4>Scan QRCode ini untuk Absen</h4>*@
+        </div>
+
+        <div class="col-sm-8">
+            <h4>Respon Tentative <input type="text" id="sp_total_pesertatentative" style="width:5%; border:none; background-color:transparent" data-bind="value: people" disabled="disabled" /> orang</h4>
+            @*<h4>Peserta yang sudah hadir <span id="sp_total_peserta"></span> orang</h4>*@
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <!--<div id="qrcode"></div>
+            <br />
+            <div><input type="text" id="evid_show" value="@ViewBag.evID" style="width:80%; border: none; background-color:transparent" disabled="disabled" /></div>
+            <div><input type="text" id="dt_startEvent_show" disabled="disabled" name="dt_startEvent_show" data-bind="value: start_date" style="width:33%; border: none; background-color:transparent" />- <input type="text" id="dt_endEvent_show"-->
+            @*style="float:right;"*@ <!--disabled="disabled" name="dt_endEvent_show" data-bind="value: end_date" style="border: none; background-color:transparent" /></div>-->
+            @*<div class="row-a">
+                    <div class="column-a">
+                        <div class="card-a">
+                            <h5>Sandi Nugraha</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row-a">
+                    <div class="column-a">
+                        <div class="card-a">
+                            <h5>Sandi Nugraha</h5>
+                        </div>
+                    </div>
+                </div>*@
+
+        </div>
+
+        <div class="col-sm-8">
+            <button type="button" id="btn_refresh" style="margin-bottom:2%" name="btn_refresh" class="btn btn-info" onclick="refreshgrid()">Refresh</button>
+        </div>
+
+        <br />
+        <div class="col-sm-4">
+            @*<h4>Scan QRCode ini untuk Absen</h4>*@
+        </div>
+
+        <div class="col-sm-8">
+            <div id="gridtentative"></div>
+        </div>
+    </div>
+
 </div>
 
 <script src="~/js/AbsensiEvent2.js"></script>

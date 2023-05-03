@@ -16,21 +16,6 @@
       <Column Name="POSITION_ID" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.VW_T_EVENT_ATTENDANCE" Member="VW_T_EVENT_ATTENDANCEs">
-    <Type Name="VW_T_EVENT_ATTENDANCE">
-      <Column Name="NRP" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="NAME" Type="System.String" DbType="VarChar(43)" CanBeNull="true" />
-      <Column Name="DEPT" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="event_id" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="description" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="date_create" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="date_create_mod" Type="System.String" DbType="VarChar(11)" CanBeNull="true" />
-      <Column Name="time_create" Type="System.String" DbType="Char(5)" CanBeNull="true" />
-      <Column Name="location_long" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="location_lat" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="PROFILE.TBL_R_MAPPING_PROFILE_MENU" Member="TBL_R_MAPPING_PROFILE_MENUs">
     <Type Name="TBL_R_MAPPING_PROFILE_MENU">
       <Column Name="PROFILE_MENU_PID" Type="System.String" DbType="VarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -173,12 +158,6 @@
       <Column Name="DEPT_DESC" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.VW_ATTENDEE_HADIR" Member="VW_ATTENDEE_HADIRs">
-    <Type Name="VW_ATTENDEE_HADIR">
-      <Column Name="event_id" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="att_hadir" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.VW_EVENT_YEAR" Member="VW_EVENT_YEARs">
     <Type Name="VW_EVENT_YEAR">
       <Column Name="Tahun" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
@@ -227,18 +206,6 @@
       <Column Name="location_id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Column Name="location_name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.VW_ATTENDEE_TIDAK_HADIR" Member="VW_ATTENDEE_TIDAK_HADIRs">
-    <Type Name="VW_ATTENDEE_TIDAK_HADIR">
-      <Column Name="event_id" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="att_hadir" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.VW_ATTENDEE_TENTATIVE" Member="VW_ATTENDEE_TENTATIVEs">
-    <Type Name="VW_ATTENDEE_TENTATIVE">
-      <Column Name="event_id" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="att_hadir" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.VW_DETAIL_ACARA" Member="VW_DETAIL_ACARAs">
@@ -342,9 +309,28 @@
       <Column Name="response" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.VW_ATTENDEE_HADIR" Member="VW_ATTENDEE_HADIRs">
+    <Type Name="VW_ATTENDEE_HADIR">
+      <Column Name="event_id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="att_hadir" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VW_ATTENDEE_TENTATIVE" Member="VW_ATTENDEE_TENTATIVEs">
+    <Type Name="VW_ATTENDEE_TENTATIVE">
+      <Column Name="event_id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="att_hadir" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VW_ATTENDEE_TIDAK_HADIR" Member="VW_ATTENDEE_TIDAK_HADIRs">
+    <Type Name="VW_ATTENDEE_TIDAK_HADIR">
+      <Column Name="event_id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="att_hadir" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.TBL_T_RESPONSE_MOK" Member="TBL_T_RESPONSE_MOKs">
     <Type Name="TBL_T_RESPONSE_MOK">
-      <Column Name="event_id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="event_id" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="description" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="created_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
@@ -361,6 +347,69 @@
       <Column Name="response" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.VW_RESPON_ACCEPT" Member="VW_RESPON_ACCEPTs">
+    <Type Name="VW_RESPON_ACCEPT">
+      <Column Name="NRP" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="NAME" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="DEPT" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="JABATAN" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="created_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="date_create_mod" Type="System.String" DbType="VarChar(11)" CanBeNull="true" />
+      <Column Name="time_create" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="event_id" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="event_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="start_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="end_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="response" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VW_RESPON_DISMISS" Member="VW_RESPON_DISMISSes">
+    <Type Name="VW_RESPON_DISMISS">
+      <Column Name="NRP" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="NAME" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="DEPT" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="JABATAN" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="created_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="date_create_mod" Type="System.String" DbType="VarChar(11)" CanBeNull="true" />
+      <Column Name="time_create" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="event_id" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="event_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="start_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="end_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="response" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VW_RESPON_TENTATIVE" Member="VW_RESPON_TENTATIVEs">
+    <Type Name="VW_RESPON_TENTATIVE">
+      <Column Name="NRP" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="NAME" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="DEPT" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="JABATAN" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="created_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="date_create_mod" Type="System.String" DbType="VarChar(11)" CanBeNull="true" />
+      <Column Name="time_create" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="event_id" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="event_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="start_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="end_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="response" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VW_T_EVENT_ATTENDANCE" Member="VW_T_EVENT_ATTENDANCEs">
+    <Type Name="VW_T_EVENT_ATTENDANCE">
+      <Column Name="NRP" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="NAME" Type="System.String" DbType="VarChar(43)" CanBeNull="true" />
+      <Column Name="DEPT" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="event_id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="description" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="date_create" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="date_create_mod" Type="System.String" DbType="VarChar(11)" CanBeNull="true" />
+      <Column Name="time_create" Type="System.String" DbType="Char(5)" CanBeNull="true" />
+      <Column Name="location_long" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="location_lat" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.TBL_T_EVENT_ATTENDANCE" Member="TBL_T_EVENT_ATTENDANCEs">
     <Type Name="TBL_T_EVENT_ATTENDANCE">
       <Column Name="attendee" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -370,6 +419,24 @@
       <Column Name="date_create" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="location_long" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="location_lat" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VW_ATTENDEE_RESPON_ACCEPT" Member="VW_ATTENDEE_RESPON_ACCEPTs">
+    <Type Name="VW_ATTENDEE_RESPON_ACCEPT">
+      <Column Name="event_id" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="att_hadir" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VW_ATTENDEE_RESPON_DISMISS" Member="VW_ATTENDEE_RESPON_DISMISSes">
+    <Type Name="VW_ATTENDEE_RESPON_DISMISS">
+      <Column Name="event_id" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="att_hadir" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VW_ATTENDEE_RESPON_TENTATIVE" Member="VW_ATTENDEE_RESPON_TENTATIVEs">
+    <Type Name="VW_ATTENDEE_RESPON_TENTATIVE">
+      <Column Name="event_id" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="att_hadir" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
   <Function Name="PROFILE.cusp_GetDetailProfile" Method="cusp_GetDetailProfile">

@@ -15,7 +15,7 @@ namespace ICOE.Controllers
     public class QRCodeAttController : MenuController
     {
         DB_ICT_mOK_KPTDataContext i_ctx_db = new DB_ICT_mOK_KPTDataContext();
-        private string p_str_event_id = "";
+        private Guid p_str_event_id = Guid.Empty;
 
         // GET: QRCodeAtt
         public ActionResult Index(string evH, string name)

@@ -16,18 +16,18 @@ using System;
 
 namespace ICOE.Controllers
 {
-    //[Authorize]
-    public class ReportController : Controller
+    [Authorize]
+    public class ReportsController : MenuController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         DB_ICT_mOK_KPTDataContext dB_ICT = new DB_ICT_mOK_KPTDataContext();
 
-        public ReportController()
+        public ReportsController()
         {
         }
 
-        public ReportController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public ReportsController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -68,14 +68,10 @@ namespace ICOE.Controllers
         {
             try
             {
-                var listevent = dB_ICT.cufn_getEventDetails_ICOE_byNRP(nrp).ToList().Count();
-                var udahrespon = dB_ICT.cufn_getEventResponse(nrp).ToList().Count();
-                var notyet = listevent - udahrespon;
                 // var Ev_header = db.cusp_readHeader_event(starteventdate, endeventdate).OrderByDescending(f => f.start_date).ToList();
                 //var listicoe = dB_ICT.VW_LIST_EVENT_DETAILs.ToList();
                 var listicoe = dB_ICT.cufn_getEventDetails_ICOE_byNRP(nrp).OrderByDescending(f => f.start_date).ToList();
-                
-                return Json(new { status = true, Data = listicoe, Total = listicoe.Count(), totalEvent = listevent, totalRespond = udahrespon, totalNotRespond = notyet }, JsonRequestBehavior.AllowGet);
+                return Json(new { status = true, Data = listicoe, Total = listicoe.Count() }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {
@@ -106,11 +102,11 @@ namespace ICOE.Controllers
             {
                 eventViewModels.input_respon();
 
-                return this.Json(new { status = true, message = "Response Success" }, JsonRequestBehavior.AllowGet);
+                return this.Json(new { status = true }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {
-                return this.Json(new { status = false, message = "Response Failed", error = e.Message }, JsonRequestBehavior.AllowGet);
+                return this.Json(new { status = false, error = e.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -123,7 +119,7 @@ namespace ICOE.Controllers
                 var listicoe = dB_ICT.cufn_getEventDetails_ICOE_byNRP(nrp).ToList().Count();
                 var udahrespon = dB_ICT.cufn_getEventResponse(nrp).ToList().Count();
                 var notyet = listicoe - udahrespon;
-                return Json(new { status = true, totalEvent = listicoe, totalRespond = udahrespon, totalNotRespond = notyet }, JsonRequestBehavior.AllowGet);
+                return Json(new { status = true, Data = notyet, Total = notyet }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception z)
             {
@@ -131,7 +127,7 @@ namespace ICOE.Controllers
             }
 
         }
-        
+
         public JsonResult read_ev_detail(string evh)
         {
             try

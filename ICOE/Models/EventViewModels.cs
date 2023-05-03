@@ -9,13 +9,20 @@ namespace ICOE.Models
     public class EventViewModels
     {
         DB_ICT_mOK_KPTDataContext db = new DB_ICT_mOK_KPTDataContext();
-
-        public string event_id { get; set; }
+        
+        public Guid event_id { get; set; }
         public string name { get; set; }
         public string description { get; set; }
         public string link { get; set; }
+        public DateTime date_sent { get; set; }
         public DateTime? start_date { get; set; }
         public Nullable<DateTime> end_dates { get; set; }
+        public DateTime end_date { get; set; }
+        public DateTime jam_mulai { get; set; }
+        public DateTime jam_akhir { get; set; }
+        public string location { get; set; }
+        public string group_name { get; set; }
+        public int response { get; set; }
         public string location_id { get; set; }
         public bool? is_use_qr_code { get; set; }
         public bool? is_use_location { get; set; }
@@ -35,6 +42,33 @@ namespace ICOE.Models
         public string locationid { get; set; }
         public string loclong { get; set; }
         public string loclat { get; set; }
+        public string attendee { get; set; }
+        public string EmailReciepants { get; set; }
+        public DateTime created_date { get; set; }
+
+        public void input_respon()
+        {
+            TBL_T_RESPONSE_MOK tbl = new TBL_T_RESPONSE_MOK();
+            tbl.event_id = event_id;
+            tbl.name = name;
+            tbl.description = description;
+            //tbl.date_sent = date_sent;
+            tbl.created_date = DateTime.Now;
+            tbl.start_date = start_date;
+            tbl.end_date = end_date;
+            tbl.jam_mulai = jam_mulai;
+            tbl.jam_akhir = jam_akhir;
+            tbl.location = location;
+            tbl.group_name = group_name;
+            tbl.link = link;
+            tbl.kategori = kategori;
+            tbl.attendee = attendee;
+            tbl.EmailReciepants = EmailReciepants;
+            tbl.response = response;
+
+            db.TBL_T_RESPONSE_MOKs.InsertOnSubmit(tbl);
+            db.SubmitChanges();
+        }
 
         private class ClsGroupAttendeeDetail
         {
@@ -119,7 +153,7 @@ namespace ICOE.Models
                                 {
                                     group_id = null,
                                     attendee = attends,
-                                    event_id = i_guid_event.ToString(),
+                                    event_id = i_guid_event,
                                     date_create = createdate,
                                     status = 20
                                 });
@@ -178,7 +212,7 @@ namespace ICOE.Models
                                 {
                                     group_id = null,
                                     attendee = attends,
-                                    event_id = i_guid_event.ToString(),
+                                    event_id = i_guid_event,
                                     date_create = createdate,
                                     status = 20
                                 });
@@ -194,7 +228,7 @@ namespace ICOE.Models
                                 {
                                     TBL_T_EVENT_ATTENDANCE eventAttendance = new TBL_T_EVENT_ATTENDANCE();
                                     eventAttendance.attendee = x.attendee;
-                                    eventAttendance.event_id = i_guid_event.ToString();
+                                    eventAttendance.event_id = i_guid_event;
                                     eventAttendance.status = 20;
                                     eventAttendance.group_id = x.group_id;
                                     eventAttendance.date_create = createdate;
@@ -259,7 +293,7 @@ namespace ICOE.Models
                             {
                                 TBL_T_EVENT_ATTENDANCE eventAttendance = new TBL_T_EVENT_ATTENDANCE();
                                 eventAttendance.attendee = x.attendee;
-                                eventAttendance.event_id = i_guid_event.ToString();
+                                eventAttendance.event_id = i_guid_event;
                                 eventAttendance.status = 20;
                                 eventAttendance.group_id = x.group_id;
                                 eventAttendance.date_create = createdate;
@@ -359,7 +393,7 @@ namespace ICOE.Models
                                 {
                                     group_id = null,
                                     attendee = attends,
-                                    event_id = i_guid_event.ToString(),
+                                    event_id = i_guid_event,
                                     date_create = createdate,
                                     status = 20
                                 });
@@ -418,7 +452,7 @@ namespace ICOE.Models
                                 {
                                     group_id = null,
                                     attendee = attends,
-                                    event_id = i_guid_event.ToString(),
+                                    event_id = i_guid_event,
                                     date_create = createdate,
                                     status = 20
                                 });
@@ -434,7 +468,7 @@ namespace ICOE.Models
                                 {
                                     TBL_T_EVENT_ATTENDANCE eventAttendance = new TBL_T_EVENT_ATTENDANCE();
                                     eventAttendance.attendee = x.attendee;
-                                    eventAttendance.event_id = i_guid_event.ToString();
+                                    eventAttendance.event_id = i_guid_event;
                                     eventAttendance.status = 20;
                                     eventAttendance.group_id = x.group_id;
                                     eventAttendance.date_create = createdate;
@@ -499,7 +533,7 @@ namespace ICOE.Models
                             {
                                 TBL_T_EVENT_ATTENDANCE eventAttendance = new TBL_T_EVENT_ATTENDANCE();
                                 eventAttendance.attendee = x.attendee;
-                                eventAttendance.event_id = i_guid_event.ToString();
+                                eventAttendance.event_id = i_guid_event;
                                 eventAttendance.status = 20;
                                 eventAttendance.group_id = x.group_id;
                                 eventAttendance.date_create = createdate;
@@ -593,7 +627,7 @@ namespace ICOE.Models
                             {
                                 group_id = null,
                                 attendee = attends,
-                                event_id = i_guid_event.ToString(),
+                                event_id = i_guid_event,
                                 date_create = createdate,
                                 status = 20
                             });
@@ -647,7 +681,7 @@ namespace ICOE.Models
                             {
                                 group_id = null,
                                 attendee = attends,
-                                event_id = i_guid_event.ToString(),
+                                event_id = i_guid_event,
                                 date_create = createdate,
                                 status = 20
                             });
@@ -663,7 +697,7 @@ namespace ICOE.Models
                             {
                                 TBL_T_EVENT_ATTENDANCE eventAttendance = new TBL_T_EVENT_ATTENDANCE();
                                 eventAttendance.attendee = x.attendee;
-                                eventAttendance.event_id = i_guid_event.ToString();
+                                eventAttendance.event_id = i_guid_event;
                                 eventAttendance.status = 20;
                                 eventAttendance.group_id = x.group_id;
                                 eventAttendance.date_create = createdate;
@@ -723,7 +757,7 @@ namespace ICOE.Models
                         {
                             TBL_T_EVENT_ATTENDANCE eventAttendance = new TBL_T_EVENT_ATTENDANCE();
                             eventAttendance.attendee = x.attendee;
-                            eventAttendance.event_id = i_guid_event.ToString();
+                            eventAttendance.event_id = i_guid_event;
                             eventAttendance.status = 20;
                             eventAttendance.group_id = x.group_id;
                             eventAttendance.date_create = createdate;

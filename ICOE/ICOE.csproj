@@ -561,6 +561,7 @@
     <Compile Include="Controllers\QRCodeAttController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\SetLocationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -768,6 +769,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="js\AbsensiEvent.js" />
+    <Content Include="js\AbsensiEvent2.js" />
     <Content Include="js\Calendar.js" />
     <Content Include="js\CreateEvent.Index.js" />
     <Content Include="js\CreateEvent.Update.js" />
@@ -1307,12 +1309,16 @@
     <Content Include="Views\Register\Index.cshtml" />
     <Content Include="Views\Shared\LayoutCustom.cshtml" />
     <Content Include="Views\Report\Index.cshtml" />
+    <Content Include="Views\AbsensiEvent\IndexQR2.cshtml" />
+    <Content Include="Views\AbsensiEvent\IndexQR3.cshtml" />
+    <Content Include="Views\Reports\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\font-awesome\" />
     <Folder Include="Content\Login_v18\" />
     <Folder Include="Views\Menu\" />
+    <Folder Include="Views\Mok\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

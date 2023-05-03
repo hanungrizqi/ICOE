@@ -25,6 +25,18 @@ namespace ICOE.Controllers
             return View();
         }
 
+        public ActionResult IndexQR2(string event_id, string name)
+        {
+            ViewBag.evID2 = event_id;
+            return View();
+        }
+
+        public ActionResult IndexQR3(string event_id, string name)
+        {
+            ViewBag.evID3 = event_id;
+            return View();
+        }
+
         [HttpGet]
         public JsonResult AjaxRead ()
         {
@@ -102,7 +114,7 @@ namespace ICOE.Controllers
 
         //UNTUK KENDO GRID
         [HttpPost]
-        public JsonResult AjaxReadsTent(string event_id)
+        public JsonResult responseAccept(string event_id)
         {
             try
             {

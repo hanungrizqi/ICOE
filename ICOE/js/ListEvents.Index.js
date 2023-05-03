@@ -257,7 +257,7 @@ function initialize() {
         filterable: true,
         columnMenu: false,
         detailTemplate: kendo.template($("#template").html()),
-        /*detailInit: detailInit,*/
+        //detailInit: detailInit,
         //dataBound: function () {
         //    //this.expandRow(this.tbody.find("tr.k-master-row").first());
         //},

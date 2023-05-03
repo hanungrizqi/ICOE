@@ -59,14 +59,14 @@ namespace ICOE.Controllers
         }
 
         [HttpPost]
-        public JsonResult AjaxDeleteEvent(string s_str_id)
+        public JsonResult AjaxDeleteEvent(Guid s_str_id)
         {
          
             try
             {
                 i_ctx_db = new DB_ICT_mOK_KPTDataContext();
 
-                TBL_M_EVENT tbl_m_event = i_ctx_db.TBL_M_EVENTs.Where(f => f.event_id == new Guid(s_str_id)).FirstOrDefault();
+                TBL_M_EVENT tbl_m_event = i_ctx_db.TBL_M_EVENTs.Where(f => f.event_id == (s_str_id)).FirstOrDefault();
                 IQueryable<TBL_T_EVENT_ATTENDANCE> tbl_t_event_attendance = i_ctx_db.TBL_T_EVENT_ATTENDANCEs.
                     Where(f => f.event_id == s_str_id);
 

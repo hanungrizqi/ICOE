@@ -77,6 +77,53 @@ namespace ICOE.Controllers
            
         }
 
+        //api mok get list
+        [AllowAnonymous]
+        public JsonResult list_icoe()
+        {
+            try
+            {
+                // var Ev_header = db.cusp_readHeader_event(starteventdate, endeventdate).OrderByDescending(f => f.start_date).ToList();
+                var listicoe = db.VW_LIST_EVENT_DETAILs.OrderByDescending(f => f.start_date).Select(f => new { f.event_id, f.name, f.start_date, f.status, f.location }).ToList();
+                return Json(new { status = true, Data = listicoe, Total = listicoe.Count() }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return this.Json(new { status = false, error = e.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        //api mok get detail list
+        [AllowAnonymous]
+        public JsonResult detail_list_icoe(string evh, string nrp)
+        {
+            try
+            {
+                var detailicoe = db.cufn_getEventDetails_ICOE(evh, nrp).OrderBy(f => f.start_date);
+                return Json(new { status = true, Data = detailicoe, Total = detailicoe.Count() }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception z)
+            {
+                return this.Json(new { status = false, error = z.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+        //api post response
+        public JsonResult input_respon(EventViewModels eventViewModels)
+        {
+            try
+            {
+                eventViewModels.input_respon();
+
+                return this.Json(new { status = true }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return this.Json(new { status = false, error = e.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public JsonResult getYearEvents()
         {
             try
@@ -100,7 +147,7 @@ namespace ICOE.Controllers
                 for (int i = 0; i<ck; i++)
                 {
                     var get_arr = db.TBL_M_EVENTs.Where(v => v.header_id == evH).Select(w => w.event_id).FirstOrDefault();
-                    var att = db.TBL_T_EVENT_ATTENDANCEs.Where(b => b.event_id == get_arr.ToString());
+                    var att = db.TBL_T_EVENT_ATTENDANCEs.Where(b => b.event_id == get_arr);
 
                     var delmEv = db.TBL_M_EVENTs.Where(z => z.header_id == evH).FirstOrDefault();
 
@@ -130,11 +177,11 @@ namespace ICOE.Controllers
             {
                 db = new DB_ICT_mOK_KPTDataContext();
 
-                List<TBL_M_ICOE_LINK> getEVli = db.TBL_M_ICOE_LINKs.Where(l => l.header_id == idH).ToList();
-                List<string> eventli = getEVli.Select(l => l.link.ToString()).ToList();
+                //List<TBL_M_ICOE_LINK> getEVli = db.TBL_M_ICOE_LINKs.Where(l => l.header_id == idH).ToList();
+                //List<string> eventli = getEVli.Select(l => l.link.ToString()).ToList();
 
                 List<TBL_M_EVENT> getEVid = db.TBL_M_EVENTs.Where(i => i.header_id == idH).ToList();
-                List<string> eventid = getEVid.Select(f => f.event_id.ToString()).ToList();
+                List<Guid> eventid = getEVid.Select(f => f.event_id).ToList();
 
                 //List<TBL_M_ICOE_LINK> getEVli = db.TBL_M_ICOE_LINKs.Where(i => i.header_id == idH).ToList();
                 //List<string> eventli = getEVli.Select(f => f.link.ToString()).ToList();
@@ -145,7 +192,7 @@ namespace ICOE.Controllers
                 EventViewModels evm = new EventViewModels();
 
                 //UNTUK LOAD PESERTA DAN GROUP
-                foreach (string evid in eventid)
+                foreach (Guid evid in eventid)
                 {
 
 
@@ -179,6 +226,7 @@ namespace ICOE.Controllers
                     evm.ulang = getevent.ulang.ToString();
                     evm.departement = getevent.departemen;
                     //evm.start_date = getDeV;
+                    //evm.start_date = getevent.start_date;
                     evm.start_date = getevent.start_date;
                     evm.end_dates = getevent.end_date;
                     evm.starttime = Convert.ToDateTime(getevent.start_time);
@@ -198,21 +246,21 @@ namespace ICOE.Controllers
         }
 
         [HttpGet]
-        public JsonResult AjaxReadEvent (string id)
+        public JsonResult AjaxReadEvent (Guid id)
         {
             try
             {
 
                 db = new DB_ICT_mOK_KPTDataContext();
 
-                TBL_M_EVENT tbl_m_event = db.TBL_M_EVENTs.Where(f => f.event_id == new Guid(id)).FirstOrDefault();
-                TBL_M_ICOE_LINK tbl_m_icoe_link = db.TBL_M_ICOE_LINKs.Where(f => f.event_id == new Guid(id)).FirstOrDefault();
+                TBL_M_EVENT tbl_m_event = db.TBL_M_EVENTs.Where(f => f.event_id == (id)).FirstOrDefault();
+                TBL_M_ICOE_LINK tbl_m_icoe_link = db.TBL_M_ICOE_LINKs.Where(f => f.event_id == (id)).FirstOrDefault();
 
                 List<TBL_T_EVENT_ATTENDANCE> tbl_t_event_attendance = db.TBL_T_EVENT_ATTENDANCEs.Where(f => f.event_id == id).ToList();
                 List<string> i_lst_attendee = tbl_t_event_attendance.Select(f => f.attendee).ToList();
                 List<string> groups = tbl_t_event_attendance.Select(f => f.group_id).ToList();
 
-                var getDistrik = db.TBL_M_EVENTs.Where(g => g.event_id.ToString() == id).FirstOrDefault();
+                var getDistrik = db.TBL_M_EVENTs.Where(g => g.event_id == id).FirstOrDefault();
                 var getgroup = db.TBL_T_EVENT_ATTENDANCEs.Where(h => h.event_id == id);
                 var getED = getDistrik.header_id;
                 var getsg = db.TBL_M_EVENTs.Where(cc => cc.header_id == getED).OrderBy(sdd => sdd.start_date).FirstOrDefault();
@@ -381,7 +429,7 @@ namespace ICOE.Controllers
             return Json(new { status = true, Total = Event, Totall = Link, Data = Event }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult getatt_Data (string id)
+        public JsonResult getatt_Data (Guid id)
         {
             try
             {

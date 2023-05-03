@@ -60,20 +60,20 @@ namespace ICOE.Controllers
         }
 
         [HttpGet]
-        public JsonResult AjaxReadEvent (string id)
+        public JsonResult AjaxReadEvent (Guid id)
         {
             try
             {
 
                 i_ctx_db = new DB_ICT_mOK_KPTDataContext();
 
-                TBL_M_EVENT tbl_m_event = i_ctx_db.TBL_M_EVENTs.Where(f => f.event_id == new Guid(id)).FirstOrDefault();
-                TBL_M_ICOE_LINK tbl_m_icoe_link = i_ctx_db.TBL_M_ICOE_LINKs.Where(f => f.event_id == new Guid(id)).FirstOrDefault();
+                TBL_M_EVENT tbl_m_event = i_ctx_db.TBL_M_EVENTs.Where(f => f.event_id == (id)).FirstOrDefault();
+                TBL_M_ICOE_LINK tbl_m_icoe_link = i_ctx_db.TBL_M_ICOE_LINKs.Where(f => f.event_id == (id)).FirstOrDefault();
                 List<TBL_T_EVENT_ATTENDANCE> tbl_t_event_attendance = i_ctx_db.TBL_T_EVENT_ATTENDANCEs.Where(f => f.event_id == id).ToList();
                 List<string> i_lst_attendee = tbl_t_event_attendance.Select(f => f.attendee).ToList();
                 List<string> groups = tbl_t_event_attendance.Select(f => f.group_id).ToList();
 
-                var getDistrik = i_ctx_db.TBL_M_EVENTs.Where(g => g.event_id.ToString() == id).FirstOrDefault();
+                var getDistrik = i_ctx_db.TBL_M_EVENTs.Where(g => g.event_id == id).FirstOrDefault();
                 var getgroup = i_ctx_db.TBL_T_EVENT_ATTENDANCEs.Where(h => h.event_id == id);
                 var getED = getDistrik.header_id;
                 var getsg = i_ctx_db.TBL_M_EVENTs.Where(cc => cc.header_id == getED).OrderBy(sdd => sdd.start_date).FirstOrDefault();
@@ -160,7 +160,7 @@ namespace ICOE.Controllers
                     TBL_T_EVENT_ATTENDANCE tbl_t_event_attendance = new TBL_T_EVENT_ATTENDANCE();
 
                     tbl_t_event_attendance.attendee = sEvent.attendees[i];
-                    tbl_t_event_attendance.event_id = i_guid_pid.ToString();
+                    tbl_t_event_attendance.event_id = i_guid_pid;
                     tbl_t_event_attendance.status = 20;
                     tbl_t_event_attendance.date_create = null;
                     tbl_t_event_attendance.location_long = null;
@@ -193,7 +193,7 @@ namespace ICOE.Controllers
                 i_ctx_db = new DB_ICT_mOK_KPTDataContext();
 
                 TBL_M_EVENT i_tbl_m_event = new TBL_M_EVENT();
-                i_tbl_m_event.event_id = new Guid(sEvent.event_id);
+                //i_tbl_m_event.event_id = new Guid(sEvent.event_id);
                 i_tbl_m_event.name = sEvent.name;
                 i_tbl_m_event.start_date = sEvent.start_date;
                 i_tbl_m_event.end_date = sEvent.end_dates;
@@ -204,7 +204,7 @@ namespace ICOE.Controllers
                 i_tbl_m_event.is_use_qr_code = sEvent.is_use_qr_code;
                 i_tbl_m_event.is_use_location = sEvent.is_use_location;
 
-                TBL_M_EVENT tbl_m_event = i_ctx_db.TBL_M_EVENTs.Where(f => f.event_id == new Guid(sEvent.event_id)).FirstOrDefault();
+                TBL_M_EVENT tbl_m_event = i_ctx_db.TBL_M_EVENTs.Where(f => f.event_id == sEvent.event_id).FirstOrDefault();
                 tbl_m_event.name = sEvent.name;
                 tbl_m_event.start_date = sEvent.start_date;
                 tbl_m_event.end_date = sEvent.end_dates;

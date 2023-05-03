@@ -8,7 +8,7 @@ namespace ICOE.Models
     public class ClsListEventsUpdate
     {
         DB_ICT_mOK_KPTDataContext db = new DB_ICT_mOK_KPTDataContext();
-        public string event_id { get; set; }
+        public Guid event_id { get; set; }
         public string name { get; set; }
         public string description { get; set; }
         public string link { get; set; }
@@ -219,7 +219,7 @@ namespace ICOE.Models
                         db.TBL_M_ICOE_LINKs.DeleteAllOnSubmit(tbl_evl);
 
                         //var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == getEV.ToString());
-                        var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == getEV.ToString() && i.event_id == getEVL.ToString());
+                        var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == getEV && i.event_id == getEVL);
                         db.TBL_T_EVENT_ATTENDANCEs.DeleteAllOnSubmit(tbl_at);
                         db.SubmitChanges();
 
@@ -238,7 +238,7 @@ namespace ICOE.Models
                             {
                                 group_id = null,
                                 attendee = attends,
-                                event_id = i_guid_event.ToString(),
+                                event_id = i_guid_event,
                                 date_create = createdate,
                                 status = 20 //STATUS KEHADIRAN
                             });
@@ -254,7 +254,7 @@ namespace ICOE.Models
                             {
                                 TBL_T_EVENT_ATTENDANCE eventAttendance = new TBL_T_EVENT_ATTENDANCE();
                                 eventAttendance.attendee = x.attendee;
-                                eventAttendance.event_id = i_guid_event.ToString();
+                                eventAttendance.event_id = i_guid_event;
                                 eventAttendance.status = 20;
                                 eventAttendance.group_id = x.group_id;
                                 eventAttendance.date_create = createdate;
@@ -299,7 +299,7 @@ namespace ICOE.Models
                         db.TBL_M_ICOE_LINKs.DeleteAllOnSubmit(tbl_evl);
 
                         //var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == getEV.ToString());
-                        var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == getEV.ToString() && i.event_id == getEVL.ToString());
+                        var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == getEV && i.event_id == getEVL);
                         db.TBL_T_EVENT_ATTENDANCEs.DeleteAllOnSubmit(tbl_at);
                         db.SubmitChanges();
 
@@ -318,7 +318,7 @@ namespace ICOE.Models
                             {
                                 group_id = null,
                                 attendee = attends,
-                                event_id = i_guid_event.ToString(),
+                                event_id = i_guid_event,
                                 date_create = createdate,
                                 status = 20 //STATUS KEHADIRAN
                             });
@@ -361,7 +361,7 @@ namespace ICOE.Models
                         db.TBL_M_EVENTs.DeleteAllOnSubmit(tbl_ev);
 
                         //var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == getEV.ToString());
-                        var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == getEV.ToString() && i.event_id == getEVL.ToString());
+                        var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == getEV && i.event_id == getEVL);
                         db.TBL_T_EVENT_ATTENDANCEs.DeleteAllOnSubmit(tbl_at);
                         db.SubmitChanges();
 
@@ -383,7 +383,7 @@ namespace ICOE.Models
                             {
                                 TBL_T_EVENT_ATTENDANCE eventAttendance = new TBL_T_EVENT_ATTENDANCE();
                                 eventAttendance.attendee = x.attendee;
-                                eventAttendance.event_id = i_guid_event.ToString();
+                                eventAttendance.event_id = i_guid_event;
                                 eventAttendance.status = 20;
                                 eventAttendance.group_id = x.group_id;
                                 eventAttendance.date_create = createdate;
@@ -467,7 +467,7 @@ namespace ICOE.Models
                         {
                             var tbl_ev = db.TBL_M_EVENTs.Where(x => x.header_id == eventH_id);
                             db.TBL_M_EVENTs.DeleteAllOnSubmit(tbl_ev);
-                            var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == uniqevid.ToString());
+                            var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == uniqevid);
                             db.TBL_T_EVENT_ATTENDANCEs.DeleteAllOnSubmit(tbl_at);
                             db.SubmitChanges();
                         }
@@ -492,7 +492,7 @@ namespace ICOE.Models
                                 {
                                     group_id = null,
                                     attendee = attends,
-                                    event_id = i_guid_event.ToString(),
+                                    event_id = i_guid_event,
                                     date_create = createdate,
                                     status = 20 //STATUS KEHADIRAN
                                 });
@@ -508,7 +508,7 @@ namespace ICOE.Models
                                 {
                                     TBL_T_EVENT_ATTENDANCE eventAttendance = new TBL_T_EVENT_ATTENDANCE();
                                     eventAttendance.attendee = x.attendee;
-                                    eventAttendance.event_id = i_guid_event.ToString();
+                                    eventAttendance.event_id = i_guid_event;
                                     eventAttendance.status = 20;
                                     eventAttendance.group_id = x.group_id;
                                     eventAttendance.date_create = createdate;
@@ -554,7 +554,7 @@ namespace ICOE.Models
                         {
                             var tbl_ev = db.TBL_M_EVENTs.Where(x => x.header_id == eventH_id);
                             db.TBL_M_EVENTs.DeleteAllOnSubmit(tbl_ev);
-                            var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == uniqevid.ToString());
+                            var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == uniqevid);
                             db.TBL_T_EVENT_ATTENDANCEs.DeleteAllOnSubmit(tbl_at);
                             db.SubmitChanges();
                         }
@@ -578,7 +578,7 @@ namespace ICOE.Models
                                 {
                                     group_id = null,
                                     attendee = attends,
-                                    event_id = i_guid_event.ToString(),
+                                    event_id = i_guid_event,
                                     date_create = createdate,
                                     status = 20 //STATUS KEHADIRAN
                                 });
@@ -626,7 +626,7 @@ namespace ICOE.Models
                         {
                             var tbl_ev = db.TBL_M_EVENTs.Where(x => x.header_id == eventH_id);
                             db.TBL_M_EVENTs.DeleteAllOnSubmit(tbl_ev);
-                            var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == uniqevid.ToString());
+                            var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == uniqevid);
                             db.TBL_T_EVENT_ATTENDANCEs.DeleteAllOnSubmit(tbl_at);
                             db.SubmitChanges();
                         }
@@ -653,7 +653,7 @@ namespace ICOE.Models
                                 {
                                     TBL_T_EVENT_ATTENDANCE eventAttendance = new TBL_T_EVENT_ATTENDANCE();
                                     eventAttendance.attendee = x.attendee;
-                                    eventAttendance.event_id = i_guid_event.ToString();
+                                    eventAttendance.event_id = i_guid_event;
                                     eventAttendance.status = 20;
                                     eventAttendance.group_id = x.group_id;
                                     eventAttendance.date_create = createdate;
@@ -737,7 +737,7 @@ namespace ICOE.Models
                         {                            
                             var tbl_ev = db.TBL_M_EVENTs.Where(x => x.header_id == eventH_id);
                             db.TBL_M_EVENTs.DeleteAllOnSubmit(tbl_ev);
-                            var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == uniqevid.ToString() );
+                            var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == uniqevid );
                             db.TBL_T_EVENT_ATTENDANCEs.DeleteAllOnSubmit(tbl_at);
                             db.SubmitChanges();
                         }                        
@@ -761,7 +761,7 @@ namespace ICOE.Models
                                 {
                                     group_id = null,
                                     attendee = attends,
-                                    event_id = i_guid_event.ToString(),
+                                    event_id = i_guid_event,
                                     date_create = createdate,
                                     status = 20 //STATUS KEHADIRAN
                                 });
@@ -777,7 +777,7 @@ namespace ICOE.Models
                                 {
                                     TBL_T_EVENT_ATTENDANCE eventAttendance = new TBL_T_EVENT_ATTENDANCE();
                                     eventAttendance.attendee = x.attendee;
-                                    eventAttendance.event_id = i_guid_event.ToString();
+                                    eventAttendance.event_id = i_guid_event;
                                     eventAttendance.status = 20;
                                     eventAttendance.group_id = x.group_id;
                                     eventAttendance.date_create = createdate;
@@ -823,7 +823,7 @@ namespace ICOE.Models
                         {
                             var tbl_ev = db.TBL_M_EVENTs.Where(x => x.header_id == eventH_id);
                             db.TBL_M_EVENTs.DeleteAllOnSubmit(tbl_ev);
-                            var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == uniqevid.ToString());
+                            var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == uniqevid);
                             db.TBL_T_EVENT_ATTENDANCEs.DeleteAllOnSubmit(tbl_at);
                             db.SubmitChanges();
                         }
@@ -847,7 +847,7 @@ namespace ICOE.Models
                                 {
                                     group_id = null,
                                     attendee = attends,
-                                    event_id = i_guid_event.ToString(),
+                                    event_id = i_guid_event,
                                     date_create = createdate,
                                     status = 20 //STATUS KEHADIRAN
                                 });
@@ -894,7 +894,7 @@ namespace ICOE.Models
                         {
                             var tbl_ev = db.TBL_M_EVENTs.Where(x => x.header_id == eventH_id);
                             db.TBL_M_EVENTs.DeleteAllOnSubmit(tbl_ev);
-                            var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == uniqevid.ToString());
+                            var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == uniqevid);
                             db.TBL_T_EVENT_ATTENDANCEs.DeleteAllOnSubmit(tbl_at);
                             db.SubmitChanges();
                         }
@@ -921,7 +921,7 @@ namespace ICOE.Models
                                 {
                                     TBL_T_EVENT_ATTENDANCE eventAttendance = new TBL_T_EVENT_ATTENDANCE();
                                     eventAttendance.attendee = x.attendee;
-                                    eventAttendance.event_id = i_guid_event.ToString();
+                                    eventAttendance.event_id = i_guid_event;
                                     eventAttendance.status = 20;
                                     eventAttendance.group_id = x.group_id;
                                     eventAttendance.date_create = createdate;

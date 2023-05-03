@@ -17,12 +17,13 @@ namespace ICOE
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional }
+                //defaults: new { controller = "Calendar", action = "IndexCal", id = UrlParameter.Optional }
             );
-            
+
             //routes.MapRoute(
-            //    name: "Default",
+            //    name: "Default2",
             //    url: "{controller}/{action}/{id}",
-            //    defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional }
+            //    defaults: new { id = UrlParameter.Optional }
             //);
         }
     }

@@ -1,0 +1,256 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    ViewBag.pathParent = Url.Content("~").Substring(0, Url.Content("~").Length - 1);
+}
+
+<h2> Reports Event </h2>
+
+<input type="hidden" id="CB" value="@ViewBag.evh" />
+
+<div id="fm_grid">
+
+    <div class="panel panel-default">
+        <div class="panel-heading text-center">
+            List Header
+        </div>
+        <div class="panel-body">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div id="grid"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="popupedit" style="display: none">
+    <div class="container">
+        <div class="row">
+
+            <input type="hidden" id="evHeader" name="evHeader" class="form-control" data-bind="value: event_id" />
+            <input type="hidden" id="event_id" name="event_id" class="form-control" data-bind="value: event_id" />
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-2">Date</label>
+                    <div class="col-md-4">
+                        <input type="text" id="dt_startDate" name="dt_startDate" class="form-control" data-bind="value: start_date" />
+                    </div>
+                </div>
+            </div>
+
+            <!--  <div class="form-horizontal">
+                  <div class="form-group">
+                      <label class="col-md-2">End Date</label>
+                      <div class="col-md-4">
+                          <input type="text" id="dt_endDate" name="dt_endDate" class="form-control" data-bind="value: end_date" />
+                      </div>
+                  </div>
+              </div> -->
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-2">Start Time</label>
+                    <div class="col-md-4">
+                        <input type="text" id="dt_startTime" name="dt_startTime" class="form-control k-datepicker" data-bind="value: startclock_dates" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-2">End Time</label>
+                    <div class="col-md-4">
+                        <input type="text" id="dt_endTime" name="dt_endTime" class="form-control k-datepicker" data-bind="value: endclock_dates" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-2">Group</label>
+                    <div class="col-md-4">
+                        <select type="text" id="tx_namagroup" name="tx_namagroup" style="width:80%;" data-placeholder="Pilih Group..." class="form-control" data-bind="value: group_name"></select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-2">Peserta</label>
+                    <div class="col-md-4">
+                        <select id="txm_peserta" multiple="multiple" data-bind="attendees" style="width:400px" data-placeholder="Pilih Peserta Event..."></select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <div class="btn-group" role="group" aria-label="Third group">
+                            <button id="btn_save" class="btn btn-primary" onclick="save()"><i class="glyphicon glyphicon-save">&nbsp;</i>Simpan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="window" style="text-align:center;">
+    <div id="alert" style="text-align:center;"></div>
+    <div style="text-align:center;">
+        <button class="btn btn-info" style="width:300px;" onclick="closepop()">OK</button>
+    </div>
+</div>
+
+<script src="~/js/Report.Index.js"></script>
+
+<script type="text/x-kendo-template" id="templateulang">
+
+    # if (ulang == 1 )
+    {#
+    <label style="color: black">Once</label>
+    #} else if ( ulang == 2 )
+    {#
+    <label style="color: orange">Daily</label>
+    #} else if ( ulang == 3 )
+    {#
+    <label style="color: blue">Weekly</label>
+    #}#
+
+</script>
+
+<!--UNTUK STATUS DETAIL-->
+<script type="text/x-kendo-template" id="templateStatus">
+
+    # if (status == 1 &&  Date.parse ( kendo.toString(kendo.parseDate(start_date, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-ddTHH:mm:sszzz") ) <= Date.parse ( kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-ddTHH:mm:sszzz")) && Date.parse ( kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-ddTHH:mm:sszzz")) >= Date.parse ( kendo.toString(kendo.parseDate(end_date, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-ddTHH:mm:sszzz")) ) {#
+    <label style="color: red">Event telah berakhir</label>
+
+    #} else if (status == 1 &&  Date.parse ( kendo.toString(kendo.parseDate(start_date, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-ddTHH:mm:sszzz") ) <= Date.parse ( kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-ddTHH:mm:sszzz")) && Date.parse ( kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-ddTHH:mm:sszzz")) <= Date.parse ( kendo.toString(kendo.parseDate(end_date, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-ddTHH:mm:sszzz")) ) {#
+    <label style="color: orange">Event sedang Berlangsung</label>
+
+    #} else if (status == 1 &&  Date.parse ( kendo.toString(kendo.parseDate(start_date, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-ddTHH:mm:sszzz") ) <= Date.parse ( kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-ddTHH:mm:sszzz")) && Date.parse ( kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-ddTHH:mm:sszzz")) == Date.parse ( kendo.toString(kendo.parseDate(end_date, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-ddTHH:mm:sszzz")) ) {#
+    <label style="color: orange">Event sedang Berlangsung</label>
+
+    #} else if (status == 1 &&  Date.parse ( kendo.toString(kendo.parseDate(start_date, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-ddTHH:mm:sszzz") ) > Date.parse ( kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-ddTHH:mm:sszzz")) && Date.parse ( kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-ddTHH:mm:sszzz")) < Date.parse ( kendo.toString(kendo.parseDate(end_date, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-ddTHH:mm:sszzz")) ) {#
+    <label style="color: blue">Event selanjutnya</label>
+
+    #} else if (status == 1 &&  Date.parse ( kendo.toString(kendo.parseDate(start_date, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-ddTHH:mm:sszzz") ) == Date.parse ( kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-ddTHH:mm:sszzz")) && Date.parse ( kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-ddTHH:mm:sszzz")) <= Date.parse ( kendo.toString(kendo.parseDate(end_date, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-ddTHH:mm:sszzz")) ) {#
+    <label style="color: orange">Event sedang berlangsung</label>
+
+    #} else if (status == 1 &&  Date.parse ( kendo.toString(kendo.parseDate(start_date, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-ddTHH:mm:sszzz") ) == Date.parse ( kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-ddTHH:mm:sszzz")) && Date.parse ( kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-ddTHH:mm:sszzz")) == Date.parse ( kendo.toString(kendo.parseDate(end_date, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-ddTHH:mm:sszzz")) ) {#
+    <label style="color: orange">Event sedang berlangsung</label>
+
+    #}#
+
+
+
+    @*# if (status == 1 &&  Date.parse ( kendo.toString(kendo.parseDate(start_date, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-ddTHH:mm:sszzz") ) == Date.parse ( kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-ddTHH:mm:sszzz")) ) {#
+    <label style="color: orange">Event sedang Berlangsung</label>
+    #} else if ( status == 1 && Date.parse( kendo.toString(kendo.parseDate(start_date, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-ddTHH:mm:sszzz") ) > Date.parse( kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-ddTHH:mm:sszzz")) ) {#
+    <label style="color: blue">Event Selanjutnya</label>
+    #} else if ( status == 1 && Date.parse( kendo.toString(kendo.parseDate(start_date, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-ddTHH:mm:sszzz") ) < Date.parse( kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-ddTHH:mm:sszzz")) ) {#
+    <label style="color: red">Event Telah Berakhir</label>
+    #}#*@
+
+</script>
+
+<!--UNTUK STATUS HEADER-->
+<script type="text/x-kendo-template" id="templateStatusHead">
+
+    @*# console.log ( Date.parse( kendo.toString(kendo.parseDate(start_date, 'yyyy-MM-dd'), 'yyyy-MM-dd') + " " + kendo.toString(kendo.parseDate(start_time, 'H:mm'), 'H:mm') )  )#
+    # console.log ( kendo.toString(kendo.parseDate(start_date, 'yyyy-MM-dd'), 'yyyy-MM-dd') + " " + kendo.toString(kendo.parseDate(start_time, 'H:mm'), 'H:mm') ) #*@
+
+    @*OLD
+    # if (status == 1 &&  Date.parse(kendo.toString(kendo.parseDate(end_date, 'yyyy-MM-dd'), 'yyyy-MM-dd') + " " + kendo.toString(kendo.parseDate(end_time, 'H:mm'), 'H:mm')) >  Date.parse(kendo.toString(kendo.parseDate(new Date(), 'yyyy-MM-ddTHH:mm:sszzz'), 'yyyy-MM-ddTHH:mm:sszzz')) && Date.parse(kendo.toString(kendo.parseDate(start_date, 'yyyy-MM-dd'), 'yyyy-MM-dd') + " " + kendo.toString(kendo.parseDate(start_time, 'H:mm'), 'H:mm')) <  Date.parse(kendo.toString(kendo.parseDate(new Date(), 'yyyy-MM-ddTHH:mm:sszzz'), 'yyyy-MM-ddTHH:mm:sszzz')) ) {#
+    <label style="color: orange">Event sedang Berlangsung</label>
+
+    #} else if (status == 1 &&  Date.parse(kendo.toString(kendo.parseDate(end_date, 'yyyy-MM-dd'), 'yyyy-MM-dd') + " " + kendo.toString(kendo.parseDate(end_time, 'H:mm'), 'H:mm')) >  Date.parse(kendo.toString(kendo.parseDate(new Date(), 'yyyy-MM-ddTHH:mm:sszzz'), 'yyyy-MM-ddTHH:mm:sszzz')) && Date.parse(kendo.toString(kendo.parseDate(start_date, 'yyyy-MM-dd'), 'yyyy-MM-dd') + " " + kendo.toString(kendo.parseDate(start_time, 'H:mm'), 'H:mm')) >  Date.parse(kendo.toString(kendo.parseDate(new Date(), 'yyyy-MM-ddTHH:mm:sszzz'), 'yyyy-MM-ddTHH:mm:sszzz')) ) {#
+    <label style="color: blue">Event selanjutnya</label>
+
+    #} else if (status == 1 &&  Date.parse(kendo.toString(kendo.parseDate(end_date, 'yyyy-MM-dd'), 'yyyy-MM-dd') + " " + kendo.toString(kendo.parseDate(end_time, 'H:mm'), 'H:mm')) <  Date.parse(kendo.toString(kendo.parseDate(new Date(), 'yyyy-MM-ddTHH:mm:sszzz'), 'yyyy-MM-ddTHH:mm:sszzz')) && Date.parse(kendo.toString(kendo.parseDate(start_date, 'yyyy-MM-dd'), 'yyyy-MM-dd') + " " + kendo.toString(kendo.parseDate(start_time, 'H:mm'), 'H:mm')) <  Date.parse(kendo.toString(kendo.parseDate(new Date(), 'yyyy-MM-ddTHH:mm:sszzz'), 'yyyy-MM-ddTHH:mm:sszzz')) ) {#
+    <label style="color: red">Event telah berakhir</label>
+
+    #} else if (status == 1 &&  Date.parse(kendo.toString(kendo.parseDate(end_date, 'yyyy-MM-dd'), 'yyyy-MM-dd') + " " + kendo.toString(kendo.parseDate(end_time, 'H:mm'), 'H:mm')) ==  Date.parse(kendo.toString(kendo.parseDate(new Date(), 'yyyy-MM-ddTHH:mm:sszzz'), 'yyyy-MM-ddTHH:mm:sszzz')) && Date.parse(kendo.toString(kendo.parseDate(start_date, 'yyyy-MM-dd'), 'yyyy-MM-dd') + " " + kendo.toString(kendo.parseDate(start_time, 'H:mm'), 'H:mm')) ==  Date.parse(kendo.toString(kendo.parseDate(new Date(), 'yyyy-MM-ddTHH:mm:sszzz'), 'yyyy-MM-ddTHH:mm:sszzz')) ) {#
+    <label style="color: orange">Event sedang berlangsung</label>
+
+    #}#*@
+
+    @*VERY OLD
+    # if (status == 1 &&  kendo.toString(kendo.parseDate(end_date, 'yyyy-MM-dd'), 'yyyy-MM-dd') >  kendo.toString(kendo.parseDate(new Date(), 'yyyy-MM-dd'), 'yyyy-MM-dd') && kendo.toString(kendo.parseDate(start_date, 'yyyy-MM-dd'), 'yyyy-MM-dd') <  kendo.toString(kendo.parseDate(new Date(), 'yyyy-MM-dd'), 'yyyy-MM-dd') ) {#
+    <label style="color: orange">Event sedang Berlangsung</label>
+
+    #} else if (status == 1 &&  kendo.toString(kendo.parseDate(end_date, 'yyyy-MM-dd'), 'yyyy-MM-dd') >  kendo.toString(kendo.parseDate(new Date(), 'yyyy-MM-dd'), 'yyyy-MM-dd') && kendo.toString(kendo.parseDate(start_date, 'yyyy-MM-dd'), 'yyyy-MM-dd') >  kendo.toString(kendo.parseDate(new Date(), 'yyyy-MM-dd'), 'yyyy-MM-dd') ) {#
+    <label style="color: Blue">Event Selanjutnya</label>
+
+    #} else if (status == 1 &&  kendo.toString(kendo.parseDate(end_date, 'yyyy-MM-dd'), 'yyyy-MM-dd') <  kendo.toString(kendo.parseDate(new Date(), 'yyyy-MM-dd'), 'yyyy-MM-dd') && kendo.toString(kendo.parseDate(start_date, 'yyyy-MM-dd'), 'yyyy-MM-dd') <  kendo.toString(kendo.parseDate(new Date(), 'yyyy-MM-dd'), 'yyyy-MM-dd') ) {#
+    <label style="color: red">Event Telah Berakhir</label>
+
+    #} else if (status == 1 &&  kendo.toString(kendo.parseDate(end_date, 'yyyy-MM-dd'), 'yyyy-MM-dd') ==  kendo.toString(kendo.parseDate(new Date(), 'yyyy-MM-dd'), 'yyyy-MM-dd') && kendo.toString(kendo.parseDate(start_date, 'yyyy-MM-dd'), 'yyyy-MM-dd') ==  kendo.toString(kendo.parseDate(new Date(), 'yyyy-MM-dd'), 'yyyy-MM-dd') ) {#
+    <label style="color: orange">Event Sedang Berlangsung</label>
+
+    #}#*@
+
+    # if (status == 1 &&  kendo.toString(kendo.parseDate(start_date, 'yyyy-MM-dd'), 'yyyy-MM-dd') <  kendo.toString(kendo.parseDate(new Date(), 'yyyy-MM-dd'), 'yyyy-MM-dd') && kendo.toString(kendo.parseDate(new Date(), 'yyyy-MM-dd'), 'yyyy-MM-dd') >  kendo.toString(kendo.parseDate(end_date, 'yyyy-MM-dd'), 'yyyy-MM-dd') ) {#
+    <label style="color: red">Event telah berakhir</label>
+
+    #} else if (status == 1 &&  kendo.toString(kendo.parseDate(start_date, 'yyyy-MM-dd'), 'yyyy-MM-dd') <  kendo.toString(kendo.parseDate(new Date(), 'yyyy-MM-dd'), 'yyyy-MM-dd') && kendo.toString(kendo.parseDate(new Date(), 'yyyy-MM-dd'), 'yyyy-MM-dd') <  kendo.toString(kendo.parseDate(end_date, 'yyyy-MM-dd'), 'yyyy-MM-dd') ) {#
+    <label style="color: orange">Event sedang Berlangsung</label>
+
+    #} else if (status == 1 &&  kendo.toString(kendo.parseDate(start_date, 'yyyy-MM-dd'), 'yyyy-MM-dd') <  kendo.toString(kendo.parseDate(new Date(), 'yyyy-MM-dd'), 'yyyy-MM-dd') && kendo.toString(kendo.parseDate(new Date(), 'yyyy-MM-dd'), 'yyyy-MM-dd') ==  kendo.toString(kendo.parseDate(end_date, 'yyyy-MM-dd'), 'yyyy-MM-dd') ) {#
+    <label style="color: orange">Event sedang Berlangsung</label>
+
+    #} else if (status == 1 &&  kendo.toString(kendo.parseDate(start_date, 'yyyy-MM-dd'), 'yyyy-MM-dd') >  kendo.toString(kendo.parseDate(new Date(), 'yyyy-MM-dd'), 'yyyy-MM-dd') && kendo.toString(kendo.parseDate(new Date(), 'yyyy-MM-dd'), 'yyyy-MM-dd') <  kendo.toString(kendo.parseDate(end_date, 'yyyy-MM-dd'), 'yyyy-MM-dd') ) {#
+    <label style="color: blue">Event selanjutnya</label>
+
+    #}  else if (status == 1 &&  kendo.toString(kendo.parseDate(start_date, 'yyyy-MM-dd'), 'yyyy-MM-dd') ==  kendo.toString(kendo.parseDate(new Date(), 'yyyy-MM-dd'), 'yyyy-MM-dd') && kendo.toString(kendo.parseDate(new Date(), 'yyyy-MM-dd'), 'yyyy-MM-dd') <  kendo.toString(kendo.parseDate(end_date, 'yyyy-MM-dd'), 'yyyy-MM-dd') ) {#
+    <label style="color: orange">Event sedang berlangsung</label>
+
+    #} else if (status == 1 &&  kendo.toString(kendo.parseDate(start_date, 'yyyy-MM-dd'), 'yyyy-MM-dd') ==  kendo.toString(kendo.parseDate(new Date(), 'yyyy-MM-dd'), 'yyyy-MM-dd') && kendo.toString(kendo.parseDate(new Date(), 'yyyy-MM-dd'), 'yyyy-MM-dd') ==  kendo.toString(kendo.parseDate(end_date, 'yyyy-MM-dd'), 'yyyy-MM-dd') ) {#
+    <label style="color: orange">Event sedang berlangsung</label>
+
+    #}#
+
+</script>
+
+<!--UNTUK ATT HADIR-->
+<script type="text/x-kendo-template" id="templateatt">
+    #if (att_hadir == null || att_hadir == "") {#
+        0
+    #}
+    else if (att_hadir != null || att_hadir != ""){#
+
+    #= kendo.toString(att_hadir) #
+
+    #}#
+</script>
+
+<script type="text/x-kendo-template" id="template">
+    <div class="tabstrip">
+        <ul>
+            <li class="k-state-active">
+                Detail Events
+            </li>
+        </ul>
+        <div>
+            <div class="orders"></div>
+        </div>
+    </div>
+</script>
+
+<style>
+    .k-detail-cell .k-tabstrip .k-content {
+        padding: 0.2em;
+    }
+
+    .k-grid-content {
+        min-height: 100px;
+    }
+</style>
+

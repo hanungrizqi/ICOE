@@ -186,6 +186,26 @@ $(document).ready(function () {
             window.location = "/AbsensiEvent/IndexQR?event_id=" + dataItem.event_id + "&name=" + dataItem.name;
         },
 
+        DetailEvent2: function (el) {
+            //debugger
+            var dataItem = this.dataItem($(el.currentTarget).closest("tr"));
+            var obj = {
+                event_id: dataItem.event_id,
+                name: dataItem.name
+            }
+            window.location = "/AbsensiEvent/IndexQR2?event_id=" + dataItem.event_id + "&name=" + dataItem.name;
+        },
+
+        DetailEvent3: function (el) {
+            //debugger
+            var dataItem = this.dataItem($(el.currentTarget).closest("tr"));
+            var obj = {
+                event_id: dataItem.event_id,
+                name: dataItem.name
+            }
+            window.location = "/AbsensiEvent/IndexQR3?event_id=" + dataItem.event_id + "&name=" + dataItem.name;
+        },
+
         deleted: function (elem) {
             //debugger
             var dataItem2 = this.dataItem($(elem.currentTarget).closest("tr"));
@@ -365,8 +385,10 @@ function detailInit(elem) {
         columns: [
             {
                 command: [
-                    { name: 'Detail', text: 'Detail', class: 'btn btn-default', click: ViewModel.DetailEvent },
-                    //{ name: 'Edit', text: 'Edit', class: 'btn btn-default', click: ViewModel.EditDetail }
+                    { name: 'Attendance', text: 'Attendance', class: 'btn btn-default', click: ViewModel.DetailEvent },
+                    //{ name: 'Tidak Hadir', text: 'Tidak Hadir', class: 'btn btn-default', click: ViewModel.DetailEvent2 },
+                    { name: 'Respon', text: 'Respon', class: 'btn btn-default', click: ViewModel.DetailEvent3 },
+                    { name: 'Edit', text: 'Edit', class: 'btn btn-default', click: ViewModel.EditDetail }
                 ],
                 title: 'Action',
                 width: 150

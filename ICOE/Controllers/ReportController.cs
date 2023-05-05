@@ -12,6 +12,7 @@ using System.DirectoryServices.AccountManagement;
 using System.Collections.Generic;
 using ICOE.Models;
 using System;
+using Newtonsoft.Json.Linq;
 //using System.Text.Json;
 
 namespace ICOE.Controllers
@@ -73,8 +74,13 @@ namespace ICOE.Controllers
                 var notyet = listevent - udahrespon;
                 // var Ev_header = db.cusp_readHeader_event(starteventdate, endeventdate).OrderByDescending(f => f.start_date).ToList();
                 //var listicoe = dB_ICT.VW_LIST_EVENT_DETAILs.ToList();
-                var listicoe = dB_ICT.cufn_getEventDetails_ICOE_byNRP(nrp).OrderByDescending(f => f.start_date).ToList();
+                var listicoe = dB_ICT.cufn_getEventDetails_ICOE_byNRP(nrp).ToList();
                 
+                //foreach(var item in listicoe)
+                //{
+                //    item.start_date = new DateTime(parseInt(value.replace("/Date(", "").replace(")/", ""), 10));
+                //}
+
                 return Json(new { status = true, Data = listicoe, Total = listicoe.Count(), totalEvent = listevent, totalRespond = udahrespon, totalNotRespond = notyet }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)

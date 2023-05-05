@@ -289,26 +289,6 @@
       <Column Name="location" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.VW_LIST_EVENT_DETAIL" Member="VW_LIST_EVENT_DETAILs">
-    <Type Name="VW_LIST_EVENT_DETAIL">
-      <Column Name="event_id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="attendee" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="description" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="start_date" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
-      <Column Name="end_date" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
-      <Column Name="jam_mulai" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
-      <Column Name="jam_akhir" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
-      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="eventStatus" Type="System.String" DbType="VarChar(6) NOT NULL" CanBeNull="false" />
-      <Column Name="location" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="group_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="link" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="kategori" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="EmailReciepants" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="response" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.VW_ATTENDEE_HADIR" Member="VW_ATTENDEE_HADIRs">
     <Type Name="VW_ATTENDEE_HADIR">
       <Column Name="event_id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
@@ -325,26 +305,6 @@
     <Type Name="VW_ATTENDEE_TIDAK_HADIR">
       <Column Name="event_id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Column Name="att_hadir" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.TBL_T_RESPONSE_MOK" Member="TBL_T_RESPONSE_MOKs">
-    <Type Name="TBL_T_RESPONSE_MOK">
-      <Column Name="id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="event_id" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="description" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="created_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="start_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="end_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="jam_mulai" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="jam_akhir" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="location" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="group_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="link" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="kategori" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="attendee" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="EmailReciepants" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="response" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.VW_RESPON_ACCEPT" Member="VW_RESPON_ACCEPTs">
@@ -437,6 +397,47 @@
     <Type Name="VW_ATTENDEE_RESPON_TENTATIVE">
       <Column Name="event_id" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="att_hadir" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBL_T_RESPONSE_MOK" Member="TBL_T_RESPONSE_MOKs">
+    <Type Name="TBL_T_RESPONSE_MOK">
+      <Column Name="id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="event_id" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="description" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="created_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="start_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="end_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="jam_mulai" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="jam_akhir" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="location" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="group_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="link" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="kategori" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="attendee" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="EmailReciepants" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="response" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VW_LIST_EVENT_DETAIL" Member="VW_LIST_EVENT_DETAILs">
+    <Type Name="VW_LIST_EVENT_DETAIL">
+      <Column Name="event_id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="attendee" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="description" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="start_date" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="end_date" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="jam_mulai" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="jam_akhir" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="eventStatus" Type="System.String" DbType="VarChar(6) NOT NULL" CanBeNull="false" />
+      <Column Name="location" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="group_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="link" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="kategori" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="EmailReciepants" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="response" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
   <Function Name="PROFILE.cusp_GetDetailProfile" Method="cusp_GetDetailProfile">
@@ -636,18 +637,6 @@
       <Column Name="startdateawal" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.cusp_cekLokasi" Method="cusp_cekLokasi">
-    <Parameter Name="startdate" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="enddate" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="starttime" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="endtime" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="locationid" Type="System.String" DbType="VarChar(100)" />
-    <Parameter Name="action" Type="System.Int32" DbType="Int" />
-    <Parameter Name="evH" Type="System.String" DbType="VarChar(200)" />
-    <ElementType Name="cusp_cekLokasiResult">
-      <Column Name="hasil" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.cusp_UpdateEvent_Header" Method="cusp_UpdateEvent_Header">
     <Parameter Name="eventH_id" Type="System.String" DbType="VarChar(200)" />
     <Parameter Name="dstrct_code" Type="System.String" DbType="VarChar(50)" />
@@ -698,6 +687,38 @@
       <Column Name="EmailReciepants" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.cusp_UpdateEvent" Method="cusp_UpdateEvent">
+    <Parameter Name="event_id" Type="System.Guid" DbType="UniqueIdentifier" />
+    <Parameter Name="eventH_id" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="startdate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="enddate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="starttime" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="endtime" Type="System.DateTime" DbType="DateTime" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.cusp_cekLokasi" Method="cusp_cekLokasi">
+    <Parameter Name="startdate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="enddate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="starttime" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="endtime" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="locationid" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="action" Type="System.Int32" DbType="Int" />
+    <Parameter Name="evH" Type="System.String" DbType="VarChar(200)" />
+    <ElementType Name="cusp_cekLokasiResult">
+      <Column Name="hasil" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.cusp_cektanggal" Method="cusp_cektanggal">
+    <Parameter Name="eventH" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="eventid" Type="System.Guid" DbType="UniqueIdentifier" />
+    <Parameter Name="datelempar" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="datelempar2" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="startime" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="endtime" Type="System.DateTime" DbType="DateTime" />
+    <ElementType Name="cusp_cektanggalResult">
+      <Column Name="hasil" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
   <Function Name="dbo.cufn_getEventDetails_ICOE" Method="cufn_getEventDetails_ICOE" IsComposable="true">
     <Parameter Name="evH" Type="System.String" DbType="VarChar(100)" />
     <Parameter Name="nrp" Type="System.String" DbType="VarChar(100)" />
@@ -706,6 +727,7 @@
       <Column Name="attendee" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="description" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="start_date" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
       <Column Name="end_date" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
       <Column Name="jam_mulai" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
@@ -720,41 +742,11 @@
       <Column Name="response" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.cufn_getEventDetails_ICOE_byNRP" Method="cufn_getEventDetails_ICOE_byNRP" IsComposable="true">
-    <Parameter Name="nrp" Type="System.String" DbType="VarChar(100)" />
-    <ElementType Name="cufn_getEventDetails_ICOE_byNRPResult">
-      <Column Name="event_id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="start_date" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
-      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="location" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="response" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.cusp_cektanggal" Method="cusp_cektanggal">
-    <Parameter Name="eventH" Type="System.String" DbType="VarChar(200)" />
-    <Parameter Name="eventid" Type="System.Guid" DbType="UniqueIdentifier" />
-    <Parameter Name="datelempar" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="datelempar2" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="startime" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="endtime" Type="System.DateTime" DbType="DateTime" />
-    <ElementType Name="cusp_cektanggalResult">
-      <Column Name="hasil" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.cusp_UpdateEvent" Method="cusp_UpdateEvent">
-    <Parameter Name="event_id" Type="System.Guid" DbType="UniqueIdentifier" />
-    <Parameter Name="eventH_id" Type="System.String" DbType="VarChar(200)" />
-    <Parameter Name="startdate" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="enddate" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="starttime" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="endtime" Type="System.DateTime" DbType="DateTime" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.cufn_getEventResponse" Method="cufn_getEventResponse" IsComposable="true">
     <Parameter Name="nrp" Type="System.String" DbType="VarChar(100)" />
     <ElementType Name="cufn_getEventResponseResult">
-      <Column Name="event_id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="event_id" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="description" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="created_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
@@ -764,10 +756,21 @@
       <Column Name="jam_akhir" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="location" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="group_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="link" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="link" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="kategori" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="attendee" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="EmailReciepants" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="response" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.cufn_getEventDetails_ICOE_byNRP" Method="cufn_getEventDetails_ICOE_byNRP" IsComposable="true">
+    <Parameter Name="nrp" Type="System.String" DbType="VarChar(100)" />
+    <ElementType Name="cufn_getEventDetails_ICOE_byNRPResult">
+      <Column Name="event_id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="start_date" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="location" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="response" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>

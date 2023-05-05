@@ -152,12 +152,6 @@
         <elementListCompartment Id="82bbed81-1c21-4603-9439-90b799c78ae6" absoluteBounds="2.6399999999999997, 3.46, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="04716c9f-04b3-4b40-8d24-7c8a3b8256e4" isExpanded="false" absoluteBounds="6.875, 0.5, 2, 0.45">
-      <DataClassMoniker Name="/DB_ICT_mOK_KPTDataContext/VW_LIST_EVENT_DETAIL" />
-      <nestedChildShapes>
-        <elementListCompartment Id="48bca998-72b3-4c70-ae7c-5cd6223ec56e" absoluteBounds="6.89, 0.96, 1.9700000000000002, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="dd3719cb-31a2-4612-99f1-c0727720917b" isExpanded="false" absoluteBounds="4.75, 2, 2, 0.45">
       <DataClassMoniker Name="/DB_ICT_mOK_KPTDataContext/VW_ATTENDEE_HADIR" />
       <nestedChildShapes>
@@ -174,12 +168,6 @@
       <DataClassMoniker Name="/DB_ICT_mOK_KPTDataContext/VW_ATTENDEE_TIDAK_HADIR" />
       <nestedChildShapes>
         <elementListCompartment Id="8f80dfae-e96b-4f9a-9c1c-3d0cd3f2e2b3" absoluteBounds="4.765, 3.46, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="130f84a3-c2f8-4de6-8e6b-fe4da250484b" isExpanded="false" absoluteBounds="4.75, 5.75, 2, 0.45">
-      <DataClassMoniker Name="/DB_ICT_mOK_KPTDataContext/TBL_T_RESPONSE_MOK" />
-      <nestedChildShapes>
-        <elementListCompartment Id="5a71ea1f-cb0b-4357-ada9-ec8ea5f81b5c" absoluteBounds="4.765, 6.21, 1.9700000000000002, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <classShape Id="471de2d9-0705-4d22-8e30-6f4fe1715712" isExpanded="false" absoluteBounds="6.875, 1, 2, 0.45">
@@ -228,6 +216,18 @@
       <DataClassMoniker Name="/DB_ICT_mOK_KPTDataContext/VW_ATTENDEE_RESPON_TENTATIVE" />
       <nestedChildShapes>
         <elementListCompartment Id="8c0ec232-4379-47f3-b1c3-7f3b11a01e42" absoluteBounds="6.89, 3.96, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="2411d83a-ec0a-408b-a446-ed8c379c9707" isExpanded="false" absoluteBounds="4.75, 5.75, 2, 0.45">
+      <DataClassMoniker Name="/DB_ICT_mOK_KPTDataContext/TBL_T_RESPONSE_MOK" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1fa3877b-c7ac-448b-93b2-1076092dd0bc" absoluteBounds="4.765, 6.21, 1.9700000000000002, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="099f7bad-2aa2-4463-a0fb-559267d2220b" isExpanded="false" absoluteBounds="6.875, 0.5, 2, 0.45">
+      <DataClassMoniker Name="/DB_ICT_mOK_KPTDataContext/VW_LIST_EVENT_DETAIL" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d16d281e-b386-4e5d-abdf-1e60f01aaac7" absoluteBounds="6.89, 0.96, 1.9700000000000002, 3.518513997395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

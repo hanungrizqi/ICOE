@@ -11,6 +11,7 @@ namespace ICOE.Models
         DB_ICT_mOK_KPTDataContext db = new DB_ICT_mOK_KPTDataContext();
         
         public Guid event_id { get; set; }
+        public Guid id { get; set; }
         public string name { get; set; }
         public string description { get; set; }
         public string link { get; set; }
@@ -49,6 +50,7 @@ namespace ICOE.Models
         public void input_respon()
         {
             TBL_T_RESPONSE_MOK tbl = new TBL_T_RESPONSE_MOK();
+            tbl.id = Guid.NewGuid();
             tbl.event_id = event_id;
             tbl.name = name;
             tbl.description = description;

@@ -60,9 +60,6 @@ namespace ICOE.Models
     partial void InsertTBL_M_EVENT_HEADER(TBL_M_EVENT_HEADER instance);
     partial void UpdateTBL_M_EVENT_HEADER(TBL_M_EVENT_HEADER instance);
     partial void DeleteTBL_M_EVENT_HEADER(TBL_M_EVENT_HEADER instance);
-    partial void InsertTBL_M_ICOE_LINK(TBL_M_ICOE_LINK instance);
-    partial void UpdateTBL_M_ICOE_LINK(TBL_M_ICOE_LINK instance);
-    partial void DeleteTBL_M_ICOE_LINK(TBL_M_ICOE_LINK instance);
     partial void InsertTBL_M_EVENT(TBL_M_EVENT instance);
     partial void UpdateTBL_M_EVENT(TBL_M_EVENT instance);
     partial void DeleteTBL_M_EVENT(TBL_M_EVENT instance);
@@ -72,6 +69,9 @@ namespace ICOE.Models
     partial void InsertTBL_T_RESPONSE_MOK(TBL_T_RESPONSE_MOK instance);
     partial void UpdateTBL_T_RESPONSE_MOK(TBL_T_RESPONSE_MOK instance);
     partial void DeleteTBL_T_RESPONSE_MOK(TBL_T_RESPONSE_MOK instance);
+    partial void InsertTBL_M_ICOE_LINK(TBL_M_ICOE_LINK instance);
+    partial void UpdateTBL_M_ICOE_LINK(TBL_M_ICOE_LINK instance);
+    partial void DeleteTBL_M_ICOE_LINK(TBL_M_ICOE_LINK instance);
     #endregion
 		
 		public DB_ICT_mOK_KPTDataContext() : 
@@ -280,14 +280,6 @@ namespace ICOE.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<TBL_M_ICOE_LINK> TBL_M_ICOE_LINKs
-		{
-			get
-			{
-				return this.GetTable<TBL_M_ICOE_LINK>();
-			}
-		}
-		
 		public System.Data.Linq.Table<TBL_M_EVENT> TBL_M_EVENTs
 		{
 			get
@@ -405,6 +397,14 @@ namespace ICOE.Models
 			get
 			{
 				return this.GetTable<VW_LIST_EVENT_DETAIL>();
+			}
+		}
+		
+		public System.Data.Linq.Table<TBL_M_ICOE_LINK> TBL_M_ICOE_LINKs
+		{
+			get
+			{
+				return this.GetTable<TBL_M_ICOE_LINK>();
 			}
 		}
 		
@@ -4342,116 +4342,6 @@ namespace ICOE.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TBL_M_ICOE_LINK")]
-	public partial class TBL_M_ICOE_LINK : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Guid _event_id;
-		
-		private string _link;
-		
-		private string _header_id;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void Onevent_idChanging(System.Guid value);
-    partial void Onevent_idChanged();
-    partial void OnlinkChanging(string value);
-    partial void OnlinkChanged();
-    partial void Onheader_idChanging(string value);
-    partial void Onheader_idChanged();
-    #endregion
-		
-		public TBL_M_ICOE_LINK()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_event_id", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid event_id
-		{
-			get
-			{
-				return this._event_id;
-			}
-			set
-			{
-				if ((this._event_id != value))
-				{
-					this.Onevent_idChanging(value);
-					this.SendPropertyChanging();
-					this._event_id = value;
-					this.SendPropertyChanged("event_id");
-					this.Onevent_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_link", DbType="VarChar(200)")]
-		public string link
-		{
-			get
-			{
-				return this._link;
-			}
-			set
-			{
-				if ((this._link != value))
-				{
-					this.OnlinkChanging(value);
-					this.SendPropertyChanging();
-					this._link = value;
-					this.SendPropertyChanged("link");
-					this.OnlinkChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_header_id", DbType="VarChar(50)")]
-		public string header_id
-		{
-			get
-			{
-				return this._header_id;
-			}
-			set
-			{
-				if ((this._header_id != value))
-				{
-					this.Onheader_idChanging(value);
-					this.SendPropertyChanging();
-					this._header_id = value;
-					this.SendPropertyChanged("header_id");
-					this.Onheader_idChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TBL_M_EVENT")]
 	public partial class TBL_M_EVENT : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -6986,6 +6876,116 @@ namespace ICOE.Models
 				{
 					this._response = value;
 				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TBL_M_ICOE_LINK")]
+	public partial class TBL_M_ICOE_LINK : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _event_id;
+		
+		private string _link;
+		
+		private string _header_id;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void Onevent_idChanging(System.Guid value);
+    partial void Onevent_idChanged();
+    partial void OnlinkChanging(string value);
+    partial void OnlinkChanged();
+    partial void Onheader_idChanging(string value);
+    partial void Onheader_idChanged();
+    #endregion
+		
+		public TBL_M_ICOE_LINK()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_event_id", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid event_id
+		{
+			get
+			{
+				return this._event_id;
+			}
+			set
+			{
+				if ((this._event_id != value))
+				{
+					this.Onevent_idChanging(value);
+					this.SendPropertyChanging();
+					this._event_id = value;
+					this.SendPropertyChanged("event_id");
+					this.Onevent_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_link", DbType="VarChar(MAX)")]
+		public string link
+		{
+			get
+			{
+				return this._link;
+			}
+			set
+			{
+				if ((this._link != value))
+				{
+					this.OnlinkChanging(value);
+					this.SendPropertyChanging();
+					this._link = value;
+					this.SendPropertyChanged("link");
+					this.OnlinkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_header_id", DbType="VarChar(50)")]
+		public string header_id
+		{
+			get
+			{
+				return this._header_id;
+			}
+			set
+			{
+				if ((this._header_id != value))
+				{
+					this.Onheader_idChanging(value);
+					this.SendPropertyChanging();
+					this._header_id = value;
+					this.SendPropertyChanged("header_id");
+					this.Onheader_idChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}

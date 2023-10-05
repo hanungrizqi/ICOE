@@ -26,6 +26,7 @@
         <div class="col-md-12">
 
             <input type="hidden" id="idHeader" value="@ViewBag.header" />
+            <input type="hidden" id="ideventid" value="@ViewBag.evvid" />
             <input type="hidden" id="cb" data-bind="value: createby" />
             <div class="form-horizontal">
                 <div class="form-group">
@@ -81,23 +82,63 @@
                 </div>
             </div>
 
-            <div class="form-horizontal">
-                <div class="form-group">
-                    <label class="col-md-2">Tanggal Mulai Event<span class="required">*</span></label>
-                    <div class="col-md-4">
-                        <input type="text" id="dt_startEvent" name="dt_startEvent" data-bind="value: start_date" />
+            @if (ViewBag.evvidCount > 1)
+            {
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-2">Tanggal Mulai Event<span class="required">*</span></label>
+                        <div class="col-md-4">
+                            <input type="text" id="dt_startEvent" name="dt_startEvent" data-bind="value: start_date" disabled/>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="form-horizontal">
-                <div class="form-group">
-                    <label class="col-md-2">Tanggal Akhir Event<span class="required" id="tglakhir" hidden>*</span></label>
-                    <div class="col-md-4">
-                        <input type="text" id="dt_endEvent" name="dt_endEvent" data-bind="value: end_date, disabled: val" />
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-2">Tanggal Akhir Event<span class="required" id="tglakhir" hidden>*</span></label>
+                        <div class="col-md-4">
+                            <input type="text" id="dt_endEvent" name="dt_endEvent" data-bind="value: end_date" disabled/>
+                        </div>
                     </div>
                 </div>
+            }
+            else
+            {
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-2">Tanggal Mulai Event<span class="required">*</span></label>
+                        <div class="col-md-4">
+                            <input type="text" id="dt_startEvent" name="dt_startEvent" data-bind="value: start_date" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-2">Tanggal Akhir Event<span class="required" id="tglakhir" hidden>*</span></label>
+                        <div class="col-md-4">
+                            <input type="text" id="dt_endEvent" name="dt_endEvent" data-bind="value: end_date, disabled: val" />
+                        </div>
+                    </div>
+                </div>
+            }
+            @*<div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-md-2">Tanggal Mulai Event<span class="required">*</span></label>
+                <div class="col-md-4">
+                    <input type="text" id="dt_startEvent" name="dt_startEvent" data-bind="value: start_date" />
+                </div>
             </div>
+        </div>
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-md-2">Tanggal Akhir Event<span class="required" id="tglakhir" hidden>*</span></label>
+                <div class="col-md-4">
+                    <input type="text" id="dt_endEvent" name="dt_endEvent" data-bind="value: end_date, disabled: val" />
+                </div>
+            </div>
+        </div>*@
 
             <div class="form-horizontal">
                 <div class="form-group">

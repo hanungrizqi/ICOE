@@ -256,13 +256,6 @@
       <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.TBL_M_ICOE_LINK" Member="TBL_M_ICOE_LINKs">
-    <Type Name="TBL_M_ICOE_LINK">
-      <Column Name="event_id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="link" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="header_id" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.TBL_M_EVENT" Member="TBL_M_EVENTs">
     <Type Name="TBL_M_EVENT">
       <Column Name="event_id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -438,6 +431,13 @@
       <Column Name="kategori" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="EmailReciepants" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="response" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBL_M_ICOE_LINK" Member="TBL_M_ICOE_LINKs">
+    <Type Name="TBL_M_ICOE_LINK">
+      <Column Name="event_id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="link" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="header_id" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
   <Function Name="PROFILE.cusp_GetDetailProfile" Method="cusp_GetDetailProfile">

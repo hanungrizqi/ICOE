@@ -208,15 +208,21 @@ namespace ICOE.Models
                         var getEV = db.TBL_M_EVENTs.Where(o => o.header_id == eventH_id).Select(f => f.event_id).FirstOrDefault();
                         var getEVL = db.TBL_M_ICOE_LINKs.Where(o => o.header_id == eventH_id).Select(f => f.event_id).FirstOrDefault();
 
+                        // Mengambil event_id dari event yang akan diedit
+                        var previousEventId = db.TBL_M_EVENTs
+                            .Where(o => o.header_id == eventH_id)
+                            .Select(f => f.event_id)
+                            .FirstOrDefault();
+
                         //HAPUS RECENT DATA TO UPDATE
                         var tbl_evH = db.TBL_M_EVENT_HEADERs.Where(y => y.event_header_id == eventH_id);
                         db.TBL_M_EVENT_HEADERs.DeleteAllOnSubmit(tbl_evH);
 
-                        var tbl_ev = db.TBL_M_EVENTs.Where(x => x.header_id == eventH_id);
-                        db.TBL_M_EVENTs.DeleteAllOnSubmit(tbl_ev);
+                        //var tbl_ev = db.TBL_M_EVENTs.Where(x => x.header_id == eventH_id);
+                        //db.TBL_M_EVENTs.DeleteAllOnSubmit(tbl_ev);
 
-                        var tbl_evl = db.TBL_M_ICOE_LINKs.Where(x => x.header_id == eventH_id);
-                        db.TBL_M_ICOE_LINKs.DeleteAllOnSubmit(tbl_evl);
+                        //var tbl_evl = db.TBL_M_ICOE_LINKs.Where(x => x.header_id == eventH_id);
+                        //db.TBL_M_ICOE_LINKs.DeleteAllOnSubmit(tbl_evl);
 
                         //var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == getEV.ToString());
                         var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == getEV && i.event_id == getEVL);
@@ -231,6 +237,10 @@ namespace ICOE.Models
                             starttime, endtime, kategori, iscoe, createdate, createby, i_guid_event.ToString(), name, is_use_qr_code,
                             is_use_location, description, link, status, locationid);
 
+                        //db.cusp_UpdateEvent_Header(eventH_id, distrik, departement, ulang, evStart, evStart, evStart,
+                        //    starttime, endtime, kategori, iscoe, createdate, createby, previousEventId.ToString(), name, is_use_qr_code,
+                        //    is_use_location, description, link, status, locationid);
+
                         foreach (string attends in attendees)
                         {
                             //Guid i_guid_gpiddetail = System.Guid.NewGuid();
@@ -238,7 +248,8 @@ namespace ICOE.Models
                             {
                                 group_id = null,
                                 attendee = attends,
-                                event_id = i_guid_event,
+                                //event_id = i_guid_event,
+                                event_id = previousEventId,
                                 date_create = createdate,
                                 status = 20 //STATUS KEHADIRAN
                             });
@@ -254,7 +265,8 @@ namespace ICOE.Models
                             {
                                 TBL_T_EVENT_ATTENDANCE eventAttendance = new TBL_T_EVENT_ATTENDANCE();
                                 eventAttendance.attendee = x.attendee;
-                                eventAttendance.event_id = i_guid_event;
+                                //eventAttendance.event_id = i_guid_event;
+                                eventAttendance.event_id = previousEventId;
                                 eventAttendance.status = 20;
                                 eventAttendance.group_id = x.group_id;
                                 eventAttendance.date_create = createdate;
@@ -288,15 +300,21 @@ namespace ICOE.Models
                         var getEV = db.TBL_M_EVENTs.Where(o => o.header_id == eventH_id).Select(f => f.event_id).FirstOrDefault();
                         var getEVL = db.TBL_M_ICOE_LINKs.Where(o => o.header_id == eventH_id).Select(f => f.event_id).FirstOrDefault();
 
+                        // Mengambil event_id dari event yang akan diedit
+                        var previousEventId = db.TBL_M_EVENTs
+                            .Where(o => o.header_id == eventH_id)
+                            .Select(f => f.event_id)
+                            .FirstOrDefault();
+
                         //HAPUS RECENT DATA TO UPDATE
                         var tbl_evH = db.TBL_M_EVENT_HEADERs.Where(y => y.event_header_id == eventH_id);
                         db.TBL_M_EVENT_HEADERs.DeleteAllOnSubmit(tbl_evH);
 
-                        var tbl_ev = db.TBL_M_EVENTs.Where(x => x.header_id == eventH_id);
-                        db.TBL_M_EVENTs.DeleteAllOnSubmit(tbl_ev);
+                        //var tbl_ev = db.TBL_M_EVENTs.Where(x => x.header_id == eventH_id);
+                        //db.TBL_M_EVENTs.DeleteAllOnSubmit(tbl_ev);
 
-                        var tbl_evl = db.TBL_M_ICOE_LINKs.Where(x => x.header_id == eventH_id);
-                        db.TBL_M_ICOE_LINKs.DeleteAllOnSubmit(tbl_evl);
+                        //var tbl_evl = db.TBL_M_ICOE_LINKs.Where(x => x.header_id == eventH_id);
+                        //db.TBL_M_ICOE_LINKs.DeleteAllOnSubmit(tbl_evl);
 
                         //var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == getEV.ToString());
                         var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == getEV && i.event_id == getEVL);
@@ -311,6 +329,10 @@ namespace ICOE.Models
                             starttime, endtime, kategori, iscoe, createdate, createby, i_guid_event.ToString(), name, is_use_qr_code,
                             is_use_location, description, link, status, locationid);
 
+                        //db.cusp_UpdateEvent_Header(eventH_id, distrik, departement, ulang, evStart, evStart, evStart,
+                        //    starttime, endtime, kategori, iscoe, createdate, createby, previousEventId.ToString(), name, is_use_qr_code,
+                        //    is_use_location, description, link, status, locationid);
+
                         foreach (string attends in attendees)
                         {
                             //Guid i_guid_gpiddetail = System.Guid.NewGuid();
@@ -318,7 +340,8 @@ namespace ICOE.Models
                             {
                                 group_id = null,
                                 attendee = attends,
-                                event_id = i_guid_event,
+                                //event_id = i_guid_event,
+                                event_id = previousEventId,
                                 date_create = createdate,
                                 status = 20 //STATUS KEHADIRAN
                             });
@@ -350,15 +373,21 @@ namespace ICOE.Models
                         var getEV = db.TBL_M_EVENTs.Where(o => o.header_id == eventH_id).Select(f => f.event_id).FirstOrDefault();
                         var getEVL = db.TBL_M_ICOE_LINKs.Where(o => o.header_id == eventH_id).Select(f => f.event_id).FirstOrDefault();
 
+                        // Mengambil event_id dari event yang akan diedit
+                        var previousEventId = db.TBL_M_EVENTs
+                            .Where(o => o.header_id == eventH_id)
+                            .Select(f => f.event_id)
+                            .FirstOrDefault();
+
                         //HAPUS RECENT DATA TO UPDATE
                         var tbl_evH = db.TBL_M_EVENT_HEADERs.Where(y => y.event_header_id == eventH_id);
                         db.TBL_M_EVENT_HEADERs.DeleteAllOnSubmit(tbl_evH);
 
-                        var tbl_evl = db.TBL_M_ICOE_LINKs.Where(l => l.header_id == eventH_id);
-                        db.TBL_M_ICOE_LINKs.DeleteAllOnSubmit(tbl_evl);
+                        //var tbl_evl = db.TBL_M_ICOE_LINKs.Where(l => l.header_id == eventH_id);
+                        //db.TBL_M_ICOE_LINKs.DeleteAllOnSubmit(tbl_evl);
 
-                        var tbl_ev = db.TBL_M_EVENTs.Where(x => x.header_id == eventH_id);
-                        db.TBL_M_EVENTs.DeleteAllOnSubmit(tbl_ev);
+                        //var tbl_ev = db.TBL_M_EVENTs.Where(x => x.header_id == eventH_id);
+                        //db.TBL_M_EVENTs.DeleteAllOnSubmit(tbl_ev);
 
                         //var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == getEV.ToString());
                         var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == getEV && i.event_id == getEVL);
@@ -373,6 +402,10 @@ namespace ICOE.Models
                             starttime, endtime, kategori, iscoe, createdate, createby, i_guid_event.ToString(), name, is_use_qr_code,
                             is_use_location, description, link, status, locationid);
 
+                        //db.cusp_UpdateEvent_Header(eventH_id, distrik, departement, ulang, evStart, evStart, evStart,
+                        //    starttime, endtime, kategori, iscoe, createdate, createby, previousEventId.ToString(), name, is_use_qr_code,
+                        //    is_use_location, description, link, status, locationid);
+
                         foreach (string arr in nama_group)
                         {
                             //list lengkap group id dan attendee
@@ -383,7 +416,8 @@ namespace ICOE.Models
                             {
                                 TBL_T_EVENT_ATTENDANCE eventAttendance = new TBL_T_EVENT_ATTENDANCE();
                                 eventAttendance.attendee = x.attendee;
-                                eventAttendance.event_id = i_guid_event;
+                                //eventAttendance.event_id = i_guid_event;
+                                eventAttendance.event_id = previousEventId;
                                 eventAttendance.status = 20;
                                 eventAttendance.group_id = x.group_id;
                                 eventAttendance.date_create = createdate;
@@ -429,6 +463,13 @@ namespace ICOE.Models
             TimeSpan abcde = Convert.ToDateTime(end_dates) - Convert.ToDateTime(start_date);
             double daily = abcde.TotalDays;
 
+            var previousEventId = db.TBL_M_EVENTs
+                            .Where(o => o.header_id == eventH_id)
+                            .Select(f => f.event_id)
+                            .ToList();
+
+            int previousevent_id = previousEventId.Count;
+
             var lokasi = 0;//db.cusp_cekLokasi(start_date, end_dates, starttime, endtime, locationid, 2, eventH_id).FirstOrDefault();
 
             for (int x = 0; x <= daily; x++)
@@ -454,9 +495,9 @@ namespace ICOE.Models
                         var getEV = db.TBL_M_EVENTs.Where(o => o.header_id == eventH_id).Select(f => f.event_id);
                         var evtid = getEV.ToArray();
 
-                        var tbl_evl = db.TBL_M_ICOE_LINKs.Where(x => x.header_id == eventH_id);
-                        db.TBL_M_ICOE_LINKs.DeleteAllOnSubmit(tbl_evl);
-                        db.SubmitChanges();
+                        //var tbl_evl = db.TBL_M_ICOE_LINKs.Where(x => x.header_id == eventH_id);
+                        //db.TBL_M_ICOE_LINKs.DeleteAllOnSubmit(tbl_evl);
+                        //db.SubmitChanges();
 
                         var tbl_evH = db.TBL_M_EVENT_HEADERs.Where(x => x.event_header_id == eventH_id);
                         db.TBL_M_EVENT_HEADERs.DeleteAllOnSubmit(tbl_evH);
@@ -465,8 +506,8 @@ namespace ICOE.Models
                         //HAPUS RECENT DATA TO UPDATE
                         foreach (Guid uniqevid in evtid)
                         {
-                            var tbl_ev = db.TBL_M_EVENTs.Where(x => x.header_id == eventH_id);
-                            db.TBL_M_EVENTs.DeleteAllOnSubmit(tbl_ev);
+                            //var tbl_ev = db.TBL_M_EVENTs.Where(x => x.header_id == eventH_id);
+                            //db.TBL_M_EVENTs.DeleteAllOnSubmit(tbl_ev);
                             var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == uniqevid);
                             db.TBL_T_EVENT_ATTENDANCEs.DeleteAllOnSubmit(tbl_at);
                             db.SubmitChanges();
@@ -475,7 +516,7 @@ namespace ICOE.Models
                         //LOOP UTK INSERT
                         for (int a = 0; a <= daily; a++)
                         {
-                            List<TBL_T_EVENT_ATTENDANCE> tblDetail = new List<TBL_T_EVENT_ATTENDANCE>();
+                            //List<TBL_T_EVENT_ATTENDANCE> tblDetail = new List<TBL_T_EVENT_ATTENDANCE>();
 
                             Guid i_guid_event = System.Guid.NewGuid();
                             DateTime evStart = Convert.ToDateTime(start_date).AddDays(a);
@@ -485,6 +526,58 @@ namespace ICOE.Models
                                 starttime, endtime, kategori, iscoe, createdate, createby, i_guid_event.ToString(), name, is_use_qr_code,
                                 is_use_location, description, link, status, locationid);
 
+                            
+                            //foreach (string attends in attendees)
+                            //{
+                            //    //Guid i_guid_gpiddetail = System.Guid.NewGuid();
+                            //    tblDetail.Add(new TBL_T_EVENT_ATTENDANCE
+                            //    {
+                            //        group_id = null,
+                            //        attendee = attends,
+                            //        event_id = i_guid_event,
+                            //        date_create = createdate,
+                            //        status = 20 //STATUS KEHADIRAN
+                            //    });
+                            //}
+
+                            //foreach (string arr in nama_group)
+                            //{
+                            //    //list lengkap group id dan attendee
+                            //    List<TBL_M_GROUP_ATTENDEE_DETAIL> lst_detail = new List<TBL_M_GROUP_ATTENDEE_DETAIL>();
+                            //    lst_detail = db.TBL_M_GROUP_ATTENDEE_DETAILs.Where(q => q.group_id == arr).ToList();
+
+                            //    foreach (TBL_M_GROUP_ATTENDEE_DETAIL x in lst_detail)
+                            //    {
+                            //        TBL_T_EVENT_ATTENDANCE eventAttendance = new TBL_T_EVENT_ATTENDANCE();
+                            //        eventAttendance.attendee = x.attendee;
+                            //        eventAttendance.event_id = i_guid_event;
+                            //        eventAttendance.status = 20;
+                            //        eventAttendance.group_id = x.group_id;
+                            //        eventAttendance.date_create = createdate;
+
+                            //        tblDetail.Add(eventAttendance);
+                            //    }
+                            //}
+
+                            //foreach (TBL_T_EVENT_ATTENDANCE evennt in tblDetail)
+                            //{
+                            //    //insert disini
+                            //    var query = db.TBL_T_EVENT_ATTENDANCEs.Where(z => z.event_id == evennt.event_id && z.attendee == evennt.attendee).FirstOrDefault();
+                            //    if (query != null)
+                            //    {
+                            //        //do nothing
+                            //    }
+                            //    else
+                            //    {
+                            //        db.TBL_T_EVENT_ATTENDANCEs.InsertOnSubmit(evennt);
+                            //        db.SubmitChanges();
+                            //    }
+                            //}
+                        }
+                        //12/09/2023
+                        foreach (Guid evenid in previousEventId)
+                        {
+                            List<TBL_T_EVENT_ATTENDANCE> tblDetail = new List<TBL_T_EVENT_ATTENDANCE>();
                             foreach (string attends in attendees)
                             {
                                 //Guid i_guid_gpiddetail = System.Guid.NewGuid();
@@ -492,7 +585,8 @@ namespace ICOE.Models
                                 {
                                     group_id = null,
                                     attendee = attends,
-                                    event_id = i_guid_event,
+                                    //event_id = i_guid_event,
+                                    event_id = evenid,
                                     date_create = createdate,
                                     status = 20 //STATUS KEHADIRAN
                                 });
@@ -508,7 +602,8 @@ namespace ICOE.Models
                                 {
                                     TBL_T_EVENT_ATTENDANCE eventAttendance = new TBL_T_EVENT_ATTENDANCE();
                                     eventAttendance.attendee = x.attendee;
-                                    eventAttendance.event_id = i_guid_event;
+                                    //eventAttendance.event_id = i_guid_event;
+                                    eventAttendance.event_id = evenid;
                                     eventAttendance.status = 20;
                                     eventAttendance.group_id = x.group_id;
                                     eventAttendance.date_create = createdate;
@@ -530,7 +625,7 @@ namespace ICOE.Models
                                     db.TBL_T_EVENT_ATTENDANCEs.InsertOnSubmit(evennt);
                                     db.SubmitChanges();
                                 }
-                            }                            
+                            }
                         }
                         db.SubmitChanges();
                         remarks = "Berhasil Edit Events";
@@ -541,9 +636,9 @@ namespace ICOE.Models
                         var getEV = db.TBL_M_EVENTs.Where(o => o.header_id == eventH_id).Select(f => f.event_id);
                         var evtid = getEV.ToArray();
 
-                        var tbl_evl = db.TBL_M_ICOE_LINKs.Where(x => x.header_id == eventH_id);
-                        db.TBL_M_ICOE_LINKs.DeleteAllOnSubmit(tbl_evl);
-                        db.SubmitChanges();
+                        //var tbl_evl = db.TBL_M_ICOE_LINKs.Where(x => x.header_id == eventH_id);
+                        //db.TBL_M_ICOE_LINKs.DeleteAllOnSubmit(tbl_evl);
+                        //db.SubmitChanges();
 
                         var tbl_evH = db.TBL_M_EVENT_HEADERs.Where(x => x.event_header_id == eventH_id);
                         db.TBL_M_EVENT_HEADERs.DeleteAllOnSubmit(tbl_evH);
@@ -552,8 +647,8 @@ namespace ICOE.Models
                         //HAPUS RECENT DATA TO UPDATE
                         foreach (Guid uniqevid in evtid)
                         {
-                            var tbl_ev = db.TBL_M_EVENTs.Where(x => x.header_id == eventH_id);
-                            db.TBL_M_EVENTs.DeleteAllOnSubmit(tbl_ev);
+                            //var tbl_ev = db.TBL_M_EVENTs.Where(x => x.header_id == eventH_id);
+                            //db.TBL_M_EVENTs.DeleteAllOnSubmit(tbl_ev);
                             var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == uniqevid);
                             db.TBL_T_EVENT_ATTENDANCEs.DeleteAllOnSubmit(tbl_at);
                             db.SubmitChanges();
@@ -561,7 +656,7 @@ namespace ICOE.Models
 
                         for (int a = 0; a <= daily; a++)
                         {
-                            List<TBL_T_EVENT_ATTENDANCE> tblDetail = new List<TBL_T_EVENT_ATTENDANCE>();
+                            //List<TBL_T_EVENT_ATTENDANCE> tblDetail = new List<TBL_T_EVENT_ATTENDANCE>();
 
                             Guid i_guid_event = System.Guid.NewGuid();
                             DateTime evStart = Convert.ToDateTime(start_date).AddDays(a);
@@ -571,6 +666,38 @@ namespace ICOE.Models
                                 starttime, endtime, kategori, iscoe, createdate, createby, i_guid_event.ToString(), name, is_use_qr_code,
                                 is_use_location, description, link, status, locationid);
 
+                            
+                            //foreach (string attends in attendees)
+                            //{
+                            //    //Guid i_guid_gpiddetail = System.Guid.NewGuid();
+                            //    tblDetail.Add(new TBL_T_EVENT_ATTENDANCE
+                            //    {
+                            //        group_id = null,
+                            //        attendee = attends,
+                            //        event_id = i_guid_event,
+                            //        date_create = createdate,
+                            //        status = 20 //STATUS KEHADIRAN
+                            //    });
+                            //}
+
+                            //foreach (TBL_T_EVENT_ATTENDANCE evennt in tblDetail)
+                            //{
+                            //    //insert disini
+                            //    var query = db.TBL_T_EVENT_ATTENDANCEs.Where(z => z.event_id == evennt.event_id && z.attendee == evennt.attendee).FirstOrDefault();
+                            //    if (query != null)
+                            //    {
+                            //        //do nothing
+                            //    }
+                            //    else
+                            //    {
+                            //        db.TBL_T_EVENT_ATTENDANCEs.InsertOnSubmit(evennt);
+                            //        db.SubmitChanges();
+                            //    }
+                            //}
+                        }
+                        foreach (Guid evenid in previousEventId)
+                        {
+                            List<TBL_T_EVENT_ATTENDANCE> tblDetail = new List<TBL_T_EVENT_ATTENDANCE>();
                             foreach (string attends in attendees)
                             {
                                 //Guid i_guid_gpiddetail = System.Guid.NewGuid();
@@ -578,7 +705,8 @@ namespace ICOE.Models
                                 {
                                     group_id = null,
                                     attendee = attends,
-                                    event_id = i_guid_event,
+                                    //event_id = i_guid_event,
+                                    event_id = evenid,
                                     date_create = createdate,
                                     status = 20 //STATUS KEHADIRAN
                                 });
@@ -599,7 +727,6 @@ namespace ICOE.Models
                                 }
                             }
                         }
-
                         db.SubmitChanges();
                         remarks = "Berhasil Edit Events";
                     }
@@ -613,9 +740,9 @@ namespace ICOE.Models
                         var getEV = db.TBL_M_EVENTs.Where(o => o.header_id == eventH_id).Select(f => f.event_id);
                         var evtid = getEV.ToArray();
 
-                        var tbl_evl = db.TBL_M_ICOE_LINKs.Where(x => x.header_id == eventH_id);
-                        db.TBL_M_ICOE_LINKs.DeleteAllOnSubmit(tbl_evl);
-                        db.SubmitChanges();
+                        //var tbl_evl = db.TBL_M_ICOE_LINKs.Where(x => x.header_id == eventH_id);
+                        //db.TBL_M_ICOE_LINKs.DeleteAllOnSubmit(tbl_evl);
+                        //db.SubmitChanges();
 
                         var tbl_evH = db.TBL_M_EVENT_HEADERs.Where(x => x.event_header_id == eventH_id);
                         db.TBL_M_EVENT_HEADERs.DeleteAllOnSubmit(tbl_evH);
@@ -624,8 +751,8 @@ namespace ICOE.Models
                         //HAPUS RECENT DATA TO UPDATE
                         foreach (Guid uniqevid in evtid)
                         {
-                            var tbl_ev = db.TBL_M_EVENTs.Where(x => x.header_id == eventH_id);
-                            db.TBL_M_EVENTs.DeleteAllOnSubmit(tbl_ev);
+                            //var tbl_ev = db.TBL_M_EVENTs.Where(x => x.header_id == eventH_id);
+                            //db.TBL_M_EVENTs.DeleteAllOnSubmit(tbl_ev);
                             var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == uniqevid);
                             db.TBL_T_EVENT_ATTENDANCEs.DeleteAllOnSubmit(tbl_at);
                             db.SubmitChanges();
@@ -633,7 +760,7 @@ namespace ICOE.Models
 
                         for (int b = 0; b <= daily; b++)
                         {
-                            List<TBL_T_EVENT_ATTENDANCE> tblDetail = new List<TBL_T_EVENT_ATTENDANCE>();
+                            //List<TBL_T_EVENT_ATTENDANCE> tblDetail = new List<TBL_T_EVENT_ATTENDANCE>();
 
                             Guid i_guid_event = System.Guid.NewGuid();
                             DateTime evStart = Convert.ToDateTime(start_date).AddDays(b);
@@ -643,6 +770,44 @@ namespace ICOE.Models
                                 starttime, endtime, kategori, iscoe, createdate, createby, i_guid_event.ToString(), name, is_use_qr_code,
                                 is_use_location, description, link, status, locationid);
 
+                            
+                            //foreach (string arr in nama_group)
+                            //{
+                            //    //list lengkap group id dan attendee
+                            //    List<TBL_M_GROUP_ATTENDEE_DETAIL> lst_detail = new List<TBL_M_GROUP_ATTENDEE_DETAIL>();
+                            //    lst_detail = db.TBL_M_GROUP_ATTENDEE_DETAILs.Where(q => q.group_id == arr).ToList();
+
+                            //    foreach (TBL_M_GROUP_ATTENDEE_DETAIL x in lst_detail)
+                            //    {
+                            //        TBL_T_EVENT_ATTENDANCE eventAttendance = new TBL_T_EVENT_ATTENDANCE();
+                            //        eventAttendance.attendee = x.attendee;
+                            //        eventAttendance.event_id = i_guid_event;
+                            //        eventAttendance.status = 20;
+                            //        eventAttendance.group_id = x.group_id;
+                            //        eventAttendance.date_create = createdate;
+
+                            //        tblDetail.Add(eventAttendance);
+                            //    }
+                            //}
+
+                            //foreach (TBL_T_EVENT_ATTENDANCE evennt in tblDetail)
+                            //{
+                            //    //insert disini
+                            //    var query = db.TBL_T_EVENT_ATTENDANCEs.Where(z => z.event_id == evennt.event_id && z.attendee == evennt.attendee).FirstOrDefault();
+                            //    if (query != null)
+                            //    {
+                            //        //do nothing
+                            //    }
+                            //    else
+                            //    {
+                            //        db.TBL_T_EVENT_ATTENDANCEs.InsertOnSubmit(evennt);
+                            //        db.SubmitChanges();
+                            //    }
+                            //}
+                        }
+                        foreach (Guid evenid in previousEventId)
+                        {
+                            List<TBL_T_EVENT_ATTENDANCE> tblDetail = new List<TBL_T_EVENT_ATTENDANCE>();
                             foreach (string arr in nama_group)
                             {
                                 //list lengkap group id dan attendee
@@ -653,7 +818,8 @@ namespace ICOE.Models
                                 {
                                     TBL_T_EVENT_ATTENDANCE eventAttendance = new TBL_T_EVENT_ATTENDANCE();
                                     eventAttendance.attendee = x.attendee;
-                                    eventAttendance.event_id = i_guid_event;
+                                    //eventAttendance.event_id = i_guid_event;
+                                    eventAttendance.event_id = evenid;
                                     eventAttendance.status = 20;
                                     eventAttendance.group_id = x.group_id;
                                     eventAttendance.date_create = createdate;
@@ -675,7 +841,7 @@ namespace ICOE.Models
                                     db.TBL_T_EVENT_ATTENDANCEs.InsertOnSubmit(evennt);
                                     db.SubmitChanges();
                                 }
-                            }                           
+                            }
                         }
                         db.SubmitChanges();
                         remarks = "Berhasil Edit Events";
@@ -701,7 +867,14 @@ namespace ICOE.Models
             TimeSpan abcde = Convert.ToDateTime(end_dates) - Convert.ToDateTime(start_date);
             double weeks = abcde.TotalDays / 7;
 
-             var lokasi = 0;//db.cusp_cekLokasi(start_date, end_dates, starttime, endtime, locationid, 2, eventH_id).FirstOrDefault();
+            var previousEventId = db.TBL_M_EVENTs
+                            .Where(o => o.header_id == eventH_id)
+                            .Select(f => f.event_id)
+                            .ToList();
+
+            int previousevent_id = previousEventId.Count;
+
+            var lokasi = 0;//db.cusp_cekLokasi(start_date, end_dates, starttime, endtime, locationid, 2, eventH_id).FirstOrDefault();
 
             for (int x = 0; x <= weeks; x++)
             {
@@ -724,27 +897,27 @@ namespace ICOE.Models
                         var getEV = db.TBL_M_EVENTs.Where(o => o.header_id == eventH_id).Select(f => f.event_id);
                         var evtid = getEV.ToArray();
 
-                        var tbl_evl = db.TBL_M_ICOE_LINKs.Where(x => x.header_id == eventH_id);
-                        db.TBL_M_ICOE_LINKs.DeleteAllOnSubmit(tbl_evl);
-                        db.SubmitChanges();
+                        //var tbl_evl = db.TBL_M_ICOE_LINKs.Where(x => x.header_id == eventH_id);
+                        //db.TBL_M_ICOE_LINKs.DeleteAllOnSubmit(tbl_evl);
+                        //db.SubmitChanges();
 
                         var tbl_evH = db.TBL_M_EVENT_HEADERs.Where(x => x.event_header_id == eventH_id);
                         db.TBL_M_EVENT_HEADERs.DeleteAllOnSubmit(tbl_evH);
                         db.SubmitChanges();
 
                         //HAPUS RECENT DATA TO UPDATE
-                        foreach ( Guid uniqevid in evtid )
-                        {                            
-                            var tbl_ev = db.TBL_M_EVENTs.Where(x => x.header_id == eventH_id);
-                            db.TBL_M_EVENTs.DeleteAllOnSubmit(tbl_ev);
-                            var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == uniqevid );
+                        foreach (Guid uniqevid in evtid)
+                        {
+                            //var tbl_ev = db.TBL_M_EVENTs.Where(x => x.header_id == eventH_id);
+                            //db.TBL_M_EVENTs.DeleteAllOnSubmit(tbl_ev);
+                            var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == uniqevid);
                             db.TBL_T_EVENT_ATTENDANCEs.DeleteAllOnSubmit(tbl_at);
                             db.SubmitChanges();
-                        }                        
+                        }
 
                         for (int c = 0; c <= weeks; c++)
                         {
-                            List<TBL_T_EVENT_ATTENDANCE> tblDetail = new List<TBL_T_EVENT_ATTENDANCE>();
+                            //List<TBL_T_EVENT_ATTENDANCE> tblDetail = new List<TBL_T_EVENT_ATTENDANCE>();
 
                             Guid i_guid_event = System.Guid.NewGuid();
                             DateTime evStart = Convert.ToDateTime(start_date).AddDays(7 * c);
@@ -754,6 +927,56 @@ namespace ICOE.Models
                                 starttime, endtime, kategori, iscoe, createdate, createby, i_guid_event.ToString(), name, is_use_qr_code,
                                 is_use_location, description, link, status, locationid);
 
+                            //foreach (string attends in attendees)
+                            //{
+                            //    //Guid i_guid_gpiddetail = System.Guid.NewGuid();
+                            //    tblDetail.Add(new TBL_T_EVENT_ATTENDANCE
+                            //    {
+                            //        group_id = null,
+                            //        attendee = attends,
+                            //        event_id = i_guid_event,
+                            //        date_create = createdate,
+                            //        status = 20 //STATUS KEHADIRAN
+                            //    });
+                            //}
+
+                            //foreach (string arr in nama_group)
+                            //{
+                            //    //list lengkap group id dan attendee
+                            //    List<TBL_M_GROUP_ATTENDEE_DETAIL> lst_detail = new List<TBL_M_GROUP_ATTENDEE_DETAIL>();
+                            //    lst_detail = db.TBL_M_GROUP_ATTENDEE_DETAILs.Where(q => q.group_id == arr).ToList();
+
+                            //    foreach (TBL_M_GROUP_ATTENDEE_DETAIL x in lst_detail)
+                            //    {
+                            //        TBL_T_EVENT_ATTENDANCE eventAttendance = new TBL_T_EVENT_ATTENDANCE();
+                            //        eventAttendance.attendee = x.attendee;
+                            //        eventAttendance.event_id = i_guid_event;
+                            //        eventAttendance.status = 20;
+                            //        eventAttendance.group_id = x.group_id;
+                            //        eventAttendance.date_create = createdate;
+
+                            //        tblDetail.Add(eventAttendance);
+                            //    }
+                            //}
+
+                            //foreach (TBL_T_EVENT_ATTENDANCE evennt in tblDetail)
+                            //{
+                            //    //insert disini
+                            //    var query = db.TBL_T_EVENT_ATTENDANCEs.Where(z => z.event_id == evennt.event_id && z.attendee == evennt.attendee).FirstOrDefault();
+                            //    if (query != null)
+                            //    {
+                            //        //do nothing
+                            //    }
+                            //    else
+                            //    {
+                            //        db.TBL_T_EVENT_ATTENDANCEs.InsertOnSubmit(evennt);
+                            //        db.SubmitChanges();
+                            //    }
+                            //}
+                        }
+                        foreach (Guid evenid in previousEventId)
+                        {
+                            List<TBL_T_EVENT_ATTENDANCE> tblDetail = new List<TBL_T_EVENT_ATTENDANCE>();
                             foreach (string attends in attendees)
                             {
                                 //Guid i_guid_gpiddetail = System.Guid.NewGuid();
@@ -761,7 +984,8 @@ namespace ICOE.Models
                                 {
                                     group_id = null,
                                     attendee = attends,
-                                    event_id = i_guid_event,
+                                    //event_id = i_guid_event,
+                                    event_id = evenid,
                                     date_create = createdate,
                                     status = 20 //STATUS KEHADIRAN
                                 });
@@ -777,7 +1001,8 @@ namespace ICOE.Models
                                 {
                                     TBL_T_EVENT_ATTENDANCE eventAttendance = new TBL_T_EVENT_ATTENDANCE();
                                     eventAttendance.attendee = x.attendee;
-                                    eventAttendance.event_id = i_guid_event;
+                                    //eventAttendance.event_id = i_guid_event;
+                                    eventAttendance.event_id = evenid;
                                     eventAttendance.status = 20;
                                     eventAttendance.group_id = x.group_id;
                                     eventAttendance.date_create = createdate;
@@ -810,9 +1035,9 @@ namespace ICOE.Models
                         var getEV = db.TBL_M_EVENTs.Where(o => o.header_id == eventH_id).Select(f => f.event_id);
                         var evtid = getEV.ToArray();
 
-                        var tbl_evl = db.TBL_M_ICOE_LINKs.Where(x => x.header_id == eventH_id);
-                        db.TBL_M_ICOE_LINKs.DeleteAllOnSubmit(tbl_evl);
-                        db.SubmitChanges();
+                        //var tbl_evl = db.TBL_M_ICOE_LINKs.Where(x => x.header_id == eventH_id);
+                        //db.TBL_M_ICOE_LINKs.DeleteAllOnSubmit(tbl_evl);
+                        //db.SubmitChanges();
 
                         var tbl_evH = db.TBL_M_EVENT_HEADERs.Where(x => x.event_header_id == eventH_id);
                         db.TBL_M_EVENT_HEADERs.DeleteAllOnSubmit(tbl_evH);
@@ -821,8 +1046,8 @@ namespace ICOE.Models
                         //HAPUS RECENT DATA TO UPDATE
                         foreach (Guid uniqevid in evtid)
                         {
-                            var tbl_ev = db.TBL_M_EVENTs.Where(x => x.header_id == eventH_id);
-                            db.TBL_M_EVENTs.DeleteAllOnSubmit(tbl_ev);
+                            //var tbl_ev = db.TBL_M_EVENTs.Where(x => x.header_id == eventH_id);
+                            //db.TBL_M_EVENTs.DeleteAllOnSubmit(tbl_ev);
                             var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == uniqevid);
                             db.TBL_T_EVENT_ATTENDANCEs.DeleteAllOnSubmit(tbl_at);
                             db.SubmitChanges();
@@ -830,7 +1055,7 @@ namespace ICOE.Models
 
                         for (int c = 0; c <= weeks; c++)
                         {
-                            List<TBL_T_EVENT_ATTENDANCE> tblDetail = new List<TBL_T_EVENT_ATTENDANCE>();
+                            //List<TBL_T_EVENT_ATTENDANCE> tblDetail = new List<TBL_T_EVENT_ATTENDANCE>();
 
                             Guid i_guid_event = System.Guid.NewGuid();
                             DateTime evStart = Convert.ToDateTime(start_date).AddDays(7 * c);
@@ -840,6 +1065,37 @@ namespace ICOE.Models
                                 starttime, endtime, kategori, iscoe, createdate, createby, i_guid_event.ToString(), name, is_use_qr_code,
                                 is_use_location, description, link, status, locationid);
 
+                            //foreach (string attends in attendees)
+                            //{
+                            //    //Guid i_guid_gpiddetail = System.Guid.NewGuid();
+                            //    tblDetail.Add(new TBL_T_EVENT_ATTENDANCE
+                            //    {
+                            //        group_id = null,
+                            //        attendee = attends,
+                            //        event_id = i_guid_event,
+                            //        date_create = createdate,
+                            //        status = 20 //STATUS KEHADIRAN
+                            //    });
+                            //}
+
+                            //foreach (TBL_T_EVENT_ATTENDANCE evennt in tblDetail)
+                            //{
+                            //    //insert disini
+                            //    var query = db.TBL_T_EVENT_ATTENDANCEs.Where(z => z.event_id == evennt.event_id && z.attendee == evennt.attendee).FirstOrDefault();
+                            //    if (query != null)
+                            //    {
+                            //        //do nothing
+                            //    }
+                            //    else
+                            //    {
+                            //        db.TBL_T_EVENT_ATTENDANCEs.InsertOnSubmit(evennt);
+                            //        db.SubmitChanges();
+                            //    }
+                            //}
+                        }
+                        foreach (Guid evenid in previousEventId)
+                        {
+                            List<TBL_T_EVENT_ATTENDANCE> tblDetail = new List<TBL_T_EVENT_ATTENDANCE>();
                             foreach (string attends in attendees)
                             {
                                 //Guid i_guid_gpiddetail = System.Guid.NewGuid();
@@ -847,7 +1103,7 @@ namespace ICOE.Models
                                 {
                                     group_id = null,
                                     attendee = attends,
-                                    event_id = i_guid_event,
+                                    event_id = evenid,
                                     date_create = createdate,
                                     status = 20 //STATUS KEHADIRAN
                                 });
@@ -881,9 +1137,9 @@ namespace ICOE.Models
                         var getEV = db.TBL_M_EVENTs.Where(o => o.header_id == eventH_id).Select(f => f.event_id);
                         var evtid = getEV.ToArray();
 
-                        var tbl_evl = db.TBL_M_ICOE_LINKs.Where(x => x.header_id == eventH_id);
-                        db.TBL_M_ICOE_LINKs.DeleteAllOnSubmit(tbl_evl);
-                        db.SubmitChanges();
+                        //var tbl_evl = db.TBL_M_ICOE_LINKs.Where(x => x.header_id == eventH_id);
+                        //db.TBL_M_ICOE_LINKs.DeleteAllOnSubmit(tbl_evl);
+                        //db.SubmitChanges();
 
                         var tbl_evH = db.TBL_M_EVENT_HEADERs.Where(x => x.event_header_id == eventH_id);
                         db.TBL_M_EVENT_HEADERs.DeleteAllOnSubmit(tbl_evH);
@@ -892,8 +1148,8 @@ namespace ICOE.Models
                         //HAPUS RECENT DATA TO UPDATE
                         foreach (Guid uniqevid in evtid)
                         {
-                            var tbl_ev = db.TBL_M_EVENTs.Where(x => x.header_id == eventH_id);
-                            db.TBL_M_EVENTs.DeleteAllOnSubmit(tbl_ev);
+                            //var tbl_ev = db.TBL_M_EVENTs.Where(x => x.header_id == eventH_id);
+                            //db.TBL_M_EVENTs.DeleteAllOnSubmit(tbl_ev);
                             var tbl_at = db.TBL_T_EVENT_ATTENDANCEs.Where(i => i.event_id == uniqevid);
                             db.TBL_T_EVENT_ATTENDANCEs.DeleteAllOnSubmit(tbl_at);
                             db.SubmitChanges();
@@ -901,7 +1157,7 @@ namespace ICOE.Models
 
                         for (int c = 0; c <= weeks; c++)
                         {
-                            List<TBL_T_EVENT_ATTENDANCE> tblDetail = new List<TBL_T_EVENT_ATTENDANCE>();
+                            //List<TBL_T_EVENT_ATTENDANCE> tblDetail = new List<TBL_T_EVENT_ATTENDANCE>();
 
                             Guid i_guid_event = System.Guid.NewGuid();
                             DateTime evStart = Convert.ToDateTime(start_date).AddDays(7 * c);
@@ -911,6 +1167,43 @@ namespace ICOE.Models
                                 starttime, endtime, kategori, iscoe, createdate, createby, i_guid_event.ToString(), name, is_use_qr_code,
                                 is_use_location, description, link, status, locationid);
 
+                            //foreach (string arr in nama_group)
+                            //{
+                            //    //list lengkap group id dan attendee
+                            //    List<TBL_M_GROUP_ATTENDEE_DETAIL> lst_detail = new List<TBL_M_GROUP_ATTENDEE_DETAIL>();
+                            //    lst_detail = db.TBL_M_GROUP_ATTENDEE_DETAILs.Where(q => q.group_id == arr).ToList();
+
+                            //    foreach (TBL_M_GROUP_ATTENDEE_DETAIL x in lst_detail)
+                            //    {
+                            //        TBL_T_EVENT_ATTENDANCE eventAttendance = new TBL_T_EVENT_ATTENDANCE();
+                            //        eventAttendance.attendee = x.attendee;
+                            //        eventAttendance.event_id = i_guid_event;
+                            //        eventAttendance.status = 20;
+                            //        eventAttendance.group_id = x.group_id;
+                            //        eventAttendance.date_create = createdate;
+
+                            //        tblDetail.Add(eventAttendance);
+                            //    }
+                            //}
+
+                            //foreach (TBL_T_EVENT_ATTENDANCE evennt in tblDetail)
+                            //{
+                            //    //insert disini
+                            //    var query = db.TBL_T_EVENT_ATTENDANCEs.Where(z => z.event_id == evennt.event_id && z.attendee == evennt.attendee).FirstOrDefault();
+                            //    if (query != null)
+                            //    {
+                            //        //do nothing
+                            //    }
+                            //    else
+                            //    {
+                            //        db.TBL_T_EVENT_ATTENDANCEs.InsertOnSubmit(evennt);
+                            //        db.SubmitChanges();
+                            //    }
+                            //}
+                        }
+                        foreach (Guid evenid in previousEventId)
+                        {
+                            List<TBL_T_EVENT_ATTENDANCE> tblDetail = new List<TBL_T_EVENT_ATTENDANCE>();
                             foreach (string arr in nama_group)
                             {
                                 //list lengkap group id dan attendee
@@ -921,7 +1214,7 @@ namespace ICOE.Models
                                 {
                                     TBL_T_EVENT_ATTENDANCE eventAttendance = new TBL_T_EVENT_ATTENDANCE();
                                     eventAttendance.attendee = x.attendee;
-                                    eventAttendance.event_id = i_guid_event;
+                                    eventAttendance.event_id = evenid;
                                     eventAttendance.status = 20;
                                     eventAttendance.group_id = x.group_id;
                                     eventAttendance.date_create = createdate;

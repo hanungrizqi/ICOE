@@ -168,14 +168,15 @@ $(document).ready(function () {
             //console.log(kendo.toString(kendo.parseDate(dataItem.start_date, "yyyy-MM-dd"), "yyyy-MM-dd"));
             //console.log(kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-dd"), "yyyy-MM-dd"));
 
-            if ( ( kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-dd"), "yyyy-MM-dd") > kendo.toString(kendo.parseDate(dataItem.start_date, "yyyy-MM-dd"), "yyyy-MM-dd") ) || ( kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-dd"), "yyyy-MM-dd") == kendo.toString(kendo.parseDate(dataItem.start_date, "yyyy-MM-dd"), "yyyy-MM-dd") ) ) {
+            if ( ( kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-dd"), "yyyy-MM-dd") > kendo.toString(kendo.parseDate(dataItem.start_date, "yyyy-MM-dd"), "yyyy-MM-dd") ) /*|| ( kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-dd"), "yyyy-MM-dd") == kendo.toString(kendo.parseDate(dataItem.start_date, "yyyy-MM-dd"), "yyyy-MM-dd") )*/ ) {
                 //alert("anda tidak dapat melakukan perubahan event, karena event sedang berjalan atau event telah berakhir");
                  $("#alert").empty();
                 $("#alert").append('<label style="margin-left:0%; margin-top:5%; text-align:center;"><h4> anda tidak dapat melakukan perubahan event, karena event sedang berjalan atau event telah berakhir </h4></label>');
                 pop.data("kendoWindow").open();
             } else {
                 window.location = "/ListEvents/EditEvent?idH=" + dataItem.event_header_id;
-            }          
+            }
+
         },
 
         DetailEvent: function (el) {
@@ -191,48 +192,70 @@ $(document).ready(function () {
         deleted: function (elem) {
             //debugger
             var dataItem2 = this.dataItem($(elem.currentTarget).closest("tr"));
-
-            if ((kendo.toString(kendo.parseDate(dataItem2.start_date, "yyyy-MM-dd"), "yyyy-MM-dd") < kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-dd"), "yyyy-MM-dd") &&
-                  kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-dd"), "yyyy-MM-dd") < kendo.toString(kendo.parseDate(dataItem2.end_date, "yyyy-MM-dd"), "yyyy-MM-dd")) ||
-
-                (kendo.toString(kendo.parseDate(dataItem2.start_date, "yyyy-MM-dd"), "yyyy-MM-dd") < kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-dd"), "yyyy-MM-dd") &&
-                  kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-dd"), "yyyy-MM-dd") == kendo.toString(kendo.parseDate(dataItem2.end_date, "yyyy-MM-dd"), "yyyy-MM-dd")) ||
-
-                (kendo.toString(kendo.parseDate(dataItem2.start_date, "yyyy-MM-dd"), "yyyy-MM-dd") == kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-dd"), "yyyy-MM-dd") &&
-                  kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-dd"), "yyyy-MM-dd") < kendo.toString(kendo.parseDate(dataItem2.end_date, "yyyy-MM-dd"), "yyyy-MM-dd")) ||
-
-                (kendo.toString(kendo.parseDate(dataItem2.start_date, "yyyy-MM-dd"), "yyyy-MM-dd") == kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-dd"), "yyyy-MM-dd") &&
-                  kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-dd"), "yyyy-MM-dd") == kendo.toString(kendo.parseDate(dataItem2.end_date, "yyyy-MM-dd"), "yyyy-MM-dd"))
-            ) {
-                $("#alert").empty();
-                $("#alert").append('<label style="margin-left:0%; margin-top:5%; text-align: center;"><h4> anda tidak dapat menghapus event, karena event sedang berjalan </h4></label>');
-                pop.data("kendoWindow").open();
+            if (confirm("Apakah anda yakin ingin menghapus seluruh event?")) {
+                var dataItem = this.dataItem($(elem.currentTarget).closest("tr"));
+                var obj = {
+                    event_header_id: dataItem.event_header_id
+                }
+                $.ajax({
+                    url: "/ListEvents/deleteHeader?&evH=" + dataItem.event_header_id,
+                    Data: JSON.stringify(obj),
+                    contentType: "json",
+                    type: "POST",
+                    cache: false,
+                    success: function (result) {
+                        if (result.status == true) {
+                            //alert(result.remarks);
+                            $("#alert").empty();
+                            $("#alert").append('<label style="margin-left:0%; margin-top:5%; text-align:center;"><h4> Event Berhasil dihapus Seluruhnya </h4></label>');
+                            pop.data("kendoWindow").open();
+                            ViewModel.ds_listEH.read();
+                        }
+                    }
+                })
             }
 
-            else {
-                if (confirm("Apakah anda yakin ingin menghapus seluruh event?")) {
-                    var dataItem = this.dataItem($(elem.currentTarget).closest("tr"));
-                    var obj = {
-                        event_header_id: dataItem.event_header_id
-                    }
-                    $.ajax({
-                        url: "/ListEvents/deleteHeader?&evH=" + dataItem.event_header_id,
-                        Data: JSON.stringify(obj),
-                        contentType: "json",
-                        type: "POST",
-                        cache: false,
-                        success: function (result) {
-                            if (result.status == true) {
-                                //alert(result.remarks);
-                                $("#alert").empty();
-                                $("#alert").append('<label style="margin-left:0%; margin-top:5%; text-align:center;"><h4> Event Berhasil dihapus Seluruhnya </h4></label>');
-                                pop.data("kendoWindow").open();
-                                ViewModel.ds_listEH.read();
-                            }
-                        }
-                    })
-                }
-            }             
+            //if ((kendo.toString(kendo.parseDate(dataItem2.start_date, "yyyy-MM-dd"), "yyyy-MM-dd") < kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-dd"), "yyyy-MM-dd") &&
+            //      kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-dd"), "yyyy-MM-dd") < kendo.toString(kendo.parseDate(dataItem2.end_date, "yyyy-MM-dd"), "yyyy-MM-dd")) ||
+
+            //    (kendo.toString(kendo.parseDate(dataItem2.start_date, "yyyy-MM-dd"), "yyyy-MM-dd") < kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-dd"), "yyyy-MM-dd") &&
+            //      kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-dd"), "yyyy-MM-dd") == kendo.toString(kendo.parseDate(dataItem2.end_date, "yyyy-MM-dd"), "yyyy-MM-dd")) ||
+
+            //    (kendo.toString(kendo.parseDate(dataItem2.start_date, "yyyy-MM-dd"), "yyyy-MM-dd") == kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-dd"), "yyyy-MM-dd") &&
+            //      kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-dd"), "yyyy-MM-dd") < kendo.toString(kendo.parseDate(dataItem2.end_date, "yyyy-MM-dd"), "yyyy-MM-dd")) ||
+
+            //    (kendo.toString(kendo.parseDate(dataItem2.start_date, "yyyy-MM-dd"), "yyyy-MM-dd") == kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-dd"), "yyyy-MM-dd") &&
+            //      kendo.toString(kendo.parseDate(new Date(), "yyyy-MM-dd"), "yyyy-MM-dd") == kendo.toString(kendo.parseDate(dataItem2.end_date, "yyyy-MM-dd"), "yyyy-MM-dd"))
+            //) {
+            //    $("#alert").empty();
+            //    $("#alert").append('<label style="margin-left:0%; margin-top:5%; text-align: center;"><h4> anda tidak dapat menghapus event, karena event sedang berjalan </h4></label>');
+            //    pop.data("kendoWindow").open();
+            //}
+
+            //else {
+            //    if (confirm("Apakah anda yakin ingin menghapus seluruh event?")) {
+            //        var dataItem = this.dataItem($(elem.currentTarget).closest("tr"));
+            //        var obj = {
+            //            event_header_id: dataItem.event_header_id
+            //        }
+            //        $.ajax({
+            //            url: "/ListEvents/deleteHeader?&evH=" + dataItem.event_header_id,
+            //            Data: JSON.stringify(obj),
+            //            contentType: "json",
+            //            type: "POST",
+            //            cache: false,
+            //            success: function (result) {
+            //                if (result.status == true) {
+            //                    //alert(result.remarks);
+            //                    $("#alert").empty();
+            //                    $("#alert").append('<label style="margin-left:0%; margin-top:5%; text-align:center;"><h4> Event Berhasil dihapus Seluruhnya </h4></label>');
+            //                    pop.data("kendoWindow").open();
+            //                    ViewModel.ds_listEH.read();
+            //                }
+            //            }
+            //        })
+            //    }
+            //}             
          },
     })
 

@@ -34,14 +34,31 @@ namespace ICOE.Controllers
             return View();
         }
 
+        //[HttpPost]
+        //public JsonResult AjaxReadAllLocation(string s_str_event_id, int take, int skip, IEnumerable<Kendo.DynamicLinq.Sort> sort, Kendo.DynamicLinq.Filter filter)
+        //{
+        //    try
+        //    {
+        //        i_ctx_db = new DB_ICT_mOK_KPTDataContext();
+        //        var tbl_m_location = i_ctx_db.TBL_M_LOCATIONs.OrderBy(f=> f.location_name);
+        //        return Json(tbl_m_location.ToDataSourceResult(take, skip, sort, filter));
+
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return this.Json(new { error = e.ToString() }, JsonRequestBehavior.AllowGet);
+        //    }
+        //}
+
         [HttpPost]
-        public JsonResult AjaxReadAllLocation(string s_str_event_id, int take, int skip, IEnumerable<Kendo.DynamicLinq.Sort> sort, Kendo.DynamicLinq.Filter filter)
+        public JsonResult AjaxReadAllLocation()
         {
             try
             {
                 i_ctx_db = new DB_ICT_mOK_KPTDataContext();
-                var tbl_m_location = i_ctx_db.TBL_M_LOCATIONs.OrderBy(f=> f.location_name);
-                return Json(tbl_m_location.ToDataSourceResult(take, skip, sort, filter));
+
+                var tbl_m_group_attendee = i_ctx_db.TBL_M_LOCATIONs.OrderBy(f => f.location_name);
+                return Json(new { show = true, Data = tbl_m_group_attendee, Total = tbl_m_group_attendee.Count() }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception e)

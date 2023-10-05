@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-
+    
     var viewModel = kendo.observable({
         event_id: "",
         name: "",
@@ -168,7 +168,8 @@
                 viewModel.set("location_id", response.data.locationid);
                 viewModel.set("is_use_qr_code", response.data.is_use_qr_code);
                 viewModel.set("is_use_location", response.data.is_use_location);
-
+                console.log(kendo.parseDate(kendo.toString(response.data.start_date, "dd/MM/yyyy")));
+                console.log(kendo.parseDate(kendo.toString(response.data.end_dates, "dd/MM/yyyy")));
                 if (response.data.is_use_location == true) {
                     $("#chk_loc").val(true);
                 }
@@ -207,7 +208,8 @@
                 //$("#namagroup").hide();
                 //$("#divpeserta").hide();
                 //viewModel.set("attendees", response.data.attendees);
-                //viewModel.set("nama_group", response.data.nama_group);                
+                //viewModel.set("nama_group", response.data.nama_group);     
+                
 
             } else {
                 //alert(response.error)
@@ -258,7 +260,7 @@ function simpan() {
              var nilai = true;
              var startDay = new Date(convertDate($("#dt_startEvent").val(), "year"), convertDate($("#dt_startEvent").val(), "month"), convertDate($("#dt_startEvent").val(), "day"));
              var endDay = new Date(convertDate($("#dt_endEvent").val(), "year"), convertDate($("#dt_endEvent").val(), "month"), convertDate($("#dt_endEvent").val(), "day"));
-
+             
              var millisecondsPerDay = 1000 * 60 * 60 * 24;
              var millisBetween = endDay - startDay;
              var days = millisBetween / millisecondsPerDay;
@@ -296,6 +298,13 @@ function simpan() {
                  $("#alert").append('<label style="margin-left:0%; margin-top:5%; text-align:center"><h4> Tidak dapat membuat event dengan tanggal lebih besar dari tanggal berakhir event </h4></label>');
                  popupaction.data("kendoWindow").open();
              }
+             //12/09/2023
+             //else if (startDay != startDay || endDay != endDay) {
+             //    debugger
+             //    $("#alert").empty();
+             //    $("#alert").append('<label style="margin-left:0%; margin-top:5%; text-align:center"><h4> Tidak dapat mengubah tanggal untuk event daily/weekly. Silahkan buat lagi </h4></label>');
+             //    popupaction.data("kendoWindow").open();
+             //}
              else if (startDay.toString() == NewDate.toString()) {
                  //debugger
                  if (timestart < ntime || timestart == ntime) {
@@ -322,6 +331,7 @@ function simpan() {
                      nilai = true;
                      var obj = {
                          eventH_id: $("#idHeader").val(),
+                         event_id: $("#ideventid").val(),
                          createby: $("#cb").val(),
                          name: $("#tx_namaEvent").val(),
                          description: $("#tx_deskEvent").val(),
@@ -353,11 +363,13 @@ function simpan() {
                                      $("#alert").empty();
                                      $("#alert").append('<label style="margin-left:0%; margin-top:5%;"><h4>' + response.remark + '</h4></label>');
                                      popupaction.data("kendoWindow").open();
+                                     //window.location.reload();
                                  }
                                  else {
                                      $("#alertdone").empty();
                                      $("#alertdone").append('<label style="margin-left:0%; margin-top:5%;"><h4>' + response.remark + '</h4></label>');
                                      popupactiondone.data("kendoWindow").open();
+                                     //window.location.reload();
                                  }
                                 
                              } else {
@@ -381,6 +393,7 @@ function simpan() {
                  nilai = true;
                  var obj = {
                      eventH_id: $("#idHeader").val(),
+                     event_id: $("#ideventid").val(),
                      createby: $("#cb").val(),
                      name: $("#tx_namaEvent").val(),
                      description: $("#tx_deskEvent").val(),
@@ -412,11 +425,13 @@ function simpan() {
                                  $("#alert").empty();
                                  $("#alert").append('<label style="margin-left:0%; margin-top:5%;"><h4>' + response.remark + '</h4></label>');
                                  popupaction.data("kendoWindow").open();
+                                 //window.location.reload();
                              }
                              else {
                                  $("#alertdone").empty();
                                  $("#alertdone").append('<label style="margin-left:0%; margin-top:5%;"><h4>' + response.remark + '</h4></label>');
                                  popupactiondone.data("kendoWindow").open();
+                                 //window.location.reload();
                              }
                          } else {
                              //alert(response.error)
@@ -512,6 +527,7 @@ function simpan() {
                         nilai = true;
                         var obj = {
                             eventH_id: $("#idHeader").val(),
+                            event_id: $("#ideventid").val(),
                             createby: $("#cb").val(),
                             name: $("#tx_namaEvent").val(),
                             description: $("#tx_deskEvent").val(),
@@ -571,6 +587,7 @@ function simpan() {
                     nilai = true;
                     var obj = {
                         eventH_id: $("#idHeader").val(),
+                        event_id: $("#ideventid").val(),
                         createby: $("#cb").val(),
                         name: $("#tx_namaEvent").val(),
                         description: $("#tx_deskEvent").val(),
@@ -679,9 +696,11 @@ function simpan() {
                     popupaction.data("kendoWindow").open();
                 }
                 else {
+                    debugger
                     nilai = true;
                     var obj = {
                         eventH_id: $("#idHeader").val(),
+                        event_id: $("#ideventid").val(),
                         createby: $("#cb").val(),
                         name: $("#tx_namaEvent").val(),
                         description: $("#tx_deskEvent").val(),
@@ -702,6 +721,7 @@ function simpan() {
                         attendees: $("#ms_karyawan").val(),
                         nama_group: $("#tx_namaGroup").val()
                     }
+                    console.log(obj.event_id);
                     $.ajax({
                         type: "POST",
                         url: "/ListEvents/updateEventOnce",
@@ -738,8 +758,10 @@ function simpan() {
                 popupaction.data("kendoWindow").open();
             }
             else {
+                debugger
                 var obj = {
                     eventH_id: $("#idHeader").val(),
+                    event_id: $("#ideventid").val(),
                     createby: $("#cb").val(),
                     name: $("#tx_namaEvent").val(),
                     description: $("#tx_deskEvent").val(),
@@ -760,6 +782,7 @@ function simpan() {
                     attendees: $("#ms_karyawan").val(),
                     nama_group: $("#tx_namaGroup").val()
                 }
+                console.log(obj.event_id);
                 $.ajax({
                     type: "POST",
                     url: "/ListEvents/updateEventOnce",

@@ -24,6 +24,14 @@ namespace ICOE.Controllers
         {
             Session["event_header_id"] = idH;
             ViewBag.header = Session["event_header_id"];
+            ViewBag.evvid = db.TBL_M_EVENTs.Where(a => a.header_id == idH).Select(a => a.event_id).ToList();
+
+            var eventIds = db.TBL_M_EVENTs
+                        .Where(a => a.header_id == idH)
+                        .Select(a => a.event_id)
+                        .ToList();
+
+            ViewBag.evvidCount = eventIds.Count;
             return View();
         }
 

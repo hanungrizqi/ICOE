@@ -552,7 +552,7 @@ namespace ICOE.Models
                             {
                                 //do nothing
                             }
-                            else
+                            else 
                             {
                                 i_ctx_db.TBL_T_EVENT_ATTENDANCEs.InsertOnSubmit(evennt);
                                 i_ctx_db.SubmitChanges();
@@ -565,7 +565,7 @@ namespace ICOE.Models
             }
 
             //db.SubmitChanges();
-            db.Dispose();
+            db.Dispose(); 
         }
 
         //INSERT ONCE

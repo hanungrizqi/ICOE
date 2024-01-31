@@ -35,7 +35,15 @@ namespace ICOE.Controllers
             try
             {
                 i_ctx_db = new DB_ICT_mOK_KPTDataContext();
-                IQueryable<VW_KARYAWAN> vw_karyawan = i_ctx_db.VW_KARYAWANs.OrderBy(f => f.NAME);
+                //IQueryable<VW_KARYAWAN> vw_karyawan = i_ctx_db.VW_KARYAWANs.OrderBy(f => f.NAME); //Take(7368);
+                var vw_karyawan = i_ctx_db.VW_KARYAWANs
+                    .OrderBy(f => f.NAME)
+                    .Select(a => new
+                    {
+                        NAME = a.NAME,
+                        EMPLOYEE_ID = a.EMPLOYEE_ID
+                    });
+
                 return Json(new { Total = vw_karyawan.Count(), Data = vw_karyawan }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
